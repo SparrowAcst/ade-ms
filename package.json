@@ -1,0 +1,17 @@
+{
+  "name": "ade-ms",
+  "version": "1.0.0",
+  "description": "ADE microservices",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@molfar/amqp-client": "github:wdc-molfar/amqp-client",
+    "lodash": "^4.17.21",
+    "mongodb": "^4.13.0"
+  }
+}
