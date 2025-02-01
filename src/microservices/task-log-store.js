@@ -20,6 +20,7 @@ const processData = async (err, msg, next) => {
     try {
 
         console.log("msg.content", msg.content)
+        
         let commands = msg.content.data.map(d => {
             if (msg.content.command == "store") {
                 return {
