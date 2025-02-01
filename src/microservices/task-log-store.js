@@ -1,4 +1,4 @@
-const { extend } = require("lodash")
+const { extend, isArray } = require("lodash")
 const { AmqpManager, Middlewares } = require('@molfar/amqp-client');
 
 const docdb = require("../utils/docdb")
@@ -19,10 +19,10 @@ const processData = async (err, msg, next) => {
 
     try {
 
-        console.log("msg.content", msg.content)
         msg.content.data = (msg.content.data) ? msg.content.data : [msg.content.content]
-        let commands = msg.content.data.map(d => {
-            if (msg.content.command == "store") {
+        msg.content.data = (isArray(msg.content.data)) ? msg.content.data : [msg.content.data] 
+
+        let commands = msg.content.data.map( d => {
                 return {
                     replaceOne: {
                         filter: { id: d.id },
@@ -30,20 +30,12 @@ const processData = async (err, msg, next) => {
                         upsert: true
                     }
                 }
-            }
-            if (msg.content.command == "delete") {
-                return {
-                    deleteOne: {
-                        filter: { id: d.id }
-                    }
-                }
-            }
         })
 
         if (commands.length > 0) {
             await docdb.bulkWrite({
                 db: DATABASE,
-                collection: msg.content.collection,
+                collection: "ADE-SETTINGS.task-log",
                 commands
             })
         }
