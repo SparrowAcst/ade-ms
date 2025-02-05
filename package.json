@@ -12,6 +12,9 @@
   "dependencies": {
     "@molfar/amqp-client": "github:wdc-molfar/amqp-client",
     "lodash": "^4.17.21",
-    "mongodb": "^4.13.0"
+    "moment": "^2.30.1",
+    "mongodb": "^4.13.0",
+    "node-cache": "^5.1.2",
+    "uuid": "^11.0.5"
   }
 }
