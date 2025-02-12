@@ -331,6 +331,8 @@ const run = async () => {
 
     console.log(`Configure ${SERVICE_NAME}`)
     console.log("Data Consumer:", DATA_CONSUMER)
+    console.log("DB:", config.docdb[DATABASE])
+    
 
     await init()
 

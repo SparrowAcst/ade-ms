@@ -55,6 +55,8 @@ const run = async () => {
     console.log(`Configure ${SERVICE_NAME}`)
     console.log("Data Consumer:", DATA_CONSUMER)
     console.log("Report Publisher:", REPORT_PUBLISHER)
+    console.log("DB:", config.docdb[DATABASE])
+    
 
     const consumer = await AmqpManager.createConsumer(DATA_CONSUMER)
 
