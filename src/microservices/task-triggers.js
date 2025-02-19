@@ -21,20 +21,20 @@ const CACHE = new NodeCache({
 })
 
 const DATA_CONSUMER = normalize({
-        queue: {
-            name: "task_triggers",
-            exchange: {
-                name: 'task_triggers_exchange',
-                options: {
-                    durable: true,
-                    persistent: true
-                }
-            },
+    queue: {
+        name: "task_triggers",
+        exchange: {
+            name: 'task_triggers_exchange',
             options: {
-                noAck: false,
-                exclusive: false
+                durable: true,
+                persistent: true
             }
+        },
+        options: {
+            noAck: false,
+            exclusive: false
         }
+    }
 })
 
 const taskKey = require("../utils/task-key")
@@ -61,8 +61,8 @@ const eventLoop = async trigger => {
         pipeline
     })
 
-    if(workflow[0] && workflow[0].state == "available") {
-    
+    if (workflow[0] && workflow[0].state == "available") {
+
         pipeline = [{
                 $match: {
                     triggeredAt: {
@@ -86,25 +86,41 @@ const eventLoop = async trigger => {
             pipeline
         })
 
-        if(taskList.length == 0) {
+        if (taskList.length == 0) {
             trigger.options.log.push({
                 date: new Date(),
                 message: `Task pool ${trigger.options.collection} is empty.`
             })
             console.log(last(trigger.options.log))
-            
+
             await trigger.stop()
         }
 
+        let logPublisherOptions = normalize({
+            exchange: {
+                name: 'task_log_exchange',
+                options: {
+                    durable: true,
+                    persistent: true
+                }
+            }
+        })
+
+        let logPublisher = await AmqpManager.createPublisher(logPublisherOptions)
+        logPublisher
+            .use(Middlewares.Json.stringify)
+            .use((err, msg, next) => {
+                console.log(msg)
+                next()
+            })
 
         for (let task of taskList) {
-            
+
             task.taskId = uuid()
             task.workflowId = uuid()
             task.triggeredAt = new Date()
             task.state = "triggered"
 
-            
             let publisherOptions = normalize({
                 exchange: {
                     name: task.publisher,
@@ -114,24 +130,24 @@ const eventLoop = async trigger => {
                     }
                 }
             })
-            
+
             let key = taskKey()
-                        .workflowType(task.workflowType)
-                        .workflowId(task.workflowId)
-                        .taskType(task.agent)
-                        .taskId(task.taskId)
-                        .schema(task.schema)
-                        .dataCollection(task.dataCollection)
-                        .dataId(task.dataId)
-                        .savepointCollection(task.savepointCollection)
-                        .get()
+                .workflowType(task.workflowType)
+                .workflowId(task.workflowId)
+                .taskType(task.agent)
+                .taskId(task.taskId)
+                .schema(task.schema)
+                .dataCollection(task.dataCollection)
+                .dataId(task.dataId)
+                .savepointCollection(task.savepointCollection)
+                .get()
 
             console.log("Emit task", key)
             console.log(publisherOptions)
             let publisher = await AmqpManager.createPublisher(publisherOptions)
             publisher
                 .use(Middlewares.Json.stringify)
-                .use((err,msg,next) => {
+                .use((err, msg, next) => {
                     console.log(msg)
                     next()
                 })
@@ -142,11 +158,24 @@ const eventLoop = async trigger => {
                 metadata: task.metadata
             })
             // await publisher.close()   
-        
+
+            logPublisher.send({
+                "key": key,
+                "user": "ADE",
+                "metadata": {
+                    "task": task.agent,
+                    "initiator": "assigned automatically",
+                    "status": "emitted"
+                },
+                "waitFor": [],
+                "createdAt": new Date(),
+                "description": taskKey(key).getDescription()
+            })
+
         }
 
-        let commands = taskList.map( task => ({
-            updateOne:{
+        let commands = taskList.map(task => ({
+            updateOne: {
                 filter: {
                     schema: task.schema,
                     dataCollection: task.dataCollection,
@@ -157,10 +186,10 @@ const eventLoop = async trigger => {
                 },
                 upsert: true
             }
-        }))          
-        
-        if(commands.length > 0){
-            
+        }))
+
+        if (commands.length > 0) {
+
             console.log(`Update in ${trigger.options.collection} ${commands.length} items`)
 
             await docdb.bulkWrite({
@@ -170,18 +199,18 @@ const eventLoop = async trigger => {
             })
         }
     } else {
-        
+
         trigger.options.log.push({
             date: new Date(),
             message: `Parent workflow ${trigger.options.workflow} stopped.`
         })
-        
-        console.log(last(trigger.options.log))
-        
-        await trigger.stop()
-    }     
 
-    console.log(`Done`)   
+        console.log(last(trigger.options.log))
+
+        await trigger.stop()
+    }
+
+    console.log(`Done`)
 
 }
 
@@ -191,25 +220,25 @@ const processData = async (err, message, next) => {
     try {
 
         let options = message.content
-        
-        if(CACHE.has(options.id)){
+
+        if (CACHE.has(options.id)) {
 
             console.log(`Update trigger ${options.id}`)
             let trigger = CACHE.get(options.id)
             await trigger.update(options)
-        
+
         } else {
-            
+
             console.log(`Create trigger ${options.name}`)
             let trigger = new Trigger(options)
             CACHE.set(options.id, trigger)
             if (options.state == "available") {
                 await trigger.start()
             }
-            await trigger.update()        
-        
+            await trigger.update()
+
         }
-        
+
 
         next()
 
@@ -249,7 +278,7 @@ const Trigger = class {
     }
 
     async start() {
-        
+
         this.options.log.push({
             date: new Date(),
             message: `Trigger ${this.options.name} start successfuly.`
@@ -267,13 +296,13 @@ const Trigger = class {
     }
 
     async stop() {
-        
+
         this.options.log.push({
             date: new Date(),
             message: `Trigger ${this.options.name} stop successfuly.`
         })
         console.log(last(this.options.log))
-        
+
         clearInterval(this.interval)
         this.interval = null
         this.setState("stopped")
@@ -332,7 +361,7 @@ const run = async () => {
     console.log(`Configure ${SERVICE_NAME}`)
     console.log("Data Consumer:", DATA_CONSUMER)
     console.log("DB:", config.docdb[DATABASE])
-    
+
 
     await init()
 
