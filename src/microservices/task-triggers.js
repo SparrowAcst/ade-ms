@@ -160,16 +160,20 @@ const eventLoop = async trigger => {
             // await publisher.close()   
 
             logPublisher.send({
-                "key": key,
-                "user": "ADE",
-                "metadata": {
-                    "task": task.agent,
-                    "initiator": "assigned automatically",
-                    "status": "emitted"
-                },
-                "waitFor": [],
-                "createdAt": new Date(),
-                "description": taskKey(key).getDescription()
+                command: "store",
+                collection: "ADE-SETTINGS.task-log",
+                data: {
+                    "key": key,
+                    "user": "ADE",
+                    "metadata": {
+                        "task": task.agent,
+                        "initiator": "assigned automatically",
+                        "status": "emitted"
+                    },
+                    "waitFor": [],
+                    "createdAt": new Date(),
+                    "description": taskKey(key).getDescription()
+                }
             })
 
         }
