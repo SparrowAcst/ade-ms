@@ -163,6 +163,7 @@ const eventLoop = async trigger => {
                 command: "store",
                 collection: "ADE-SETTINGS.task-log",
                 data: {
+                    id: uuid(),
                     "key": key,
                     "user": "ADE",
                     "metadata": {
