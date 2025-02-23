@@ -43,22 +43,22 @@ const taskKey = require("../utils/task-key")
 const getLoadings = async () => {
     
     let pipeline = [
-          {
-            $group: {
-              _id: "$agent",
-              count: {
-                $sum: 1,
-              },
-            },
+      {
+        $group: {
+          _id: "$data.alias",
+          count: {
+            $sum: 1,
           },
-          {
-            $project: {
-              _id: 0,
-              agent: "$id",
-              count: 1,
-            },
-          },
-        ]
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          agent: "$_id",
+          count: 1,
+        },
+      },
+    ]
 
     let result = await docdb.aggregate({
         db: DATABASE,
@@ -167,13 +167,7 @@ const eventLoop = async trigger => {
             }
         }
     }))
-    logPublisher
-        .use(Middlewares.Json.stringify)
-        .use((err, msg, next) => {
-            console.log(msg)
-            next()
-        })
-
+    logPublisher.use(Middlewares.Json.stringify)
 
     let commands = []
 
