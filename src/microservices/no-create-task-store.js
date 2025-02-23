@@ -68,7 +68,7 @@ const run = async () => {
         .use(processData)
    
         .use(Middlewares.Error.Log)
-        .use(Middlewares.Error.BreakChain)
+        // .use(Middlewares.Error.BreakChain)
 
         .use((err, msg, next) => {
             console.log("Request:", msg.content.requestId, " done")

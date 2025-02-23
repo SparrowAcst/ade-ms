@@ -1,7 +1,7 @@
 const uuid = require("uuid").v4
 const NodeCache = require("node-cache")
 const moment = require("moment")
-const { extend, last, isArray } = require("lodash")
+const { extend, last, isArray, find } = require("lodash")
 const { AmqpManager, Middlewares } = require('@molfar/amqp-client');
 
 const docdb = require("../utils/docdb")
@@ -39,9 +39,38 @@ const DATA_CONSUMER = normalize({
 
 const taskKey = require("../utils/task-key")
 
-const eventLoop = async trigger => {
 
-    console.log(trigger.options.name, ' Event Loop:', new Date())
+const getLoadings = async () => {
+    
+    let pipeline = [
+          {
+            $group: {
+              _id: "$agent",
+              count: {
+                $sum: 1,
+              },
+            },
+          },
+          {
+            $project: {
+              _id: 0,
+              agent: "$id",
+              count: 1,
+            },
+          },
+        ]
+
+    let result = await docdb.aggregate({
+        db: DATABASE,
+        collection: "ADE-SETTINGS.deferred-tasks",
+        pipeline
+    }) 
+
+    return result  
+
+}
+
+const getWorkflow = async trigger => {
 
     let pipeline = [{
             $match: {
@@ -55,50 +84,114 @@ const eventLoop = async trigger => {
         }
     ]
 
-    let workflow = await docdb.aggregate({
+    let result = await docdb.aggregate({
         db: DATABASE,
         collection: "ADE-SETTINGS.workflows",
         pipeline
     })
 
-    if (workflow[0] && workflow[0].state == "available") {
+    return result[0]
 
-        pipeline = [{
-                $match: {
-                    triggeredAt: {
-                        $exists: false
-                    }
-                }
-            },
-            {
-                $limit: trigger.options.limit || 10
-            },
-            {
-                $project: {
-                    _id: 0
+}
+
+
+const getTaskList = async trigger => {
+    
+    let pipeline = [{
+            $match: {
+                triggeredAt: {
+                    $exists: false
                 }
             }
-        ]
+        },
+        {
+            $limit: trigger.options.limit || 10
+        },
+        {
+            $project: {
+                _id: 0
+            }
+        }
+    ]
 
-        let taskList = await docdb.aggregate({
-            db: DATABASE,
-            collection: trigger.options.collection,
-            pipeline
+    let taskList = await docdb.aggregate({
+        db: DATABASE,
+        collection: trigger.options.collection,
+        pipeline
+    })
+    
+    return taskList
+
+}
+
+const canEmit = (trigger, loadings, agent) => {
+    let f = find(loadings, l => l.agent == agent)
+    let loading = (f) ? f.count || 0 : 0
+    return loading < (trigger.options.limit * 2) 
+}
+
+
+
+const eventLoop = async trigger => {
+
+    console.log(trigger.options.name, ' Event Loop:', new Date())
+
+    let workflow = await getWorkflow(trigger)
+  
+    if(!workflow || workflow.state != "available") {
+        await trigger.stop()
+        return
+    }
+
+    let loadings = await getLoadings()
+    let taskList = await getTaskList(trigger)
+
+    if (taskList.length == 0) {
+        
+        trigger.options.log.push({
+            date: new Date(),
+            message: `Task pool ${trigger.options.collection} is empty.`
+        })
+        console.log(last(trigger.options.log))
+
+        await trigger.stop()
+        return
+    }
+
+    let logPublisher = await AmqpManager.createPublisher(normalize({
+        exchange: {
+            name: 'task_log_exchange',
+            options: {
+                durable: true,
+                persistent: true
+            }
+        }
+    }))
+    logPublisher
+        .use(Middlewares.Json.stringify)
+        .use((err, msg, next) => {
+            console.log(msg)
+            next()
         })
 
-        if (taskList.length == 0) {
-            trigger.options.log.push({
-                date: new Date(),
-                message: `Task pool ${trigger.options.collection} is empty.`
-            })
-            console.log(last(trigger.options.log))
 
-            await trigger.stop()
+    let commands = []
+
+    for (let task of taskList) {
+        
+        if(!canEmit(trigger, loadings, task.agent)) {
+            console.log("Can't emit task", task.agent)
+            continue
         }
 
-        let logPublisherOptions = normalize({
+        task.taskId = uuid()
+        task.workflowId = uuid()
+        task.triggeredAt = new Date()
+        task.state = "triggered"
+
+        let publisherOptions = normalize({
             exchange: {
-                name: 'task_log_exchange',
+                name: task.publisher,
                 options: {
                     durable: true,
                     persistent: true
@@ -106,80 +199,54 @@ const eventLoop = async trigger => {
             }
         })
 
-        let logPublisher = await AmqpManager.createPublisher(logPublisherOptions)
-        logPublisher
+        let key = taskKey()
+            .workflowType(task.workflowType)
+            .workflowId(task.workflowId)
+            .taskType(task.agent)
+            .taskId(task.taskId)
+            .schema(task.schema)
+            .dataCollection(task.dataCollection)
+            .dataId(task.dataId)
+            .savepointCollection(task.savepointCollection)
+            .get()
+
+        console.log("Emit task", key)
+        console.log(publisherOptions)
+        
+        let publisher = await AmqpManager.createPublisher(publisherOptions)
+        publisher
             .use(Middlewares.Json.stringify)
             .use((err, msg, next) => {
                 console.log(msg)
                 next()
             })
 
-        for (let task of taskList) {
+        publisher.send({
+            alias: task.agent,
+            key,
+            metadata: task.metadata
+        })
+        // await publisher.close()   
 
-            task.taskId = uuid()
-            task.workflowId = uuid()
-            task.triggeredAt = new Date()
-            task.state = "triggered"
+        logPublisher.send({
+            command: "store",
+            collection: "ADE-SETTINGS.task-log",
+            data: {
+                id: uuid(),
+                "key": key,
+                "user": "ADE",
+                "metadata": {
+                    "task": task.agent,
+                    "initiator": "assigned automatically",
+                    "status": "emitted"
+                },
+                "waitFor": [],
+                "createdAt": new Date(),
+                "description": taskKey(key).getDescription()
+            }
+        })
 
-            let publisherOptions = normalize({
-                exchange: {
-                    name: task.publisher,
-                    options: {
-                        durable: true,
-                        persistent: true
-                    }
-                }
-            })
-
-            let key = taskKey()
-                .workflowType(task.workflowType)
-                .workflowId(task.workflowId)
-                .taskType(task.agent)
-                .taskId(task.taskId)
-                .schema(task.schema)
-                .dataCollection(task.dataCollection)
-                .dataId(task.dataId)
-                .savepointCollection(task.savepointCollection)
-                .get()
-
-            console.log("Emit task", key)
-            console.log(publisherOptions)
-            let publisher = await AmqpManager.createPublisher(publisherOptions)
-            publisher
-                .use(Middlewares.Json.stringify)
-                .use((err, msg, next) => {
-                    console.log(msg)
-                    next()
-                })
-
-            publisher.send({
-                alias: task.agent,
-                key,
-                metadata: task.metadata
-            })
-            // await publisher.close()   
-
-            logPublisher.send({
-                command: "store",
-                collection: "ADE-SETTINGS.task-log",
-                data: {
-                    id: uuid(),
-                    "key": key,
-                    "user": "ADE",
-                    "metadata": {
-                        "task": task.agent,
-                        "initiator": "assigned automatically",
-                        "status": "emitted"
-                    },
-                    "waitFor": [],
-                    "createdAt": new Date(),
-                    "description": taskKey(key).getDescription()
-                }
-            })
-
-        }
-
-        let commands = taskList.map(task => ({
+        commands.push({
             updateOne: {
                 filter: {
                     schema: task.schema,
@@ -191,29 +258,20 @@ const eventLoop = async trigger => {
                 },
                 upsert: true
             }
-        }))
-
-        if (commands.length > 0) {
-
-            console.log(`Update in ${trigger.options.collection} ${commands.length} items`)
-
-            await docdb.bulkWrite({
-                db: DATABASE,
-                collection: trigger.options.collection,
-                commands
-            })
-        }
-    } else {
-
-        trigger.options.log.push({
-            date: new Date(),
-            message: `Parent workflow ${trigger.options.workflow} stopped.`
         })
 
-        console.log(last(trigger.options.log))
-
-        await trigger.stop()
     }
+
+    if (commands.length > 0) {
+
+        console.log(`Update in ${trigger.options.collection} ${commands.length} items`)
+
+        await docdb.bulkWrite({
+            db: DATABASE,
+            collection: trigger.options.collection,
+            commands
+        })
+    }    
 
     console.log(`Done`)
 
@@ -378,7 +436,7 @@ const run = async () => {
         .use(processData)
 
         .use(Middlewares.Error.Log)
-        .use(Middlewares.Error.BreakChain)
+        // .use(Middlewares.Error.BreakChain)
 
         .use((err, msg, next) => {
             msg.ack()

@@ -102,7 +102,7 @@ const run = async () => {
         })
 
         .use(Middlewares.Error.Log)
-        .use(Middlewares.Error.BreakChain)
+        // .use(Middlewares.Error.BreakChain)
 
 
         .use((err, msg, next) => {
