@@ -15,12 +15,27 @@ const DATA_CONSUMER = configRB.consumer.taskScheduler
 
 const REFRESH_INTERVAL = 1 * 60 * 1000 // 1 min
 
+const { getAgentList } = require("./workflow-connection")
+
 
 const eventLoop = async () => {
     
     console.log('Event Loop:', new Date())
 
+    const agentList = await getAgentList()
+    if(agentList.length == 0) {
+        console.log(`ADE not available or active workflows not exists`)
+        return
+    }
+
     const pipeline = [
+      {
+        $match:{
+            "data.alias": {
+                $in: agentList
+            }
+        }
+      }, 
       {
         $group: {
           _id: "$publisher.exchange.name",
@@ -39,8 +54,6 @@ const eventLoop = async () => {
         collection: "ADE-SETTINGS.deferred-tasks",
         pipeline
     })
-
-
 
     for(let pub of publishers){
     

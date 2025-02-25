@@ -20,6 +20,9 @@ const CACHE = new NodeCache({
     useClones: false
 })
 
+
+const { getAgentlist } = require("./workflow-connection")
+
 const DATA_CONSUMER = normalize({
     queue: {
         name: "task_triggers",
@@ -124,17 +127,28 @@ const getTaskList = async trigger => {
 
 }
 
-const canEmit = (trigger, loadings, agent) => {
+const canEmit = (trigger, loadings, agent, agentList) => {
+    if(!agentList.includes(agent)) return false
     let f = find(loadings, l => l.agent == agent)
     let loading = (f) ? f.count || 0 : 0
     return loading < (trigger.options.limit * 2) 
 }
 
-
-
 const eventLoop = async trigger => {
 
     console.log(trigger.options.name, ' Event Loop:', new Date())
+
+    let agentList = await getAgentlist()
+    if(agentList.length == 0) {
+        trigger.options.log.push({
+            date: new Date(),
+            message: `ADE not available or active workflows not exists`
+        })
+        console.log(last(trigger.options.log))
+
+        return
+    }
+
 
     let workflow = await getWorkflow(trigger)
   
@@ -173,7 +187,7 @@ const eventLoop = async trigger => {
 
     for (let task of taskList) {
         
-        if(!canEmit(trigger, loadings, task.agent)) {
+        if(!canEmit(trigger, loadings, task.agent, agentList)) {
             console.log("Can't emit task", task.agent)
             continue
         }
@@ -367,17 +381,19 @@ const Trigger = class {
     }
 
     async update(options) {
-        console.log(options)
+        
         if (this.options.state == "available") {
             await this.stop()
         }
+        
         options.log = options.log || []
         options.log.push({
             date: new Date(),
             message: `Trigger ${this.options.name} update successfuly.`
         })
+        
         extend(this.options, options)
-        console.log(this.options)
+        
         if (this.options.state == "available") {
             await this.start()
         } else if (this.options.state == "stopped") {
