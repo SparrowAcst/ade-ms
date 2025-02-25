@@ -21,7 +21,7 @@ const CACHE = new NodeCache({
 })
 
 
-const { getAgentlist } = require("./workflow-connection")
+const { getAgentList } = require("./workflow-connection")
 
 const DATA_CONSUMER = normalize({
     queue: {
@@ -138,7 +138,7 @@ const eventLoop = async trigger => {
 
     console.log(trigger.options.name, ' Event Loop:', new Date())
 
-    let agentList = await getAgentlist()
+    let agentList = await getAgentList()
     if(agentList.length == 0) {
         trigger.options.log.push({
             date: new Date(),
