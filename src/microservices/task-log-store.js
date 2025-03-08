@@ -1,6 +1,8 @@
 const { extend, isArray } = require("lodash")
 const { AmqpManager, Middlewares } = require('@molfar/amqp-client');
 
+const log  = require("../utils//logger")(__filename)
+
 const docdb = require("../utils/docdb")
 
 const config = require("../../.config/ade-import")
@@ -44,7 +46,7 @@ const processData = async (err, msg, next) => {
 
     } catch (e) {
 
-        console.log(e.toString(), e.stack)
+        log(e.toString(), e.stack)
         throw e
 
     }
@@ -52,10 +54,10 @@ const processData = async (err, msg, next) => {
 
 const run = async () => {
 
-    console.log(`Configure ${SERVICE_NAME}`)
-    console.log("Data Consumer:", DATA_CONSUMER)
-    console.log("Report Publisher:", REPORT_PUBLISHER)
-    console.log("DB:", config.docdb[DATABASE])
+    log(`Configure ${SERVICE_NAME}`)
+    log("Data Consumer:", DATA_CONSUMER)
+    log("Report Publisher:", REPORT_PUBLISHER)
+    log("DB:", config.docdb[DATABASE])
     
 
     const consumer = await AmqpManager.createConsumer(DATA_CONSUMER)
@@ -65,7 +67,7 @@ const run = async () => {
         .use(Middlewares.Json.parse)
 
         .use((err, msg, next) => {
-            console.log("Request:", msg.content.requestId, " start")
+            log("Request:", msg.content.requestId, " start")
             next()
         })
 
@@ -75,14 +77,14 @@ const run = async () => {
         // .use(Middlewares.Error.BreakChain)
 
         .use((err, msg, next) => {
-            console.log("Request:", msg.content.requestId, " done")
+            log("Request:", msg.content.requestId, " done")
             msg.ack()
         
         })
 
         .start()
 
-    console.log(`${SERVICE_NAME} started`)
+    log(`${SERVICE_NAME} started`)
 
 }
 

@@ -4,6 +4,8 @@ const moment = require("moment")
 const { extend, last, isArray, find } = require("lodash")
 const { AmqpManager, Middlewares } = require('@molfar/amqp-client');
 
+const log  = require("../utils//logger")(__filename)
+
 const docdb = require("../utils/docdb")
 
 const config = require("../../.config/ade-import")
@@ -136,7 +138,7 @@ const canEmit = (trigger, loadings, agent, agentList) => {
 
 const eventLoop = async trigger => {
 
-    console.log(trigger.options.name, ' Event Loop:', new Date())
+    log(trigger.options.name, ' Event Loop:', new Date())
 
     let agentList = await getAgentList()
     if(agentList.length == 0) {
@@ -144,7 +146,7 @@ const eventLoop = async trigger => {
             date: new Date(),
             message: `ADE not available or active workflows not exists`
         })
-        console.log(last(trigger.options.log))
+        log(last(trigger.options.log))
 
         return
     }
@@ -166,7 +168,7 @@ const eventLoop = async trigger => {
             date: new Date(),
             message: `Task pool ${trigger.options.collection} is empty.`
         })
-        console.log(last(trigger.options.log))
+        log(last(trigger.options.log))
 
         await trigger.stop()
         return
@@ -188,7 +190,7 @@ const eventLoop = async trigger => {
     for (let task of taskList) {
         
         if(!canEmit(trigger, loadings, task.agent, agentList)) {
-            console.log("Can't emit task", task.agent)
+            log("Can't emit task", task.agent)
             continue
         }
 
@@ -218,14 +220,14 @@ const eventLoop = async trigger => {
             .savepointCollection(task.savepointCollection)
             .get()
 
-        console.log("Emit task", key)
-        console.log(publisherOptions)
+        log("Emit task", key)
+        log(publisherOptions)
         
         let publisher = await AmqpManager.createPublisher(publisherOptions)
         publisher
             .use(Middlewares.Json.stringify)
             .use((err, msg, next) => {
-                console.log(msg)
+                log(msg)
                 next()
             })
 
@@ -272,7 +274,7 @@ const eventLoop = async trigger => {
 
     if (commands.length > 0) {
 
-        console.log(`Update in ${trigger.options.collection} ${commands.length} items`)
+        log(`Update in ${trigger.options.collection} ${commands.length} items`)
 
         await docdb.bulkWrite({
             db: DATABASE,
@@ -281,7 +283,7 @@ const eventLoop = async trigger => {
         })
     }    
 
-    console.log(`Done`)
+    log(`Done`)
 
 }
 
@@ -294,13 +296,13 @@ const processData = async (err, message, next) => {
 
         if (CACHE.has(options.id)) {
 
-            console.log(`Update trigger ${options.id}`)
+            log(`Update trigger ${options.id}`)
             let trigger = CACHE.get(options.id)
             await trigger.update(options)
 
         } else {
 
-            console.log(`Create trigger ${options.name}`)
+            log(`Create trigger ${options.name}`)
             let trigger = new Trigger(options)
             CACHE.set(options.id, trigger)
             if (options.state == "available") {
@@ -315,7 +317,7 @@ const processData = async (err, message, next) => {
 
     } catch (e) {
 
-        console.log(e.toString(), e.stack)
+        log(e.toString(), e.stack)
         throw e
 
     }
@@ -354,7 +356,7 @@ const Trigger = class {
             date: new Date(),
             message: `Trigger ${this.options.name} start successfuly.`
         })
-        console.log(last(this.options.log))
+        log(last(this.options.log))
         await eventLoop(this)
         this.interval = setInterval(async () => {
             await eventLoop(this)
@@ -372,7 +374,7 @@ const Trigger = class {
             date: new Date(),
             message: `Trigger ${this.options.name} stop successfuly.`
         })
-        console.log(last(this.options.log))
+        log(last(this.options.log))
 
         clearInterval(this.interval)
         this.interval = null
@@ -409,7 +411,7 @@ const Trigger = class {
 
 
 const init = async () => {
-    console.log("Initiate triggers...")
+    log("Initiate triggers...")
     const pipeline = [{ $project: { _id: 0 } }]
     let triggerList = await docdb.aggregate({
         db: DATABASE,
@@ -419,7 +421,7 @@ const init = async () => {
 
     for (let triggerOptions of triggerList) {
         let trigger = new Trigger(triggerOptions)
-        console.log("Initiate trigger", triggerOptions)
+        log("Initiate trigger", triggerOptions)
         CACHE.set(trigger.options.id, trigger)
         if (triggerOptions.state == "available") {
             await trigger.start()
@@ -431,9 +433,9 @@ const init = async () => {
 
 const run = async () => {
 
-    console.log(`Configure ${SERVICE_NAME}`)
-    console.log("Data Consumer:", DATA_CONSUMER)
-    console.log("DB:", config.docdb[DATABASE])
+    log(`Configure ${SERVICE_NAME}`)
+    log("Data Consumer:", DATA_CONSUMER)
+    log("DB:", config.docdb[DATABASE])
 
 
     await init()
@@ -454,7 +456,7 @@ const run = async () => {
 
         .start()
 
-    console.log(`${SERVICE_NAME} started`)
+    log(`${SERVICE_NAME} started`)
 
 }
 

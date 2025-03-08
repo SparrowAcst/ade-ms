@@ -1,6 +1,8 @@
 const axios = require("axios")
 const { ADE_API } = require("../../.config/ade-import")
 
+const log  = require("../utils//logger")(__filename)
+
 const WORKFLOW_ENDPOINT = `${ADE_API}/workflow/agents`
 
 const getAgentList = async () => {
@@ -11,7 +13,7 @@ const getAgentList = async () => {
         return result
     
     } catch(e) {
-        console.log(WORKFLOW_ENDPOINT, e.toString())
+        log(WORKFLOW_ENDPOINT, e.toString())
         return []
     } 
 }
@@ -22,7 +24,7 @@ module.exports = {
 
 // const run = async () => {
 //     let agents = await getAgentList()
-//     console.log(agents)    
+//     log(agents)    
 // }
 
 // run()

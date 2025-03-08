@@ -2,6 +2,8 @@ const uuid = require("uuid").v4
 const { extend } = require("lodash")
 const { AmqpManager, Middlewares } = require('@molfar/amqp-client');
 
+const log  = require("../utils//logger")(__filename)
+
 const docdb = require("../utils/docdb")
 
 const config = require("../../.config/ade-import")
@@ -20,11 +22,11 @@ const { getAgentList } = require("./workflow-connection")
 
 const eventLoop = async () => {
     
-    console.log('Event Loop:', new Date())
+    log('Event Loop:', new Date())
 
     const agentList = await getAgentList()
     if(agentList.length == 0) {
-        console.log(`ADE not available or active workflows not exists`)
+        log(`ADE not available or active workflows not exists`)
         return
     }
 
@@ -69,7 +71,7 @@ const eventLoop = async () => {
             },
           },
           {
-            $limit: 20,
+            $limit: 10,
           },
         ]
 
@@ -80,7 +82,7 @@ const eventLoop = async () => {
             pipeline
         })
 
-        console.log(`Send to ${pub.name} ${taskList.length} tasks`)
+        log(`Send to ${pub.name} ${taskList.length} tasks`)
         
         if(taskList.length == 0) continue
 
@@ -110,7 +112,7 @@ const processData = async (err, message, next) => {
 
         message.content.id = uuid()
         message.content.createdAt = new Date()
-        console.log("Process:", message.content.data.key)
+        log("Add to deferred queue:", message.content.data.key)
         
         await docdb.replaceOne({
             db: DATABASE,
@@ -123,7 +125,7 @@ const processData = async (err, message, next) => {
 
     } catch (e) {
 
-        console.log(e.toString(), e.stack)
+        log(e.toString(), e.stack)
         throw e
 
     }
@@ -131,9 +133,9 @@ const processData = async (err, message, next) => {
 
 const run = async () => {
 
-    console.log(`Configure ${SERVICE_NAME}`)
-    console.log("Data Consumer:", DATA_CONSUMER)
-    console.log("DB:", config.docdb[DATABASE])
+    log(`Configure ${SERVICE_NAME}`)
+    log("Data Consumer:", DATA_CONSUMER)
+    log("DB:", config.docdb[DATABASE])
     
 
     const consumer = await AmqpManager.createConsumer(DATA_CONSUMER)
@@ -152,7 +154,7 @@ const run = async () => {
 
         .start()
 
-    console.log(`${SERVICE_NAME} started`)
+    log(`${SERVICE_NAME} started`)
 
     setInterval(eventLoop, REFRESH_INTERVAL)
 
