@@ -193,10 +193,10 @@ const eventLoop = async trigger => {
 
     for (let task of taskList) {
         
-        if(!canEmit(trigger, loadings, task.agent, agentList)) {
-            log("Can't emit task", task.agent)
-            continue
-        }
+        // if(!canEmit(trigger, loadings, task.agent, agentList)) {
+        //     log("Can't emit task", task.agent)
+        //     continue
+        // }
 
         task.taskId = uuid()
         task.workflowId = uuid()
