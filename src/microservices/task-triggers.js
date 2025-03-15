@@ -140,17 +140,21 @@ const eventLoop = async trigger => {
 
     log(trigger.options.name, ' Event Loop:', new Date())
 
-    let agentList = await getAgentList()
-    if(agentList.length == 0) {
-        trigger.options.log.push({
-            date: new Date(),
-            message: `ADE not available or active workflows not exists`
-        })
-        log(last(trigger.options.log))
+/////////////////////////////////////////////////////////////////////////////
+// uncomment for production
 
-        return
-    }
+    // let agentList = await getAgentList()
+    // if(agentList.length == 0) {
+    //     trigger.options.log.push({
+    //         date: new Date(),
+    //         message: `ADE not available or active workflows not exists`
+    //     })
+    //     log(last(trigger.options.log))
 
+    //     return
+    // }
+    
+/////////////////////////////////////////////////////////////////////////////////
 
     let workflow = await getWorkflow(trigger)
   
