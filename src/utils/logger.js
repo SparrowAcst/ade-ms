@@ -6,12 +6,12 @@ module.exports = module => (...args) => {
     let func = s[0]
     let module = "..."
     if(s[1]){
-    	module = basename(s[1])
-    	func = "| " + func 
+        module = basename(s[1])
+        func = "| " + func 
     } else {
-    	s = func.split(" ").map( d => d.trim())
-    	module = (s[1]) ? basename(s[1]) : "..."
-    	func = "|"
+        s = func.split(" ").map( d => d.trim())
+        module = (s[1]) ? basename(s[1]) : "..."
+        func = "|"
     }
     
 

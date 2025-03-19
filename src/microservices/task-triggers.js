@@ -235,6 +235,8 @@ const eventLoop = async trigger => {
                 next()
             })
 
+        task.metadata.emitter = trigger.options.name
+
         publisher.send({
             alias: task.agent,
             key,
@@ -251,6 +253,7 @@ const eventLoop = async trigger => {
                 "user": "ADE",
                 "metadata": {
                     "task": task.agent,
+                    "emitter": trigger.options.name,
                     "initiator": "assigned automatically",
                     "status": "emitted"
                 },
