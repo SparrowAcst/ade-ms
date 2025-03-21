@@ -4,7 +4,7 @@ const moment = require("moment")
 const { extend, last, isArray, find } = require("lodash")
 const { AmqpManager, Middlewares } = require('@molfar/amqp-client');
 
-const log  = require("../utils//logger")(__filename)
+const log = require("../utils//logger")(__filename)
 
 const docdb = require("../utils/docdb")
 
@@ -46,32 +46,31 @@ const taskKey = require("../utils/task-key")
 
 
 const getLoadings = async () => {
-    
-    let pipeline = [
-      {
-        $group: {
-          _id: "$data.alias",
-          count: {
-            $sum: 1,
-          },
+
+    let pipeline = [{
+            $group: {
+                _id: "$data.alias",
+                count: {
+                    $sum: 1,
+                },
+            },
         },
-      },
-      {
-        $project: {
-          _id: 0,
-          agent: "$_id",
-          count: 1,
+        {
+            $project: {
+                _id: 0,
+                agent: "$_id",
+                count: 1,
+            },
         },
-      },
     ]
 
     let result = await docdb.aggregate({
         db: DATABASE,
         collection: "ADE-SETTINGS.deferred-tasks",
         pipeline
-    }) 
+    })
 
-    return result  
+    return result
 
 }
 
@@ -101,7 +100,7 @@ const getWorkflow = async trigger => {
 
 
 const getTaskList = async trigger => {
-    
+
     let pipeline = [{
             $match: {
                 triggeredAt: {
@@ -124,41 +123,41 @@ const getTaskList = async trigger => {
         collection: trigger.options.collection,
         pipeline
     })
-    
+
     return taskList
 
 }
 
 const canEmit = (trigger, loadings, agent, agentList) => {
-    if(!agentList.includes(agent)) return false
+    if (!agentList.includes(agent)) return false
     let f = find(loadings, l => l.agent == agent)
     let loading = (f) ? f.count || 0 : 0
-    return loading < (trigger.options.limit * 2) 
+    return loading < (trigger.options.limit * 2)
 }
 
 const eventLoop = async trigger => {
 
     log(trigger.options.name, ' Event Loop:', new Date())
 
-/////////////////////////////////////////////////////////////////////////////
-// uncomment for production
+    /////////////////////////////////////////////////////////////////////////////
+    // uncomment for production
 
-    // let agentList = await getAgentList()
-    // if(agentList.length == 0) {
-    //     trigger.options.log.push({
-    //         date: new Date(),
-    //         message: `ADE not available or active workflows not exists`
-    //     })
-    //     log(last(trigger.options.log))
+    let agentList = await getAgentList()
+    if (agentList.length == 0) {
+        trigger.options.log.push({
+            date: new Date(),
+            message: `ADE not available or active workflows not exists`
+        })
+        log(last(trigger.options.log))
 
-    //     return
-    // }
-    
-/////////////////////////////////////////////////////////////////////////////////
+        return
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////
 
     let workflow = await getWorkflow(trigger)
-  
-    if(!workflow || workflow.state != "available") {
+
+    if (!workflow || workflow.state != "available") {
         await trigger.stop()
         return
     }
@@ -167,7 +166,7 @@ const eventLoop = async trigger => {
     let taskList = await getTaskList(trigger)
 
     if (taskList.length == 0) {
-        
+
         trigger.options.log.push({
             date: new Date(),
             message: `Task pool ${trigger.options.collection} is empty.`
@@ -192,11 +191,11 @@ const eventLoop = async trigger => {
     let commands = []
 
     for (let task of taskList) {
-        
-        // if(!canEmit(trigger, loadings, task.agent, agentList)) {
-        //     log("Can't emit task", task.agent)
-        //     continue
-        // }
+
+        if (!canEmit(trigger, loadings, task.agent, agentList)) {
+            log("Can't emit task", task.agent)
+            continue
+        }
 
         task.taskId = uuid()
         task.workflowId = uuid()
@@ -226,7 +225,7 @@ const eventLoop = async trigger => {
 
         log("Emit task", key)
         log(publisherOptions)
-        
+
         let publisher = await AmqpManager.createPublisher(publisherOptions)
         publisher
             .use(Middlewares.Json.stringify)
@@ -288,7 +287,7 @@ const eventLoop = async trigger => {
             collection: trigger.options.collection,
             commands
         })
-    }    
+    }
 
     log(`Done`)
 
@@ -390,19 +389,19 @@ const Trigger = class {
     }
 
     async update(options) {
-        
+
         if (this.options.state == "available") {
             await this.stop()
         }
-        
+
         options.log = options.log || []
         options.log.push({
             date: new Date(),
             message: `Trigger ${this.options.name} update successfuly.`
         })
-        
+
         extend(this.options, options)
-        
+
         if (this.options.state == "available") {
             await this.start()
         } else if (this.options.state == "stopped") {
