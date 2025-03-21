@@ -8,7 +8,7 @@ const WORKFLOW_ENDPOINT = `${ADE_API}/workflow/agents`
 const getAgentList = async () => {
     try {
 
-        result = await axios.get(WORKFLOW_ENDPOINT)
+        result = await axios.post(WORKFLOW_ENDPOINT)
         result = result.data
         return result
     
