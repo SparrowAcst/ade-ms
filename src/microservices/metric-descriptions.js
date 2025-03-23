@@ -121,7 +121,77 @@ const assignedTasks = {
     expired: [1, "hours"]
 }
 
+const deferredTasks = {
+    name: "deferredTasks",
+    query: {
+        collection: "ADE-SETTINGS.deferred-tasks",
+        pipeline: [
+            {
+                $project: {
+                    _id: 0,
+                },
+            },
+        ]
+    },
+
+    calculate: data => {
+
+        let result = []
+        let pool = data.map(d => {
+            d.description = Key(d.data.key).getDescription()
+            return d
+        })
+
+        result.push({
+            workflow: "ALL",
+            task: "ALL",
+            count: pool.length
+        })
+
+        let wf = groupBy(pool, d => d.description.workflowType)
+
+        keys(wf).forEach(wfkey => {
+
+            result.push({
+                workflow: wfkey,
+                task: "ALL",
+                count: wf[wfkey].length
+            })
+
+            let t = groupBy(wf[wfkey], d => d.description.taskType)
+            keys(t).forEach(tkey => {
+                result.push({
+                    workflow: wfkey,
+                    task: tkey,
+                    count: t[tkey].length
+                })
+
+        })
+
+        let t = groupBy(pool, d => d.description.taskType)
+        keys(t).forEach(tkey => {
+            result.push({
+                workflow: "ALL",
+                task: tkey,
+                count: t[tkey].length
+            })
+
+        })
+
+        return result
+
+    },
+
+    out: {
+        collection: "ADE-STATS.deffered-tasks"
+    },
+
+    interval: [5, "seconds"],
+    expired: [1, "hours"]
+}
+
 
 module.exports = [
-    assignedTasks
+    assignedTasks,
+    deferredTasks
 ]
