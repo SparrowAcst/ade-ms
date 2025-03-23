@@ -67,7 +67,7 @@ const run = async () => {
         try {
         log(`Start metric collection: ${metric.name}...`)    
         await getMetric(metric)
-        metric.interval = moment.duration(metric.interval).toMiliseconds()
+        metric.interval = moment.duration(metric.interval).asMilliseconds()
         log(metric.interval)
         metric.handler = setInterval(async () => {
             try {
