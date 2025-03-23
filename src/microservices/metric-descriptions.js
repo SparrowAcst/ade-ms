@@ -37,7 +37,7 @@ const assignedTasks = {
             workflow: "ALL",
             task: "ALL",
             user: "ALL",
-            count: poll.length
+            count: pool.length
         })
 
         let wf = groupBy(pool, d => d.description.workflowType)
