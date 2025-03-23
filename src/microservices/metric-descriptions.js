@@ -125,13 +125,11 @@ const deferredTasks = {
     name: "deferredTasks",
     query: {
         collection: "ADE-SETTINGS.deferred-tasks",
-        pipeline: [
-            {
-                $project: {
-                    _id: 0,
-                },
+        pipeline: [{
+            $project: {
+                _id: 0,
             },
-        ]
+        }, ]
     },
 
     calculate: data => {
@@ -166,6 +164,7 @@ const deferredTasks = {
                     count: t[tkey].length
                 })
 
+            })
         })
 
         let t = groupBy(pool, d => d.description.taskType)
