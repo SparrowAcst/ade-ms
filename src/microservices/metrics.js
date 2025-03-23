@@ -26,8 +26,6 @@ const getMetric = async metric => {
 
     data = await calculate(data)
 
-    log(data)
-
     data = data.map( d => {
         d.date = new Date()
         return d
