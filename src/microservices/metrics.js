@@ -39,7 +39,7 @@ const getMetric = async metric => {
         data
     })
 
-    let expiredDate = moment().subtract(expired)
+    let expiredDate = moment().subtract(...expired)
 
     await docdb.deleteMany({
         db: DATABASE,
@@ -63,7 +63,7 @@ const run = async () => {
         try {
         log(`Start metric collection: ${metric.name}...`)    
         await getMetric(metric)
-        metric.interval = moment.duration(metric.interval).asMilliseconds()
+        metric.interval = moment.duration(...metric.interval).asMilliseconds()
         log(metric.interval)
         metric.handler = setInterval(async () => {
             try {
