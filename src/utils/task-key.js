@@ -1,32 +1,81 @@
 
 const parseKey = taskKey => {
     let result = {};
-    ([
-        result.workflowType,
-        result.workflowId,
-        result.taskType,
-        result.taskId,
-        result.taskState,
-        result.schema,
-        result.dataCollection,
-        result.dataId,
-        result.savepointCollection,
-        result.versionId
-    ] = taskKey.split("."));
+    // ([
+    //     result.workflowType,
+    //     result.workflowId,
+    //     result.taskType,
+    //     result.taskId,
+    //     result.taskState,
+    //     result.schema,
+    //     result.dataCollection,
+    //     result.dataId,
+    //     result.savepointCollection,
+    //     result.versionId
+    // ] = taskKey.split("."));
+
+    const fields = [
+        "user",
+        "workflowType",
+        "workflowId",
+        "taskType",
+        "taskId",
+        "taskState",
+        "schema",
+        "dataCollection",
+        "dataId",
+        "savepointCollection",
+        "versionId"
+    ].reverse()
+
+    let partitions = taskKey.split(".")
+    let index = 0
+    for(;partitions.length>0;){
+        result[fields[index]] = partitions.pop()
+        index++
+    }
 
     return result
 }
 
 const buildKey = d => {
-    return `${d.workflowType}.${d.workflowId}.${d.taskType}.${d.taskId}.${d.taskState}.${d.schema}.${d.dataCollection}.${d.dataId}.${d.savepointCollection}.${d.versionId}`
+    
+    return [
+        d.user,
+        d.workflowType,
+        d.workflowId,
+        d.taskType,
+        d.taskId,
+        d.taskState,
+        d.schema,
+        d.dataCollection,
+        d.dataId,
+        d.savepointCollection,
+        d.versionId
+    ].join(".")
+    // return `${d.user}.${d.workflowType}.${d.workflowId}.${d.taskType}.${d.taskId}.${d.taskState}.${d.schema}.${d.dataCollection}.${d.dataId}.${d.savepointCollection}.${d.versionId}`
 }
 
 const buildVersionManagerKey = d => {
-    return `${d.schema}.${d.dataCollection}.${d.dataId}.${d.savepointCollection}`
+    return [
+        d.schema,
+        d.dataCollection,
+        d.dataId,
+        d.savepointCollection,
+    ].join(".")
+
+    // return `${d.schema}.${d.dataCollection}.${d.dataId}.${d.savepointCollection}`
 }
 
 const identity = d => {
-    return `${d.workflowType}.${d.workflowId}.${d.taskType}.${d.taskId}`
+    return [ 
+        d.workflowType,
+        d.workflowId,
+        d.taskType,
+        d.taskId,
+    ].join(".")
+
+    // return `${d.workflowType}.${d.workflowId}.${d.taskType}.${d.taskId}`
 }
 
 
@@ -40,6 +89,14 @@ const TaskKey = class {
 
     getDescription(){
         return this.description
+    }
+
+    user(value){
+        if(value){
+            this.description.user = value
+            return this
+        }
+        return this.description.user
     }
 
     workflowType(value){
@@ -146,6 +203,8 @@ const TaskKey = class {
 }
 
 module.exports = key => {
-    key = key || "....."
+    key = key || "......"
+    // key = key || "//////"
+    
     return new TaskKey(key)
 }
