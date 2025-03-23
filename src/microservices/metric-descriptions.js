@@ -52,7 +52,7 @@ const assignedTasks = {
                 count: wf[wfkey].length
             })
 
-            let t = groupBy(wf[key], d => d.description.taskType)
+            let t = groupBy(wf[wfkey], d => d.description.taskType)
             keys(t).forEach(tkey => {
                 result.push({
                     workflow: wfkey,
