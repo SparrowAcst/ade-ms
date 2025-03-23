@@ -182,7 +182,7 @@ const deferredTasks = {
     },
 
     out: {
-        collection: "ADE-STATS.deffered-tasks"
+        collection: "ADE-STATS.deferred-tasks"
     },
 
     interval: [5, "seconds"],
