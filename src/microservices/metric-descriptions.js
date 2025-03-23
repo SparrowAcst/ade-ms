@@ -190,7 +190,159 @@ const deferredTasks = {
 }
 
 
+const emittedTasks = {
+    name: "emittedTasks",
+    query: {
+        collection: "ADE-SETTINGS.task-log",
+        pipeline: [{
+                $match: {
+                    "metadata.status": "emitted"
+                }
+            },
+            {
+                $project: {
+                    _id: 0,
+                },
+            },
+        ]
+    },
+
+    calculate: data => {
+
+        let result = []
+        let pool = data.map(d => {
+            d.description.emitter = d.metadata.emitter
+            return d
+        })
+
+        result.push({
+            workflow: "ALL",
+            emitter: "ALL",
+            count: pool.length
+        })
+
+        let wf = groupBy(pool, d => d.description.workflowType)
+
+        keys(wf).forEach(wfkey => {
+
+            result.push({
+                workflow: wfkey,
+                emitter: "ALL",
+                count: wf[wfkey].length
+            })
+
+            let t = groupBy(wf[wfkey], d => d.description.emitter)
+            keys(t).forEach(tkey => {
+                result.push({
+                    workflow: wfkey,
+                    emitter: tkey,
+                    count: t[tkey].length
+                })
+
+            })
+        })
+
+        let t = groupBy(pool, d => d.description.emitter)
+        keys(t).forEach(tkey => {
+            result.push({
+                workflow: "ALL",
+                emitter: tkey,
+                count: t[tkey].length
+            })
+
+        })
+
+        return result
+
+    },
+
+    out: {
+        collection: "ADE-STATS.emitted-tasks"
+    },
+
+    interval: [5, "seconds"],
+    expired: [1, "hours"]
+}
+
+
+const commitedTasks = {
+    name: "commitedTasks",
+    query: {
+        collection: "ADE-SETTINGS.task-log",
+        pipeline: [{
+                $match: {
+                    "metadata.status": "commit"
+                }
+            },
+            {
+                $project: {
+                    _id: 0,
+                },
+            },
+        ]
+    },
+
+    calculate: data => {
+
+        let result = []
+        let pool = data.map(d => {
+            d.description.emitter = d.metadata.emitter
+            return d
+        })
+
+        result.push({
+            workflow: "ALL",
+            emitter: "ALL",
+            count: pool.length
+        })
+
+        let wf = groupBy(pool, d => d.description.workflowType)
+
+        keys(wf).forEach(wfkey => {
+
+            result.push({
+                workflow: wfkey,
+                emitter: "ALL",
+                count: wf[wfkey].length
+            })
+
+            let t = groupBy(wf[wfkey], d => d.description.emitter)
+            keys(t).forEach(tkey => {
+                result.push({
+                    workflow: wfkey,
+                    emitter: tkey,
+                    count: t[tkey].length
+                })
+
+            })
+        })
+
+        let t = groupBy(pool, d => d.description.emitter)
+        keys(t).forEach(tkey => {
+            result.push({
+                workflow: "ALL",
+                emitter: tkey,
+                count: t[tkey].length
+            })
+
+        })
+
+        return result
+
+    },
+
+    out: {
+        collection: "ADE-STATS.commited-tasks"
+    },
+
+    interval: [5, "seconds"],
+    expired: [1, "hours"]
+}
+
+
 module.exports = [
     assignedTasks,
-    deferredTasks
+    deferredTasks,
+    emittedTasks,
+    commitedTasks
 ]
