@@ -28,6 +28,7 @@ const assignedTasks = {
 
     calculate: data => {
 
+        let result = []
         let pool = flatten(data.map(d => d.taskList)).map(d => {
             d.description = Key(d.key).getDescription()
         })
