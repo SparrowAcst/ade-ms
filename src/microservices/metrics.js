@@ -16,7 +16,6 @@ const getMetric = async metric => {
     
     let { name, query, calculate, out, expired } = metric
 
-    log({ name, query, calculate, out, expired })
 
     let data = await docdb.aggregate({
         db: DATABASE,
@@ -24,7 +23,6 @@ const getMetric = async metric => {
         pipeline: query.pipeline
     })    
 
-    log(data)
 
     data = await calculate(data)
 
@@ -34,8 +32,6 @@ const getMetric = async metric => {
         d.date = new Date()
         return d
     })
-
-    log(data)
 
     await docdb.insertAll({
         db: DATABASE,
