@@ -241,7 +241,8 @@ const eventLoop = async trigger => {
             key,
             metadata: task.metadata
         })
-        // await publisher.close()   
+
+        await publisher.close()   
 
         logPublisher.send({
             command: "store",
@@ -278,6 +279,8 @@ const eventLoop = async trigger => {
 
     }
 
+
+
     if (commands.length > 0) {
 
         log(`Update in ${trigger.options.collection} ${commands.length} items`)
@@ -288,6 +291,8 @@ const eventLoop = async trigger => {
             commands
         })
     }
+
+    await logPublisher.close()
 
     log(`Done`)
 

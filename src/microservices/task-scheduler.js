@@ -91,6 +91,8 @@ const eventLoop = async () => {
             let publisher = await AmqpManager.createPublisher(task.publisher)
             publisher.use(Middlewares.Json.stringify)
             publisher.send(task.data)
+
+            await publisher.close()
         }
 
         await docdb.deleteMany({
