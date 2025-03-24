@@ -117,8 +117,8 @@ const assignedTasks = {
         collection: "ADE-STATS.assigned-tasks"
     },
 
-    interval: [5, "seconds"],
-    expired: [1, "hours"]
+    interval: [15, "seconds"],
+    expired: [2, "hours"]
 }
 
 const deferredTasks = {
@@ -185,8 +185,8 @@ const deferredTasks = {
         collection: "ADE-STATS.deferred-tasks"
     },
 
-    interval: [5, "seconds"],
-    expired: [1, "hours"]
+    interval: [15, "seconds"],
+    expired: [2, "hours"]
 }
 
 
@@ -260,8 +260,8 @@ const emittedTasks = {
         collection: "ADE-STATS.emitted-tasks"
     },
 
-    interval: [5, "seconds"],
-    expired: [1, "hours"]
+    interval: [15, "seconds"],
+    expired: [2, "hours"]
 }
 
 
@@ -335,8 +335,8 @@ const commitedTasks = {
         collection: "ADE-STATS.commited-tasks"
     },
 
-    interval: [5, "seconds"],
-    expired: [1, "hours"]
+    interval: [15, "seconds"],
+    expired: [2, "hours"]
 }
 
 
