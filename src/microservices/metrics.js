@@ -55,7 +55,7 @@ const getMetric = async metric => {
 
     await docdb.deleteMany({
         db: DATABASE,
-        collection: query.collection,
+        collection: out.collection,
         filter: {
             date: {
                 $lt: expiredDate
