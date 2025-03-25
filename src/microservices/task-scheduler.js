@@ -90,8 +90,8 @@ const eventLoop = async () => {
         for(let task of taskList){
             let publisher = await AmqpManager.createPublisher(task.publisher)
             publisher.use(Middlewares.Json.stringify)
-            publisher.send(task.data)
-
+            
+            await publisher.send(task.data)
             await publisher.close()
         }
 

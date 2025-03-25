@@ -74,11 +74,11 @@ const run = async () => {
     await consumer
         .use(Middlewares.Json.parse)
 
-        .use((err, msg, next) => {
+        .use(async (err, msg, next) => {
         
             log("Request:", msg.content.requestId, " start")
             
-            reportPublisher.send({
+            await reportPublisher.send({
                 requestId: msg.content.requestId,
                 status: "start"
             })
@@ -88,10 +88,10 @@ const run = async () => {
 
         .use(processData)
 
-        .use((err, msg, next) => {
+        .use(async (err, msg, next) => {
            
             if (err) {
-                reportPublisher.send({
+                await reportPublisher.send({
                     requestId: msg.content.requestId,
                     status: "error",
                     message: msg.content,

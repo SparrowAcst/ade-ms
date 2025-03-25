@@ -236,7 +236,7 @@ const eventLoop = async trigger => {
 
         task.metadata.emitter = trigger.options.name
 
-        publisher.send({
+        await publisher.send({
             alias: task.agent,
             key,
             metadata: task.metadata
@@ -244,7 +244,7 @@ const eventLoop = async trigger => {
 
         await publisher.close()   
 
-        logPublisher.send({
+        await logPublisher.send({
             command: "store",
             collection: "ADE-SETTINGS.task-log",
             data: {
