@@ -51,7 +51,7 @@ const getMetric = async metric => {
         }}]
     })    
 
-    log(`delete ${del.length} items`)
+    log(`delete ${del.length} items from ${out.collection} collection`)
 
     await docdb.deleteMany({
         db: DATABASE,
