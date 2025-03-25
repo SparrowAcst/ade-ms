@@ -37,8 +37,22 @@ const getMetric = async metric => {
         data
     })
 
-    let expiredDate = new Date(moment().subtract(...expired).toISOString())
+    let expiredDate = new Date(moment().subtract(...expired)..format('YYYY-MM-DD[T00:00:00.000Z]'))
     log("expiredDate", expiredDate)
+    
+    let del = await docdb.aggregate({
+        db: DATABASE,
+        collection: query.collection,
+        pipeline: [{
+            $match: {
+                date: {
+                $lt: expiredDate
+            }    
+        }}]
+    })    
+
+    log(`delete ${del.length}` items)
+
     await docdb.deleteMany({
         db: DATABASE,
         collection: query.collection,
