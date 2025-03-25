@@ -44,7 +44,7 @@ const getMetric = async metric => {
         collection: query.collection,
         filter: {
             date: {
-                $lt: expiredDate
+                $lt: new Date(expiredDate)
             }
         }  
     })
