@@ -38,7 +38,7 @@ const getMetric = async metric => {
     })
 
     let expiredDate = moment().subtract(...expired)
-
+    log("expiredDate", expiredDate)
     await docdb.deleteMany({
         db: DATABASE,
         collection: query.collection,
