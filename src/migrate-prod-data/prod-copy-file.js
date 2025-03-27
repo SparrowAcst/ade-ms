@@ -81,7 +81,7 @@ const whenFileExists = async (path, timeout) => new Promise(async (resolve, reje
         log("wait when exists", path)
         let exists = await checkFileExists(path)
         if(!!exists){
-            if(interval) clearInterval(interval)
+            if(interval) clearInterval($interval)
             clearTimeout(timeout)
             resolve(exists)
             return  
