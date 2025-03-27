@@ -18,9 +18,9 @@ const SERVICE_NAME = `${STAGE_NAME} microservice`
 
 const DATA_CONSUMER = normalize({
     queue: {
-        name: "migate_prod_data_stage_1",
+        name: "migate_prod_1",
         exchange: {
-            name: 'migate_prod_data_stage_1_exchange',
+            name: 'migate_prod_1_exchange',
             options: {
                 durable: true,
                 persistent: true
@@ -35,7 +35,7 @@ const DATA_CONSUMER = normalize({
 
 const NEXT_PUBLISHER = normalize({
     exchange: {
-        name: 'migate_prod_data_stage_2_exchange',
+        name: 'migate_prod_2_exchange',
         options: {
             durable: true,
             persistent: true

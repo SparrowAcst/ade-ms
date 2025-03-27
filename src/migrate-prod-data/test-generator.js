@@ -7,11 +7,26 @@ const config = require("../../.config/ade-import")
 const configRB = config.rabbitmq.TEST
 const normalize = configRB.normalize
 
-
+const DATA_CONSUMER = normalize({
+    queue: {
+        name: "migate_prod_1",
+        exchange: {
+            name: 'migate_prod_1_exchange',
+            options: {
+                durable: true,
+                persistent: true
+            }
+        },
+        options: {
+            noAck: false,
+            exclusive: false
+        }
+    }
+})
 
 const PUBLISHER = normalize({
     exchange: {
-        name: 'migate_prod_data_stage_2_exchange',
+        name: 'migate_prod_1_exchange',
         options: {
             durable: true,
             persistent: true
@@ -164,16 +179,26 @@ const run = async () => {
     log(`TEST GENERATOR FOR MIGRATE PROD DATA`)
     console.log(PUBLISHER)
 
+    const consumer  await AmqpManager.createPublisher(DATA_CONSUMER)
+
+    let assertion = await consumer.getStatus()
+    log.table([assertion])
+
+
     const publisher = await AmqpManager.createPublisher(PUBLISHER)
     publisher.use(Middlewares.Json.stringify)
 
     for (let d of testData) {
         console.log("send", d)
         await publisher.send(d)
+        console.log("done")
     }
 
-    await publisher.close()
+    let assertion = await consumer.getStatus()
+    log.table([assertion])
 
+    await publisher.close()
+    await consumer.close()
 }
 
 run()
