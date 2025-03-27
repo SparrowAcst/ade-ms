@@ -162,11 +162,13 @@ const testData = [{
 const run = async () => {
 
     log(`TEST GENERATOR FOR MIGRATE PROD DATA`)
+    console.log(PUBLISHER)
 
     const publisher = await AmqpManager.createPublisher(PUBLISHER)
     publisher.use(Middlewares.Json.stringify)
 
     for (let d of testData) {
+        console.log("send", d)
         await publisher.send(d)
     }
 

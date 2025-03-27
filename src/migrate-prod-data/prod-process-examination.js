@@ -144,6 +144,13 @@ const run = async () => {
 
     await consumer
         .use(Middlewares.Json.parse)
+        .use( (err, msg, next) => {
+            if(err){
+                log(err)
+            } else {
+                log(msg.content)
+            }
+        })
         .use(processData)
         .use( async (err, msg, next) => {
             if(!err){
