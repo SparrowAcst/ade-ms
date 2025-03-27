@@ -48,7 +48,7 @@ const processData = async (err, msg, next) => {
 
     try {
 
-        log("Process", msg.content)
+        // log("Process", msg.content)
 
         if (!msg.content) {
             log("Cannot process empty message")
@@ -123,9 +123,6 @@ const processData = async (err, msg, next) => {
             } else {
                 log(`Examination ${examination.id} already exists`)
             }
-
-
-
         }
 
         next()

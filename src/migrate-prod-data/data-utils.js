@@ -40,7 +40,6 @@ const resolveDataset = async d => {
     if(index < 0) return
     
     const datasetName = nameResolver[index].name
-    log(datasetName)
     
     let dataset = await docdb.aggregate({
         db: DATABASE,
@@ -51,8 +50,7 @@ const resolveDataset = async d => {
         ]
     })
 
-    log(dataset)
-
+    
     dataset = dataset[0]
     return dataset
 
