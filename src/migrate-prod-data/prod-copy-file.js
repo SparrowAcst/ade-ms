@@ -15,7 +15,7 @@ const { resolveDataset } = require("./data-utils")
 
 const s3 = require("../utils/s3-bucket")
 
-const DEFAULT_PATH = "ADE/RECORDS"
+const DEFAULT_PATH = "ADE-RECORDS"
 const DEFAULT_TIME_INTERVAL = 1 * 1000
 const DEFAULT_TIMEOUT = 60 * 1000
 

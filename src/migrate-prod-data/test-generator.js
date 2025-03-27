@@ -45,7 +45,7 @@ const testData = [{
         "longitude": 36.04504394577519,
         "userAgent": "90F5A9F4-E98C-49CD-8663-4CC06F839C99 iPhone15,3 17.5.1 3.1.1(7898)",
         "examinationId": "943d8b71-9805-43d4-9cb7-dacce8e1db1f",
-        "examinationTitle": "V2-ADD-IP16E-RT",
+        "examinationTitle": "",
         "examinationAge": null,
         "examinationWeight": null,
         "recordExaminationId": "943d8b71-9805-43d4-9cb7-dacce8e1db1f",
