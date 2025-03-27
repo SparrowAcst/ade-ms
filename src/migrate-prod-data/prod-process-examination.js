@@ -113,14 +113,14 @@ const processData = async (err, msg, next) => {
             log(`Create Examination: ${examination.id} in ${dataset.schema}.examinations`)
             log(examination)
 
-            // await docdb.replaceOne({
-            //     db: DATABASE,
-            //     collection: `${dataset.schema}.examinations`,
-            //     filter: {
-            //         id: examination.id
-            //     },
-            //     data: examination
-            // })
+            await docdb.replaceOne({
+                db: DATABASE,
+                collection: `${dataset.schema}.examinations`,
+                filter: {
+                    id: examination.id
+                },
+                data: examination
+            })
 
         }
 
