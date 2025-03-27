@@ -150,16 +150,19 @@ const run = async () => {
             } else {
                 log(msg.content)
             }
+            next()
         })
         .use(processData)
         .use( async (err, msg, next) => {
             if(!err){
                 await publisher.send(msg.content)
             }
+            next()
         })
         .use(Middlewares.Error.Log)
         .use((err, msg, next) => {
             msg.ack()
+            next()
         })
         .start()
 
