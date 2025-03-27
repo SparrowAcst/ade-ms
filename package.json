@@ -12,6 +12,7 @@
   "dependencies": {
     "@molfar/amqp-client": "github:wdc-molfar/amqp-client",
     "axios": "^1.7.9",
+    "geojson-places": "^1.0.8",
     "lodash": "^4.17.21",
     "moment": "^2.30.1",
     "mongodb": "^4.13.0",
