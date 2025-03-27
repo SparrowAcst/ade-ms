@@ -36,10 +36,10 @@ const nameResolver = [
 
 const resolveDataset = async d => {
 
-    log(d.examinationTitle)
-    log(nameResolver.map(r => r.rule(d)))
-    log(findIndex(nameResolver.map(r => r.rule(d))))
-    const datasetName = nameResolver[findIndex(nameResolver.map(r => r.rule(d))), r => r === true].name
+    let index = findIndex(nameResolver.map(r => r.rule(d)), r => r === true)
+    if(index < 0) return
+    
+    const datasetName = nameResolver[index].name
     let dataset = await docdb.aggregate({
         db: DATABASE,
         collection: `ADE-SETTINGS.datasets`,

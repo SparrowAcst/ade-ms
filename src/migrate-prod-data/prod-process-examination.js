@@ -61,6 +61,10 @@ const processData = async (err, msg, next) => {
         for (let data of items) {
 
             let dataset = await resolveDataset(data)
+            if(!dataset){
+                log(`No resolve dataset for`, data)
+                continue
+            }
 
             let examination = await docdb.aggregate({
                 db: DATABASE,
