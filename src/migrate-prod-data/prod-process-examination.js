@@ -61,7 +61,7 @@ const processData = async (err, msg, next) => {
         for (let data of items) {
 
             let dataset = await resolveDataset(data)
-            if(!dataset){
+            if (!dataset) {
                 log(`No resolve dataset for`, data)
                 continue
             }
@@ -108,19 +108,23 @@ const processData = async (err, msg, next) => {
                     },
                     "updatedAt": new Date()
                 }
+
+                log(`Create Examination: ${examination.id} in ${dataset.schema}.examinations`)
+                log(examination)
+
+                await docdb.replaceOne({
+                    db: DATABASE,
+                    collection: `${dataset.schema}.examinations`,
+                    filter: {
+                        id: examination.id
+                    },
+                    data: examination
+                })
+            } else {
+                log(`Examination ${examination.id} already exists`)
             }
 
-            log(`Create Examination: ${examination.id} in ${dataset.schema}.examinations`)
-            log(examination)
 
-            await docdb.replaceOne({
-                db: DATABASE,
-                collection: `${dataset.schema}.examinations`,
-                filter: {
-                    id: examination.id
-                },
-                data: examination
-            })
 
         }
 
@@ -142,14 +146,14 @@ const run = async () => {
     log("DB:", config.docdb[DATABASE])
 
     const consumer = await AmqpManager.createConsumer(DATA_CONSUMER)
-    
+
     const publisher = await AmqpManager.createPublisher(NEXT_PUBLISHER)
     publisher.use(Middlewares.Json.stringify)
 
     await consumer
         .use(Middlewares.Json.parse)
-        .use( (err, msg, next) => {
-            if(err){
+        .use((err, msg, next) => {
+            if (err) {
                 log(err)
             } else {
                 log(msg.content)
@@ -157,8 +161,8 @@ const run = async () => {
             next()
         })
         .use(processData)
-        .use( async (err, msg, next) => {
-            if(!err){
+        .use(async (err, msg, next) => {
+            if (!err) {
                 await publisher.send(msg.content)
             }
             next()
