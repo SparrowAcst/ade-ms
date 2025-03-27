@@ -9,7 +9,7 @@ const config = require("../../.config/ade-import")
 const DATABASE = config.ADE_DATABASE
 
 
-const getDeviceDescription = d => parse(d)
+const getDeviceDescription = d => parse(d.userAgent)
 
 const getGeoLocation = d => ({
     metadata: lookUp(d.latitude, d.longitude),
