@@ -55,5 +55,6 @@ const resolveDataset = async d => {
 
 module.exports = {
     getDeviceDescription,
-    getGeoLocation
+    getGeoLocation,
+    resolveDataset
 }
