@@ -20,11 +20,11 @@ const getGeoLocation = d => ({
 
 const nameResolver = [
 
-    { name: "Additional Validation IP16 Reproducibility, Stethophone version 2", rule: d => d.comment.startsWith("V2-ADD-IP16E-RT")},
-	{ name: "Additional Validation IP16 Reproducibility, Stethophone version 3", rule: d => d.comment.startsWith("V3-ADD-IP16E-RT")},
+    { name: "Additional Validation IP16 Reproducibility, Stethophone version 2", rule: d => d.examinationTitle.startsWith("V2-ADD-IP16E-RT")},
+	{ name: "Additional Validation IP16 Reproducibility, Stethophone version 3", rule: d => d.examinationTitle.startsWith("V3-ADD-IP16E-RT")},
 
-    { name: "Additional Validation IP16 Performance, Stethophone version 2", rule: d => d.comment.startsWith("V2-ADD-IP16E")},
-    { name: "Additional Validation IP16 Performance, Stethophone version 3", rule: d => d.comment.startsWith("V3-ADD-IP16E")},
+    { name: "Additional Validation IP16 Performance, Stethophone version 2", rule: d => d.examinationTitle.startsWith("V2-ADD-IP16E")},
+    { name: "Additional Validation IP16 Performance, Stethophone version 3", rule: d => d.examinationTitle.startsWith("V3-ADD-IP16E")},
 	
     { name: "Stethophone Production Data UA part 1", rule: d => getDeviceDescription(d).appStoreRegion == "Ukraine" },
     { name: "Stethophone Production Data US part 1", rule: d => getDeviceDescription(d).appStoreRegion == "USA" },

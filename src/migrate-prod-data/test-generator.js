@@ -179,7 +179,7 @@ const run = async () => {
     log(`TEST GENERATOR FOR MIGRATE PROD DATA`)
     console.log(PUBLISHER)
 
-    const consumer  await AmqpManager.createPublisher(DATA_CONSUMER)
+    const consumer = await AmqpManager.createConsumer(DATA_CONSUMER)
 
     let assertion = await consumer.getStatus()
     log.table([assertion])
@@ -194,7 +194,7 @@ const run = async () => {
         console.log("done")
     }
 
-    let assertion = await consumer.getStatus()
+    assertion = await consumer.getStatus()
     log.table([assertion])
 
     await publisher.close()
