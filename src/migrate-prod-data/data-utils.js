@@ -36,6 +36,9 @@ const nameResolver = [
 
 const resolveDataset = async d => {
 
+    log(d.examinationTitle)
+    log(nameResolver.map(r => r.rule(d)))
+    log(findIndex(nameResolver.map(r => r.rule(d))))
     const datasetName = nameResolver[findIndex(nameResolver.map(r => r.rule(d))), r => r === true].name
     let dataset = await docdb.aggregate({
         db: DATABASE,
