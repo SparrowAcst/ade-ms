@@ -20,7 +20,7 @@ const getGeoLocation = d => ({
 
 const nameResolver = [
 
-    { name: "Additional Validation IP16 Reproducibility, Stethophone Version 3", rule: d => d.examinationTitle.startsWith("V2-ADD-IP16E-RT")},
+    { name: "Additional Validation IP16 Reproducibility, Stethophone Version 2", rule: d => d.examinationTitle.startsWith("V2-ADD-IP16E-RT")},
 	{ name: "Additional Validation IP16 Reproducibility, Stethophone Version 3", rule: d => d.examinationTitle.startsWith("V3-ADD-IP16E-RT")},
 
     { name: "Additional Validation IP16 Performance, Stethophone Version 2", rule: d => d.examinationTitle.startsWith("V2-ADD-IP16E")},
