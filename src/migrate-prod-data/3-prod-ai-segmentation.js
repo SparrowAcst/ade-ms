@@ -135,7 +135,7 @@ const processData = async (err, msg, next) => {
                     data: { url }
                 })            
 
-                data = extend({}, data, {aiSegmentation: response.data})
+                data.aiSegmentation =  response.data
                 log("data", data)
 
             } catch(e) {
@@ -143,9 +143,9 @@ const processData = async (err, msg, next) => {
                 log(`${DEFAULT_PATH}/${data.id}.wav`)
                 log(`${e.toString()}: ${(e.response) ? JSON.stringify(e.response.data, null, " ") : ""}`)
 
-                data = extend({}, data, {
+                data.aiSegmentation = {
                     error: `${e.toString()}: ${(e.response) ? JSON.stringify(e.response.data, null, " ") : ""}`
-                })
+                }
                 continue
             }
         }
