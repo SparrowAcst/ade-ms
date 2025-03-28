@@ -34,23 +34,24 @@ const PUBLISHER = normalize({
     }
 })
 
-const testData = [{
-        "id": "d0ba556d-3d21-4e1c-a3c4-8cf982e39b95",
-        "source": "prod_ua",
-        "notes": "Check for innocent murmurs",
-        "userId": "50d59a23-c816-4445-aadc-38cb6b63e2d2",
-        "spot": "pulmonary",
-        "bodyPosition": "sitting",
-        "latitude": 49.95075513510236,
-        "longitude": 36.04504394577519,
-        "userAgent": "90F5A9F4-E98C-49CD-8663-4CC06F839C99 iPhone15,3 17.5.1 3.1.1(7898)",
-        "examinationId": "943d8b71-9805-43d4-9cb7-dacce8e1db1f",
-        "examinationTitle": "V2-ADD-IP16E-RT-MTM",
-        "examinationAge": null,
-        "examinationWeight": null,
-        "recordExaminationId": "943d8b71-9805-43d4-9cb7-dacce8e1db1f",
-        "userRole": null
-    },
+const testData = [
+    // {
+    //     "id": "d0ba556d-3d21-4e1c-a3c4-8cf982e39b95",
+    //     "source": "prod_ua",
+    //     "notes": "Check for innocent murmurs",
+    //     "userId": "50d59a23-c816-4445-aadc-38cb6b63e2d2",
+    //     "spot": "pulmonary",
+    //     "bodyPosition": "sitting",
+    //     "latitude": 49.95075513510236,
+    //     "longitude": 36.04504394577519,
+    //     "userAgent": "90F5A9F4-E98C-49CD-8663-4CC06F839C99 iPhone15,3 17.5.1 3.1.1(7898)",
+    //     "examinationId": "943d8b71-9805-43d4-9cb7-dacce8e1db1f",
+    //     "examinationTitle": "V2-ADD-IP16E-RT-MTM",
+    //     "examinationAge": null,
+    //     "examinationWeight": null,
+    //     "recordExaminationId": "943d8b71-9805-43d4-9cb7-dacce8e1db1f",
+    //     "userRole": null
+    // },
     {
         "id": "d10ffffd-f1db-4ab5-a878-006125af25b8",
         "source": "prod_ua",
@@ -61,7 +62,7 @@ const testData = [{
         "latitude": 0.0,
         "longitude": 0.0,
         "userAgent": "4ABACB75-CCC3-4FE7-B560-DDAD0BFB397A iPhone15,2 17.5.1 3.1.1(7898)",
-        "examinationId": "67796544-f187-4a9a-870f-7405e0432129",
+        "examinationId": "943d8b71-9805-43d4-9cb7-dacce8e1db1f",
         "examinationTitle": "V2-ADD-IP16E-RT-LTR",
         "examinationAge": null,
         "examinationWeight": null,
@@ -224,95 +225,95 @@ const testData = [{
         "recordExaminationId": "be1b1294-98dd-4b62-8dbd-9e9211bc9d73",
         "userRole": null
     },
-    {
-        "id": "dbe0e48d-a7fc-452d-8bc5-a24487f0d44b",
-        "source": "prod_ua",
-        "notes": "Check for innocent murmurs",
-        "userId": "f085b1c9-0a73-4b64-8bda-f17b690c32ff",
-        "spot": "tricuspid",
-        "bodyPosition": "sitting",
-        "latitude": 48.90632255838007,
-        "longitude": 24.70955236328981,
-        "userAgent": "0DEF4DE3-9992-4E72-BB3C-1FFEDE399AAF iPhone15,5 17.6.1 3.3.0(8956)",
-        "examinationId": "7b0f1b41-b9cf-4836-81b2-2310b8b8671b",
-        "examinationTitle": "V3-ADD-IP16E-CS10P",
-        "examinationAge": null,
-        "examinationWeight": null,
-        "recordExaminationId": "7b0f1b41-b9cf-4836-81b2-2310b8b8671b",
-        "userRole": null
-    },
+    // {
+    //     "id": "dbe0e48d-a7fc-452d-8bc5-a24487f0d44b",
+    //     "source": "prod_ua",
+    //     "notes": "Check for innocent murmurs",
+    //     "userId": "f085b1c9-0a73-4b64-8bda-f17b690c32ff",
+    //     "spot": "tricuspid",
+    //     "bodyPosition": "sitting",
+    //     "latitude": 48.90632255838007,
+    //     "longitude": 24.70955236328981,
+    //     "userAgent": "0DEF4DE3-9992-4E72-BB3C-1FFEDE399AAF iPhone15,5 17.6.1 3.3.0(8956)",
+    //     "examinationId": "7b0f1b41-b9cf-4836-81b2-2310b8b8671b",
+    //     "examinationTitle": "V3-ADD-IP16E-CS10P",
+    //     "examinationAge": null,
+    //     "examinationWeight": null,
+    //     "recordExaminationId": "7b0f1b41-b9cf-4836-81b2-2310b8b8671b",
+    //     "userRole": null
+    // },
 
-    {
-        "id": "d8f1cf16-2fbc-4665-8168-b353c4b48668",
-        "source": "prod_ua",
-        "notes": "Check for innocent murmurs",
-        "userId": "940b71ed-80c0-43fa-b902-5afffedc39b7",
-        "spot": "rightCarotid",
-        "bodyPosition": "sitting",
-        "latitude": 49.8563050710959,
-        "longitude": 24.060175722500446,
-        "userAgent": "7EC3DB1E-8227-4B9E-B818-BCC2D2D3062B iPhone 13 18.0 3.3.0(8956)",
-        "examinationId": "5ea76994-5634-4413-8203-698f44ee09cf",
-        "examinationTitle": "V2-ADD-IP16E-NE",
-        "examinationAge": null,
-        "examinationWeight": null,
-        "recordExaminationId": "5ea76994-5634-4413-8203-698f44ee09cf",
-        "userRole": null
-    },
+    // {
+    //     "id": "d8f1cf16-2fbc-4665-8168-b353c4b48668",
+    //     "source": "prod_ua",
+    //     "notes": "Check for innocent murmurs",
+    //     "userId": "940b71ed-80c0-43fa-b902-5afffedc39b7",
+    //     "spot": "rightCarotid",
+    //     "bodyPosition": "sitting",
+    //     "latitude": 49.8563050710959,
+    //     "longitude": 24.060175722500446,
+    //     "userAgent": "7EC3DB1E-8227-4B9E-B818-BCC2D2D3062B iPhone 13 18.0 3.3.0(8956)",
+    //     "examinationId": "5ea76994-5634-4413-8203-698f44ee09cf",
+    //     "examinationTitle": "V2-ADD-IP16E-NE",
+    //     "examinationAge": null,
+    //     "examinationWeight": null,
+    //     "recordExaminationId": "5ea76994-5634-4413-8203-698f44ee09cf",
+    //     "userRole": null
+    // },
 
-    {
-        "id": "dbe0e48d-a7fc-452d-8bc5-a24487f0d44b",
-        "source": "prod_ua",
-        "notes": "Check for innocent murmurs",
-        "userId": "f085b1c9-0a73-4b64-8bda-f17b690c32ff",
-        "spot": "tricuspid",
-        "bodyPosition": "sitting",
-        "latitude": 48.90632255838007,
-        "longitude": 24.70955236328981,
-        "userAgent": "0DEF4DE3-9992-4E72-BB3C-1FFEDE399AAF iPhone15,5 17.6.1 3.3.0(8956)",
-        "examinationId": "7b0f1b41-b9cf-4836-81b2-2310b8b8671b",
-        "examinationTitle": "V3-ADD-IP16E-NE",
-        "examinationAge": null,
-        "examinationWeight": null,
-        "recordExaminationId": "7b0f1b41-b9cf-4836-81b2-2310b8b8671b",
-        "userRole": null
-    },
+    // {
+    //     "id": "dbe0e48d-a7fc-452d-8bc5-a24487f0d44b",
+    //     "source": "prod_ua",
+    //     "notes": "Check for innocent murmurs",
+    //     "userId": "f085b1c9-0a73-4b64-8bda-f17b690c32ff",
+    //     "spot": "tricuspid",
+    //     "bodyPosition": "sitting",
+    //     "latitude": 48.90632255838007,
+    //     "longitude": 24.70955236328981,
+    //     "userAgent": "0DEF4DE3-9992-4E72-BB3C-1FFEDE399AAF iPhone15,5 17.6.1 3.3.0(8956)",
+    //     "examinationId": "7b0f1b41-b9cf-4836-81b2-2310b8b8671b",
+    //     "examinationTitle": "V3-ADD-IP16E-NE",
+    //     "examinationAge": null,
+    //     "examinationWeight": null,
+    //     "recordExaminationId": "7b0f1b41-b9cf-4836-81b2-2310b8b8671b",
+    //     "userRole": null
+    // },
 
-    {
-        "id": "d8f1cf16-2fbc-4665-8168-b353c4b48668",
-        "source": "prod_ua",
-        "notes": "Check for innocent murmurs",
-        "userId": "940b71ed-80c0-43fa-b902-5afffedc39b7",
-        "spot": "rightCarotid",
-        "bodyPosition": "sitting",
-        "latitude": 49.8563050710959,
-        "longitude": 24.060175722500446,
-        "userAgent": "7EC3DB1E-8227-4B9E-B818-BCC2D2D3062B iPhone 13 18.0 3.3.0(8956)",
-        "examinationId": "5ea76994-5634-4413-8203-698f44ee09cf",
-        "examinationTitle": "V2-ADD-IP16E-PT-SR5U",
-        "examinationAge": null,
-        "examinationWeight": null,
-        "recordExaminationId": "5ea76994-5634-4413-8203-698f44ee09cf",
-        "userRole": null
-    },
+    // {
+    //     "id": "d8f1cf16-2fbc-4665-8168-b353c4b48668",
+    //     "source": "prod_ua",
+    //     "notes": "Check for innocent murmurs",
+    //     "userId": "940b71ed-80c0-43fa-b902-5afffedc39b7",
+    //     "spot": "rightCarotid",
+    //     "bodyPosition": "sitting",
+    //     "latitude": 49.8563050710959,
+    //     "longitude": 24.060175722500446,
+    //     "userAgent": "7EC3DB1E-8227-4B9E-B818-BCC2D2D3062B iPhone 13 18.0 3.3.0(8956)",
+    //     "examinationId": "5ea76994-5634-4413-8203-698f44ee09cf",
+    //     "examinationTitle": "V2-ADD-IP16E-PT-SR5U",
+    //     "examinationAge": null,
+    //     "examinationWeight": null,
+    //     "recordExaminationId": "5ea76994-5634-4413-8203-698f44ee09cf",
+    //     "userRole": null
+    // },
 
-    {
-        "id": "d8f1cf16-2fbc-4665-8168-b353c4b48668",
-        "source": "prod_ua",
-        "notes": "Check for innocent murmurs",
-        "userId": "940b71ed-80c0-43fa-b902-5afffedc39b7",
-        "spot": "rightCarotid",
-        "bodyPosition": "sitting",
-        "latitude": 49.8563050710959,
-        "longitude": 24.060175722500446,
-        "userAgent": "7EC3DB1E-8227-4B9E-B818-BCC2D2D3062B iPhone 13 18.0 3.3.0(8956)",
-        "examinationId": "5ea76994-5634-4413-8203-698f44ee09cf",
-        "examinationTitle": "V3-ADD-IP16E-PT-SR5U",
-        "examinationAge": null,
-        "examinationWeight": null,
-        "recordExaminationId": "5ea76994-5634-4413-8203-698f44ee09cf",
-        "userRole": null
-    },
+    // {
+    //     "id": "d8f1cf16-2fbc-4665-8168-b353c4b48668",
+    //     "source": "prod_ua",
+    //     "notes": "Check for innocent murmurs",
+    //     "userId": "940b71ed-80c0-43fa-b902-5afffedc39b7",
+    //     "spot": "rightCarotid",
+    //     "bodyPosition": "sitting",
+    //     "latitude": 49.8563050710959,
+    //     "longitude": 24.060175722500446,
+    //     "userAgent": "7EC3DB1E-8227-4B9E-B818-BCC2D2D3062B iPhone 13 18.0 3.3.0(8956)",
+    //     "examinationId": "5ea76994-5634-4413-8203-698f44ee09cf",
+    //     "examinationTitle": "V3-ADD-IP16E-PT-SR5U",
+    //     "examinationAge": null,
+    //     "examinationWeight": null,
+    //     "recordExaminationId": "5ea76994-5634-4413-8203-698f44ee09cf",
+    //     "userRole": null
+    // },
     
 
 
@@ -333,7 +334,7 @@ const run = async () => {
     const publisher = await AmqpManager.createPublisher(PUBLISHER)
     publisher.use(Middlewares.Json.stringify)
 
-    await publisher.send(testData[0])
+    await publisher.send(testData)
 
     // for (let d of testData) {
     //     console.log("send", d)

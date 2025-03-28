@@ -111,7 +111,7 @@ const processData = async (err, msg, next) => {
         let items = JSON.parse(JSON.stringify(msg.content))
         items = (isArray(items)) ? items : [items]
 
-        log("Items", items)
+        // log("Items", items)
 
         for (let data of items) {
 
@@ -136,7 +136,7 @@ const processData = async (err, msg, next) => {
                 })            
 
                 data.aiSegmentation =  response.data
-                log("data", data)
+                // log("data", data)
 
             } catch(e) {
                 log("AI SEGMENTATION ERROR: ")

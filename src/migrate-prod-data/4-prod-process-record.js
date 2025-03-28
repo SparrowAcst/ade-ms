@@ -48,7 +48,7 @@ const processData = async (err, msg, next) => {
         let items = JSON.parse(JSON.stringify(msg.content))
         items = (isArray(items)) ? items : [items]
 
-        log("Items", items)
+        // log("Items", items)
 
         for (let data of items) {
 
@@ -80,7 +80,7 @@ const processData = async (err, msg, next) => {
 
 
             log(`Create Record: ${record.id} in ${dataset.schema}.labels`)
-            log(record)
+            // log(record)
 
             await docdb.replaceOne({
                 db: DATABASE,
