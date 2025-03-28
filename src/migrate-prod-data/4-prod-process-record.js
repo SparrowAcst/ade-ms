@@ -74,7 +74,8 @@ const processData = async (err, msg, next) => {
                 "Pathological findings": [],
                 "state": "Continue Labeling",
                 "examinationId": data.examinationId,
-                "aiSegmentation": data.aiSegmentation "taskList": []
+                "aiSegmentation": data.aiSegmentation, 
+                "taskList": []
             }
 
 
