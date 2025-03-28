@@ -11,7 +11,7 @@ const normalize = configRB.normalize
 const STAGE_NAME        = "MIGRATE PROD DATA: 2. Copy file."
 const SERVICE_NAME      = `${STAGE_NAME} microservice`
 
-const { resolveDataset } = require("./data-utils")
+const { resolvePath } = require("./data-utils")
 
 const s3 = require("../utils/s3-bucket")
 
@@ -109,12 +109,8 @@ const processData = async (err, msg, next) => {
 
         for (let data of items) {
 
-            let dataset = await resolveDataset(data)
-            if (!dataset) {
-                log(`No resolve dataset for`, data)
-                continue
-            }
-
+            let path = resolvePath(data)
+            
             let source
             try {
                 source = await whenFileExists(`${DEFAULT_PATH}/${data.id}.wav`)
@@ -123,16 +119,16 @@ const processData = async (err, msg, next) => {
                 continue
             }
 
-            if(dataset.path){
+            if(path){
 
                 log("Copy", {
                     source: `${DEFAULT_PATH}/${data.id}.wav`,
-                    destination: `${dataset.path}/${data.id}.wav`
+                    destination: `${path}/${data.id}.wav`
                 })
                 
                 await s3.copyObject({
                     source: `${DEFAULT_PATH}/${data.id}.wav`,
-                    destination: `${dataset.path}/${data.id}.wav`
+                    destination: `${path}/${data.id}.wav`
                 })
             } else {
                log("Skip", `${DEFAULT_PATH}/${data.id}.wav`)

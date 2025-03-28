@@ -33,6 +33,31 @@ const nameResolver = [
 ]
 
 
+const pathResolver = [
+
+    { path: "VALIDATION/v2-add-ip16-rt-mtm/records/raw", rule: d => d.examinationTitle.startsWith("V2-ADD-IP16E-RT-MTM")},
+    { path: "VALIDATION/v2-add-ip16-rt-ltr/records/raw", rule: d => d.examinationTitle.startsWith("V2-ADD-IP16E-RT-LTR")},
+    { path: "VALIDATION/v2-add-ip16-rt-oto/records/raw", rule: d => d.examinationTitle.startsWith("V2-ADD-IP16E-RT-OTO")},
+    
+    { path: "VALIDATION/v3-add-ip16-rt-mtm/records/raw", rule: d => d.examinationTitle.startsWith("V3-ADD-IP16E-RT-MTM")},
+    { path: "VALIDATION/v3-add-ip16-rt-ltr/records/raw", rule: d => d.examinationTitle.startsWith("V3-ADD-IP16E-RT-LTR")},
+    { path: "VALIDATION/v3-add-ip16-rt-oto/records/raw", rule: d => d.examinationTitle.startsWith("V3-ADD-IP16E-RT-OTO")},
+    
+    { path: "VALIDATION/v2-add-ip16-pt-wn/records/raw", rule: d => d.examinationTitle.startsWith("V2-ADD-IP16E-PT-WN")},
+    { path: "VALIDATION/v2-add-ip16-pt-cshp/records/raw", rule: d => d.examinationTitle.startsWith("V2-ADD-IP16E-PT-CSHP")},
+    { path: "VALIDATION/v2-add-ip16-pt-cs10p/records/raw", rule: d => d.examinationTitle.startsWith("V2-ADD-IP16E-CS10P")},
+    { path: "VALIDATION/v2-add-ip16-pt-ne/records/raw", rule: d => d.examinationTitle.startsWith("V2-ADD-IP16E-NE")},
+    { path: "VALIDATION/v2-add-ip16-pt-sr5u/records/raw", rule: d => d.examinationTitle.startsWith("V2-ADD-IP16E-PT-SR5U")},
+    
+    
+    { path: "VALIDATION/v3-add-ip16-pt-wn/records/raw", rule: d => d.examinationTitle.startsWith("V3-ADD-IP16E-PT-WN")},
+    { path: "VALIDATION/v3-add-ip16-pt-cshp/records/raw", rule: d => d.examinationTitle.startsWith("V3-ADD-IP16E-PT-CSHP")},
+    { path: "VALIDATION/v3-add-ip16-pt-cs10p/records/raw", rule: d => d.examinationTitle.startsWith("V3-ADD-IP16E-CS10P")},
+    { path: "VALIDATION/v3-add-ip16-pt-ne/records/raw", rule: d => d.examinationTitle.startsWith("V3-ADD-IP16E-NE")},
+    { path: "VALIDATION/v3-add-ip16-pt-sr5u/records/raw", rule: d => d.examinationTitle.startsWith("V3-ADD-IP16E-PT-SR5U")},
+]
+
+
 
 const resolveDataset = async d => {
 
@@ -56,10 +81,19 @@ const resolveDataset = async d => {
 
 }
 
+const resolvePath = d => {
+
+    let index = findIndex(pathResolver.map(r => r.rule(d)), r => r === true)
+    if(index < 0) return
+    
+    const datasetName = pathResolver[index].path
+    
+}
 
 
 module.exports = {
     getDeviceDescription,
     getGeoLocation,
-    resolveDataset
+    resolveDataset,
+    resolvePath
 }

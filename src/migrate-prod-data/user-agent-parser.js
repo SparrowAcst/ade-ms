@@ -165,7 +165,6 @@ const decodeRegion = version => {
     }
 
     return find(keys(encode), key => encode[key].includes(version))
-
 }
 
 
