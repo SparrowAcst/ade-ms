@@ -136,6 +136,7 @@ const processData = async (err, msg, next) => {
                 })            
 
                 data = extend({}, data, {aiSegmentation: response.data})
+                log("data", data)
 
             } catch(e) {
                 log("AI SEGMENTATION ERROR: ")
@@ -149,7 +150,7 @@ const processData = async (err, msg, next) => {
             }
         }
 
-        log("Send data to next stage")
+        log("Send data to next stage", items)
         await publisher.send(items)
 
         next()

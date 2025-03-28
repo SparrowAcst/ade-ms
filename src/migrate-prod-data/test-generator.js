@@ -333,7 +333,7 @@ const run = async () => {
     const publisher = await AmqpManager.createPublisher(PUBLISHER)
     publisher.use(Middlewares.Json.stringify)
 
-    await publisher.send(testData)
+    await publisher.send(testData[0])
 
     // for (let d of testData) {
     //     console.log("send", d)
