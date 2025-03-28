@@ -82,12 +82,10 @@ const resolveDataset = async d => {
 }
 
 const resolvePath = d => {
-
     let index = findIndex(pathResolver.map(r => r.rule(d)), r => r === true)
     if(index < 0) return
     
-    const datasetName = pathResolver[index].path
-    
+    return pathResolver[index].path
 }
 
 
