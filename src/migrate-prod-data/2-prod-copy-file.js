@@ -95,7 +95,7 @@ const processData = async (err, msg, next) => {
 
     try {
 
-        log("Process", msg.content)
+        // log("Process", msg.content)
 
         if (!msg.content) {
             log("Cannot process empty message")
