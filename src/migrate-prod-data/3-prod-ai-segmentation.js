@@ -101,7 +101,7 @@ const processData = async (err, msg, next) => {
 
     try {
 
-        log("Process", msg.content)
+        // log("Process", msg.content)
 
         if (!msg.content) {
             log("Cannot process empty message")
@@ -150,7 +150,7 @@ const processData = async (err, msg, next) => {
             }
         }
 
-        log("Send data to next stage", items)
+        log("Send data to next stage")
         await publisher.send(items)
 
         next()
