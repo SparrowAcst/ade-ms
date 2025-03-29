@@ -63,7 +63,7 @@ const testData = [
         "longitude": 0.0,
         "userAgent": "4ABACB75-CCC3-4FE7-B560-DDAD0BFB397A iPhone15,2 17.5.1 3.1.1(7898)",
         "examinationId": "943d8b71-9805-43d4-9cb7-dacce8e1db1f",
-        "examinationTitle": "V2-ADD-IP16E-RT-LTR",
+        "examinationTitle": "V2-ADD-IP16E-RT",
         "examinationAge": null,
         "examinationWeight": null,
         "recordExaminationId": "67796544-f187-4a9a-870f-7405e0432129",
@@ -334,7 +334,7 @@ const run = async () => {
     const publisher = await AmqpManager.createPublisher(PUBLISHER)
     publisher.use(Middlewares.Json.stringify)
 
-    await publisher.send(testData)
+    await publisher.send(testData[0])
 
     // for (let d of testData) {
     //     console.log("send", d)

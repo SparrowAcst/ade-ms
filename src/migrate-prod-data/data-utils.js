@@ -30,6 +30,8 @@ const nameResolver = [
     { name: "Stethophone Production Data US part 1", rule: d => getDeviceDescription(d).appStoreRegion == "USA" },
     { name: "Stethophone Production Data CA part 1", rule: d => getDeviceDescription(d).appStoreRegion == "Canada" },
 
+    { name: "Stethophone Production Data Unrecognized part 1", rule: d => getDeviceDescription(d).appStoreRegion == "unrecognized" }
+    
 ]
 
 

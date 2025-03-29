@@ -173,7 +173,13 @@ const parse = userAgent => {
 
         let parts = userAgent.split(" ")
 
-        if (parts.length < 4) return
+        if (parts.length < 4) return {
+            id: "unrecognized",
+            model: "unrecognized",
+            osVersion: "unrecognized",
+            stethophoneVersion: "unrecognized",
+            appStoreRegion: "unrecognized"
+        }
 
         const id = parts.shift()
         let stethParts = parts.pop()
@@ -196,7 +202,13 @@ const parse = userAgent => {
     } catch (e) {
 
         console.log("NO PARSED", userAgent)
-        return 
+        return {
+            id: "unrecognized",
+            model: "unrecognized",
+            osVersion: "unrecognized",
+            stethophoneVersion: "unrecognized",
+            appStoreRegion: "unrecognized"
+        }
 
     }
 }
