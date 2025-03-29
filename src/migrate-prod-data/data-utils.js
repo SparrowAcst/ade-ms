@@ -65,8 +65,8 @@ const resolveDataset = async d => {
     if(index < 0) return
     
     const datasetName = nameResolver[index].name
-    log(d.examinationTitle)
-    log("datasetName", datasetName)
+    // log(d.examinationTitle)
+    // log("datasetName", datasetName)
     let dataset = await docdb.aggregate({
         db: DATABASE,
         collection: `ADE-SETTINGS.datasets`,
