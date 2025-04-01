@@ -34,6 +34,54 @@ const DATA_CONSUMER = normalize({
 })
 
 
+const mapSpot = spot => spot
+
+// {
+//     spotMapper = {
+//         "Middle back left",
+//         "pulmonary":                "Pulmonic",
+//         "leftCarotid":              "Left Carotid",
+//         "Right abdomen",
+//         "Middle back right",
+//         "Left abdomen",
+//         "tricuspid":                "Tricuspid",
+//         "Right Lower Lung",
+//         "apex":                     "Apex",
+//         "erbs":                     "Erb's",
+//         "erbsRight":                "Erb's Right",
+//         "rightCarotid":             "Right Carotid",
+//         "Left Lower Lung",
+//         "aortic":                   "Aortic"
+//     }
+
+//     ,
+//     ,
+//     "lowerBackRightLung",
+//     "leftAnteriorLowerLung",
+//     "rightAnteriorLowerLung",
+//     "lowerBackLeftLung",
+//     "upperBackLeftLung",
+//     "middleBackRightLung",
+//     "middleBackLeftLung",
+//     "leftSubclavianLung",
+//     "lowerBackLeft",
+//     "lowerBackRight",
+//     "leftAxillaryPosterior",
+//     ,
+//     "leftAxillaryLung",
+//     "upperBackRightLung",
+//     "rightAxillaryLung",
+//     "rightSubclavianLung",
+//     ,
+//     ,
+//     ,
+//     ,
+    
+
+
+//     return spotMapper[spot] || spot
+// }
+
 const processData = async (err, msg, next) => {
 
     try {
@@ -67,7 +115,7 @@ const processData = async (err, msg, next) => {
                 "deviceDescription": getDeviceDescription(data),
                 "geoLocation": getGeoLocation(data),
                 "Body Position": data.bodyPosition,
-                "Body Spot": data.spot,
+                "Body Spot": mapSpot(data.spot),
                 "Systolic murmurs": [],
                 "Diastolic murmurs": [],
                 "Other murmurs": [],
