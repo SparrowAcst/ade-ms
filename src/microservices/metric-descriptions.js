@@ -29,7 +29,7 @@ const assignedTasks = {
     calculate: data => {
 
         let result = []
-        let pool = flatten(data.map(d => d.taskList)).filter(d => d)map(d => {
+        let pool = flatten(data.map(d => d.taskList)).filter(d => d).map(d => {
             d.description = Key(d.key).getDescription()
             return d
         })
