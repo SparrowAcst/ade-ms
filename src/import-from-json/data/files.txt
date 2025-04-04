@@ -1,0 +1,15 @@
+ Volume in drive D is DATA
+ Volume Serial Number is B045-3F49
+
+ Directory of D:\sparrow\ade-ms\src\import-from-json\data
+
+04.04.2025  19:03    <DIR>          .
+04.04.2025  19:03    <DIR>          ..
+04.04.2025  19:03                64 files.txt
+04.04.2025  18:26             3ÿ463 output-bdanek-demo.json
+04.04.2025  18:27            24ÿ422 output-jamie-demo.json
+04.04.2025  18:27            19ÿ667 output-jamie-PRO.json
+04.04.2025  18:27            44ÿ734 output-oscar-demo.json
+04.04.2025  18:27             4ÿ297 output-oscar-PRO.json
+               6 File(s)         96ÿ647 bytes
+               2 Dir(s)  924ÿ055ÿ937ÿ024 bytes free

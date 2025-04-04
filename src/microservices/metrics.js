@@ -1,6 +1,5 @@
-
 const moment = require("moment")
-const log  = require("../utils//logger")(__filename)
+const log = require("../utils//logger")(__filename)
 const docdb = require("../utils/docdb")
 const config = require("../../.config/ade-import")
 
@@ -11,9 +10,9 @@ const SERVICE_NAME = `${STAGE_NAME} microservice`
 let metricDescriptions = require("./metric-descriptions")
 
 const getMetric = async metric => {
-    
+
     log(`Get metric: ${metric.name}`)
-    
+
     let { name, query, calculate, out, expired } = metric
 
 
@@ -21,12 +20,12 @@ const getMetric = async metric => {
         db: DATABASE,
         collection: query.collection,
         pipeline: query.pipeline
-    })    
+    })
 
 
     data = await calculate(data)
 
-    data = data.map( d => {
+    data = data.map(d => {
         d.date = new Date()
         return d
     })
@@ -39,17 +38,18 @@ const getMetric = async metric => {
 
     let expiredDate = new Date(moment().subtract(...expired).toDate())
     log("expiredDate", expiredDate)
-    
+
     let del = await docdb.aggregate({
         db: DATABASE,
         collection: out.collection,
         pipeline: [{
             $match: {
                 date: {
-                $lt: expiredDate
-            }    
-        }}]
-    })    
+                    $lt: expiredDate
+                }
+            }
+        }]
+    })
 
     log(`delete ${del.length} items from ${out.collection} collection`)
 
@@ -60,7 +60,7 @@ const getMetric = async metric => {
             date: {
                 $lt: expiredDate
             }
-        }  
+        }
     })
 
 }
@@ -68,27 +68,27 @@ const getMetric = async metric => {
 
 
 const run = async () => {
-    
+
     log(`${SERVICE_NAME} starts`)
-    
-    for( let metric of metricDescriptions){
+
+    for (let metric of metricDescriptions) {
         try {
-        log(`Start metric collection: ${metric.name}...`)    
-        await getMetric(metric)
-        metric.interval = moment.duration(...metric.interval).asMilliseconds()
-        log(metric.interval)
-        metric.handler = setInterval(async () => {
-            try {
-                await getMetric(metric)    
-            } catch (e) {
-                log(e.toString(), e.stack)
-                clearInterval(metric.handler)
-            }
-            
-        }, metric.interval)
-        } catch(e) {
+            log(`Start metric collection: ${metric.name}...`)
+            await getMetric(metric)
+            metric.interval = moment.duration(...metric.interval).asMilliseconds()
+            log(metric.interval)
+            metric.handler = setInterval(async () => {
+                try {
+                    await getMetric(metric)
+                } catch (e) {
+                    log(e.toString(), e.stack)
+                    clearInterval(metric.handler)
+                }
+
+            }, metric.interval)
+        } catch (e) {
             log(e.toString(), e.stack)
-            continue    
+            continue
         }
     }
 
