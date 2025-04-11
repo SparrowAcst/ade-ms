@@ -12,9 +12,9 @@ const normalize = configRB.normalize
 
 const CONSUMER_OPTIONS = normalize({
     queue: {
-        name: "task_log",
+        name: "employeeDbReport",
         exchange: {
-            name: 'task_log_exchange',
+            name: 'employee_db_report_exchange',
             options: {
                 durable: true,
                 persistent: true
@@ -35,6 +35,7 @@ const isAvailableADE = async () => {
     }
 
     let assertion = await CONSUMER.getStatus()
+    log.table([assertion])
     return assertion.consumerCount > 0
 }
 
@@ -43,8 +44,8 @@ const getAgentList = async () => {
     const adeAccess = await isAvailableADE()
     log("adeAccess", adeAccess)
 
-    if(!adeAccess) return []
-    
+    if (!adeAccess) return []
+
     const pipeline = [{
             $match: {
                 state: "available",
