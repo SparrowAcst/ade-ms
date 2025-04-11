@@ -1,28 +1,81 @@
-const axios = require("axios")
-const { ADE_API } = require("../../.config/ade-import")
+const { flatten } = require("lodash")
+const { AmqpManager, Middlewares } = require('@molfar/amqp-client');
+const docdb = require("../utils/docdb")
+const log = require("../utils//logger")(__filename)
 
-const log  = require("../utils//logger")(__filename)
+const config = require("../../.config/ade-import")
 
-const WORKFLOW_ENDPOINT = `${ADE_API}/workflow/agents`
+const DATABASE = config.ADE_DATABASE
 
-const getAgentList = async () => {
-    try {
+const configRB = config.rabbitmq.TEST
+const normalize = configRB.normalize
 
-        result = await axios.post(WORKFLOW_ENDPOINT)
-        result = result.data
-        return result
-    
-    } catch(e) {
-        log(WORKFLOW_ENDPOINT, e.toString())
-        return []
-    } 
+const CONSUMER_OPTIONS = normalize({
+    queue: {
+        name: "task_log",
+        exchange: {
+            name: 'task_log_exchange',
+            options: {
+                durable: true,
+                persistent: true
+            }
+        },
+        options: {
+            noAck: false,
+            exclusive: false
+        }
+    }
+})
+let CONSUMER
+
+const isAvailableADE = async () => {
+
+    if (!CONSUMER) {
+        CONSUMER = await AmqpManager.createConsumer(CONSUMER_OPTIONS)
+    }
+
+    let assertion = await CONSUMER.getStatus()
+    return assertion.consumerCount > 0
 }
 
+const getAgentList = async () => {
+
+    const adeAccess = await isAvailableADE()
+    log("adeAccess", adeAccess)
+
+    if(!adeAccess) return []
+    
+    const pipeline = [{
+            $match: {
+                state: "available",
+            },
+        },
+        {
+            $project: {
+                _id: 0,
+                agents: 1,
+            },
+        },
+    ]
+    let result = await docdb.aggregate({
+        db: DATABASE,
+        collection: "ADE-SETTINGS.workflows",
+        pipeline
+    })
+
+    return flatten(result)
+}
+
+
+
 module.exports = {
-    getAgentList
+    getAgentList,
+    isAvailableADE
 }
 
 // const run = async () => {
+//     let adeAccess = await isAvailableADE()
+//     log("adeAccess", adeAccess)
 //     let agents = await getAgentList()
 //     log(agents)    
 // }

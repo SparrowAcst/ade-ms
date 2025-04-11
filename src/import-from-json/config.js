@@ -16,17 +16,19 @@ module.exports = {
     "schema": "washington",
     
     "sourceFiles": [
-        "./data/output-bdanek-demo.json",
-        "./data/output-jamie-demo.json",
-        "./data/output-jamie-PRO.json",
-        "./data/output-oscar-demo.json",
-        "./data/output-oscar-PRO.json"
+        // "./data/output-bdanek-demo.json",
+        // "./data/output-jamie-demo.json",
+        // "./data/output-jamie-PRO.json",
+        // "./data/output-oscar-demo.json",
+        // "./data/output-oscar-PRO.json",
+        // "./data/output-sparrowacoustics50.json",
+        "./data/sparrowacoustics4-export.json"
     ],
 
-    "examinationsFile": "./OUT/washington/examinations.json",
+    "examinationsFile": "./OUT/washington/examinations-add-1.json",
     
-    "labelsFile": "./OUT/washington/labels.json",
+    "labelsFile": "./OUT/washington/labels-add-1.json",
     
-    "tasksFile": "./OUT/washington/ADE-TASK-POOL/washington.json"
+    "tasksFile": "./OUT/washington/ADE-TASK-POOL/washington-add-1.json"
 
 }
