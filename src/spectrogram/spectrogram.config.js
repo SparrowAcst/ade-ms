@@ -1,5 +1,5 @@
 
-const LABELING_COLLECTION = 'sparrow.clinic4'
+// const LABELING_COLLECTION = 'sparrow.clinic4'
 const LABELING_COLLECTION = 'sparrow.arabia-labels'
 
 const LIMIT = 60
