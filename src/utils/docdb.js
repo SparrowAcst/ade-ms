@@ -20,7 +20,7 @@ const normalize = str => {
 const createClient = async options => {
 
     let client 
-    if(options.tlsCAFile){
+    if(CONFIG[options.db].tlsCAFile){
         client = await mongo.connect(CONFIG[options.db].url, {
             tlsCAFile: CONFIG[options.db].tlsCAFile
         })    
