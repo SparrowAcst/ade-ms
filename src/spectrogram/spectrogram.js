@@ -1,0 +1,355 @@
+const { Jimp } = require('jimp');
+const { extend, mean, min, max } = require("lodash")
+const uuid = require('uuid');
+const fs = require("fs")
+const path = require('path');
+const wav = require("node-wav")
+const { ComplexArray, FFT } = require('./fft_js/fft.js');
+const chroma = require("chroma-js")
+const createPalette = require('./color-palette.js')
+
+const DEFAULT_RATE = 4000
+const DATA_FORMAT = 'png' // jpeg is alternative if the size of packages will be bigger than we can afford, implies code changes as well!
+const JPEG_QUALITY = 95
+
+
+const filterWave = (buffer, rate) => {
+    const rateQuotient = Math.round(rate / DEFAULT_RATE);
+    return buffer.filter(
+        (value, index) => index % rateQuotient === 0
+    );
+}
+
+const defaultOptions = {
+    filter: { name: '' },
+    amplifier: '',
+    cutOff: 0,
+    start: 0,
+    top: 5000, // frequency, hz
+    bottom: 20, // frequency, hz
+    fftWindowWidth: 512, // Should be an even integer.
+    fftExtendedWindowWidth: 4096, // Should be a power of 2. Also should be greater than or equal to fftWindowWidth.
+    fftWindowJump: 8,
+    imageFormat: DATA_FORMAT,
+    imageQuality: JPEG_QUALITY,
+    imageDir: ".",
+    imageSize: {
+        w: 1300,
+        h: 260
+    },
+    colorPalette: createPalette(),
+    waveForm: {
+        period: 10, // 10px = 2*PI
+        chartTemplate: {
+            grid: {
+                left: 0,
+                right: 0,
+                top: "20%",
+                bottom: "20%"
+            },
+            xAxis: {
+                type: 'category',
+                axisLabel: {
+                    show: false
+                }
+            },
+            yAxis: {
+                type: 'value',
+                axisLabel: {
+                    show: false
+                }
+            },
+            series: [{
+                data: [],
+                type: 'line',
+                color: "#90a4ae"
+            }]
+        }
+    }
+}
+
+
+const calculateBinInterval = (freqBottom, freqTop, windowWidth, sampleRate) => {
+
+    const freqBase = sampleRate / windowWidth;
+    let bottom = Math.ceil(freqBottom / freqBase);
+    const top = Math.floor(freqTop / freqBase);
+    bottom = bottom < 1 ? 1 : bottom;
+
+    return { bottom, top };
+
+}
+
+
+const getFFT = (audioData, windowPosition, windowWidth, extendedWindowWidth) => {
+
+    // Prepare the PCM segment to be passed to FFT
+    const segment = new ComplexArray(extendedWindowWidth);
+    const audioSegment = new Float32Array(extendedWindowWidth);
+
+
+    // Prepare the pcm segment to be passed to the FFT
+    const samplesPosition = (extendedWindowWidth - windowWidth) / 2; // All the involved variables should be even integers, so the result should be an integer. This is to avoid slight signal abberations on "half index" alignment.
+
+    // Take the values from original pcm signal.
+    let srcIndex = 0;
+    const maxSrcIndex = audioData.length;
+    for (let i = 0; i < windowWidth; i++) {
+        srcIndex = windowPosition + i;
+        if (srcIndex < 0 || srcIndex >= maxSrcIndex) {
+            // If the segment extends beyond the boundaries of the source pcm, which is possible when taking the transform near the edges, fill the missing values with zeroes.
+            audioSegment[samplesPosition + i] = 0;
+            continue;
+        }
+        audioSegment[samplesPosition + i] = audioData[srcIndex];
+    }
+
+    // Apply Hanning window if required
+    // Hanning width corresponds to the window width. That is hanning is applied only to the central part of the segment.
+    let hanningWindow = createHanningWindow(windowWidth);
+    // Apply it to the segment
+    for (let i = 0; i < windowWidth; i++) {
+        audioSegment[samplesPosition + i] *= hanningWindow[i];
+    }
+
+    segment.real = audioSegment;
+
+    // Apply the FFT
+    const complexResult = FFT(segment);
+    return complexResult.magnitude();
+
+}
+
+
+const createHanningWindow = size => {
+    const window = new Float32Array(size);
+    const phi = (Math.PI * 2) / (size - 1);
+    for (let i = 0; i < size; i++) {
+        window[i] = (1 - Math.cos(phi * i)) / 2;
+    }
+    return window;
+}
+
+
+const normalizeValues = f32array2d => {
+ 
+    // A short alias for the in/out array
+    const A = f32array2d;
+    const result = new Array(A.length)
+    for (let i = 0; i < result.length; i++) {
+        result[i] = new Array(A[0].length) // Uint8Array(A[0].length)
+    }
+ 
+    // Find global maximum
+    let max = A[0][0];
+    for (let j = 0; j < A.length; j++) {
+        const row = A[j];
+        for (let i = 0; i < row.length; i++) {
+            if (max < row[i]) {
+                max = row[i];
+            }
+        }
+    }
+ 
+    // Maximum is 0 - do nothing.
+    if (max === 0) {
+        return;
+    }
+ 
+    const applyAmplify = value => Math.pow(value, 2 / 3)
+    const defaultCutOff = 0.00000000001
+    const applyCutoff = value => {
+        const res = (value - defaultCutOff)/(1 - defaultCutOff)
+        return (res < 0) ? 0 : res
+    }    
+ 
+    // Divide everyone by the maximum
+    const inverseMax = 1 / max;
+    for (let j = 0; j < A.length; j++) {
+        const row = A[j];
+        const r = result[j]
+        for (let i = 0; i < row.length; i++) {
+            r[i] = Number.parseFloat(row[i]) * Number.parseFloat(inverseMax)
+            r[i] = applyAmplify(applyCutoff(r[i]))
+        }
+    }
+ 
+    return result
+}
+
+const generate = (buffer, options) => {
+
+    let b = wav.decode(buffer)
+    let audioData = Array.prototype.slice.call(b.channelData[0])
+    audioData = filterWave(audioData, b.sampleRate)
+
+    options = extend({},
+        defaultOptions, {
+            rate: b.sampleRate,
+            end: audioData.length,
+        },
+        options
+    )
+
+    // console.log(options)
+
+    let {
+        //rate,
+        filter,
+        amplifier,
+        cutOff,
+        start,
+        end,
+        top,
+        bottom,
+        fftWindowWidth,
+        fftExtendedWindowWidth,
+        fftWindowJump
+    } = options
+
+    bottom = 20
+    top = 2000
+    const rate = 4096
+    // Validate frequency range exactly like frontend
+    // bottom = (bottom < 1) ? 1 : bottom
+    // bottom = (bottom > rate) ? rate : bottom
+    // top = (top < 1) ? 1 : top
+    // top = (top > rate) ? rate : top
+
+    const bins = calculateBinInterval(bottom, top, fftExtendedWindowWidth, rate)
+    const height = bins.top - bins.bottom + 1;
+    const jump = fftWindowJump;
+    const width = Math.trunc((end - start) / jump);
+
+    // Create the empty spectrogram - 2-dimensional array of floats
+    let spectrogram = new Array(height);
+    for (let j = 0; j < height; j++) {
+        spectrogram[j] = new Float32Array(width);
+    }
+
+    // Fill the spectrogram by sliding FFT window
+    const align = -Math.trunc(fftWindowWidth / 2); // Center alignment of the FFT window.
+    for (let i = 0; i < width; i++) {
+        const windowPosition = start + i * jump + align;
+        const transform = getFFT(audioData, windowPosition, fftWindowWidth, fftExtendedWindowWidth);
+        for (let j = 0; j < height; j++) {
+            spectrogram[height - j - 1][i] = transform[bins.bottom + j];
+        }
+    }
+
+    spectrogram = normalizeValues(spectrogram);
+
+    return {
+        width: spectrogram[0].length,
+        height: spectrogram.length,
+        data: spectrogram,
+        rate: options.rate
+    }
+}
+
+const generateImage = (spectrogram, options) => {
+
+    const width = spectrogram.width
+    const height = spectrogram.height
+
+    const data = Buffer.alloc(width * height * 4);
+    let offs = 0;
+    let amplitude = 0;
+    let color = 0;
+
+    for (let j = 0; j < height; j++) {
+        for (let i = 0; i < width; i++) {
+            amplitude = spectrogram.data[j][i];
+            if (options.colorPalette) {
+                color = options.colorPalette(amplitude).rgb() //Math.trunc(amplitude * (0x200 - 1));
+
+            } else {
+                color = [amplitude, amplitude, amplitude]
+            }
+
+            data[offs] = color[0] // & 0xff;
+            data[offs + 1] = color[1] //& 0xff
+            data[offs + 2] = color[2] //& 0xff
+            data[offs + 3] = 255
+            offs += 4;
+        }
+    }
+
+    // console.log(width, height)
+
+    const rawImageData = {
+        data,
+        width,
+        height
+    };
+
+    const rawImage = Jimp.fromBitmap(rawImageData)
+    
+    // rawImage.resize(options.imageSize)
+
+    console.log(`Spectrogram size: ${rawImage.bitmap.width}, ${rawImage.bitmap.height}`)
+    return rawImage
+}
+
+
+const generateWaveForm = (spectrogram, options) => {
+
+    const { width, height, data, rate } = spectrogram
+
+    let amplitude = []
+
+    for (let t = 0; t < width; t++) {
+
+        let currentSpectrum = []
+
+        for (let h = 0; h < height; h++) {
+            currentSpectrum.push(data[h][t])
+        }
+
+        amplitude.push(mean(currentSpectrum))
+
+    }
+
+    const minValue = min(amplitude)
+    const maxValue = max(amplitude)
+
+    amplitude = amplitude.map(v => (v - minValue) / (maxValue - minValue))
+
+    let values = amplitude.map((v, t) => v * Math.sin(t * 2 * Math.PI / options.waveForm.period))
+    values = values.map(v => Number.parseFloat(v.toFixed(3)))
+    let chart = JSON.parse(JSON.stringify(options.waveForm.chartTemplate))
+    chart.series[0].data = values
+    return {
+        amplitude,
+        chart,
+        rate
+    }
+
+}
+
+const build = (buffer, options) => {
+
+    const newOptions = {
+      imageDir: ".",
+      imageFormat: "png",
+    };
+
+    options = extend({},
+        defaultOptions,
+        newOptions,
+        options,
+    )
+
+    let spectrogram = generate(buffer, options)
+    spectrogram.image = generateImage(spectrogram, options)
+    let wave = generateWaveForm(spectrogram, options)
+
+    return {
+        spectrogram,
+        wave
+    }
+
+}
+
+
+module.exports = build

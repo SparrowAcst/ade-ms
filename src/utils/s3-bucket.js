@@ -121,6 +121,17 @@ const metadata = async target => {
     }
 }
 
+const objectExists = async (key) => {
+    try {
+        const result = await client.send(new HeadObjectCommand({
+            Bucket: bucket,
+            Key: key
+        }))
+        return true
+    } catch(e) {
+        return false
+    }
+}
 
 const deleteFiles = async path => {
 
@@ -157,6 +168,21 @@ const getStream = async source => {
     }
 }
 
+const getObjectStream = async source => {
+    try {
+        let res = await client.send(
+            new GetObjectCommand({
+                Bucket: bucket,
+                Key: source
+            })
+        )
+        return res.Body
+    } catch (e) {
+        console.error("s3-bucket.getStream:", e.toString(), e.stack)
+        // throw e
+    }
+}
+
 
 const download = async ({ source, target }) => new Promise(async (resolve, reject) => {
     try {
@@ -186,7 +212,22 @@ const getPresignedUrl = async source => {
 }
 
 
+// const objectExists = async (key) => {
+//     try {
 
+//         const command = new HeadObjectCommand({
+//             Bucket: this.bucketName,
+//             Key: key
+//         });
+
+//         await client.send(command);
+//         return true;
+//     } catch (error) {
+//         if (error.$metadata?.httpStatusCode === 404) {
+//             return false;
+//         }
+//     }
+// }
 
 
 
@@ -209,6 +250,23 @@ const uploadLt20M = async ({ source, target }) => {
         throw e
     }
 }
+
+const uploadFile = async (key, body) => {
+    try {
+      const command = new PutObjectCommand({
+        Bucket: bucket,
+        Key: key,
+        Body: body
+      })
+
+      const response = await client.send(command);
+      return response.Body;
+    } catch (error) {
+      throw new Error('Upload error', error)
+    }
+  }
+
+
 
 const uploadFromURL = async ({ source, target, callback }) => {
     try {
@@ -355,10 +413,10 @@ const copyObject = async ({
 
     try {
 
-    
-    let sourceBucket = settings.bucket[sourceBucketAlias] || settings.bucket["default"]
-    let destinationBucket = settings.bucket[destinationBucketAlias] || settings.bucket["default"]
-    
+
+        let sourceBucket = settings.bucket[sourceBucketAlias] || settings.bucket["default"]
+        let destinationBucket = settings.bucket[destinationBucketAlias] || settings.bucket["default"]
+
         await client.send(
             new CopyObjectCommand({
                 CopySource: `${sourceBucket}/${source}`,
@@ -391,9 +449,12 @@ module.exports = {
     getPresignedUrl,
     uploadLt20M,
     uploadChunks,
+    uploadFile,
     deleteFiles,
     uploadFromURL,
-    copyObject
+    copyObject,
+    objectExists,
+    getObjectStream
 }
 
 // const run = async () => {

@@ -15,14 +15,18 @@
     "@aws-sdk/s3-request-presigner": "^3.663.0",
     "@molfar/amqp-client": "github:wdc-molfar/amqp-client",
     "axios": "^1.7.9",
-    "fs-extra": "^11.1.0",
+    "chroma-js": "^3.1.2",
+    "exectimer": "^2.2.2",
     "file-size": "^1.0.0",
+    "fs-extra": "^11.1.0",
     "geojson-places": "^1.0.8",
+    "jimp": "^1.6.0",
     "lodash": "^4.17.21",
     "moment": "^2.30.1",
     "mongodb": "^4.13.0",
     "nanomatch": "^1.2.13",
     "node-cache": "^5.1.2",
+    "node-wav": "^0.0.2",
     "uuid": "^11.0.5"
   }
 }
