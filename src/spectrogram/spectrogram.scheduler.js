@@ -57,10 +57,13 @@ const {
     REFRESH_INTERVAL
 } = require("./spectrogram.config")
 
+
+let totalRecords = 0
+
 let consumer
 
 const getConsumer = async () => {
-    if(!consumer){
+    if (!consumer) {
         consumer = await AmqpManager.createConsumer(DATA_CONSUMER)
     }
     return consumer
@@ -68,7 +71,7 @@ const getConsumer = async () => {
 
 let publisher
 const getPublisher = async () => {
-    if(!publisher){
+    if (!publisher) {
         publisher = await AmqpManager.createPublisher(DATA_PUBLISHER)
         publisher.use(Middlewares.Json.stringify)
     }
@@ -86,7 +89,7 @@ const eventLoop = async () => {
     log.table([assertion])
 
     if (
-        assertion.messageCount > 2 * LIMIT 
+        assertion.messageCount > 2 * LIMIT
         // || assertion.consumerCount == 0
     ) {
         log(`Skip task generation.`)
@@ -97,7 +100,7 @@ const eventLoop = async () => {
             $match: {
                 "spectrogram": {
                     $ne: true
-                }    
+                }
             }
         },
         {
@@ -117,16 +120,16 @@ const eventLoop = async () => {
         pipeline
     })
 
-    if(idList.length == 0){
+    if (idList.length == 0) {
         log(`No task. Skip task generation.`)
         return
     }
 
-    log(idList)    
-    
+    log(idList)
+
     const publisher = await getPublisher()
-    
-    for(let id of idList) {
+
+    for (let id of idList) {
         await publisher.send(id)
     }
 
@@ -146,16 +149,15 @@ const eventLoop = async () => {
     let left = await docdb.aggregate({
         db: DATABASE,
         collection: LABELING_COLLECTION,
-        pipeline: [
-            {
+        pipeline: [{
                 $match: {
-                    spectrogram:{
+                    spectrogram: {
                         $ne: true
                     }
                 }
             },
             {
-                $group:{
+                $group: {
                     _id: 1,
                     count: {
                         $sum: 1
@@ -163,9 +165,9 @@ const eventLoop = async () => {
                 }
             }
         ]
-    }) 
-
-    log(`${idList.length} tasks generated. ${(left.length > 0) ? left[0].count : 0} tasks left.`)
+    })
+    left = (left.length > 0) ? left[0].count : 0
+    log(`${totalRecords - left} tasks generated. ${left} tasks left.`)
 
 }
 
@@ -176,9 +178,22 @@ const run = async () => {
     log("Data Publisher:", DATA_PUBLISHER)
     log("DB:", config.docdb[DATABASE])
     log("LABELING_COLLECTION", LABELING_COLLECTION)
+
+    let docs = await docdb.aggregate({
+        db: DATABASE,
+        collection: LABELING_COLLECTION,
+        pipeline: [{
+            $count: "count",
+        }, ]
+    })
+
+    totalRecords = (docs.length > 0) ? docs[0].count : 0
+
     log("LIMIT", LIMIT)
     log("REFRESH_INTERVAL:", REFRESH_INTERVAL)
     log(`${SERVICE_NAME} started`)
+
+
 
     await eventLoop()
     setInterval(eventLoop, REFRESH_INTERVAL)
