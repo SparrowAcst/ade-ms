@@ -47,9 +47,15 @@ const DATA_PUBLISHER = normalize({
 })
 
 
-const LABELING_COLLECTION = 'sparrow.clinic4'
-const LIMIT = 1
-const REFRESH_INTERVAL = 1 * 5 * 1000 // 1 min
+// const LABELING_COLLECTION = 'sparrow.clinic4'
+// const LIMIT = 10
+// const REFRESH_INTERVAL = 1 * 30 * 1000 // 1 min
+
+const {
+    LABELING_COLLECTION,
+    LIMIT,
+    REFRESH_INTERVAL
+} = require("./spectrogram.config")
 
 let consumer
 
