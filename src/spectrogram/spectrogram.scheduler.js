@@ -90,7 +90,7 @@ const eventLoop = async () => {
 
     if (
         assertion.messageCount > 2 * LIMIT
-        // || assertion.consumerCount == 0
+        || assertion.consumerCount == 0
     ) {
         log(`Skip task generation.`)
         return
