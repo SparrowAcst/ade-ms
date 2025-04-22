@@ -140,7 +140,7 @@ const createHanningWindow = size => {
 const createMatrix = (width, height) => {
     
     const result = new Array(height)
-    for (let i = 0; i < result.length; i++) {
+    for (let i = 0; i < height; i++) {
         result[i] = new Array(width) // Uint8Array(A[0].length)
     }
     
@@ -320,9 +320,9 @@ const generateImage = (spectrogram, rawData, options) => {
 }
 
 
-const generateWaveForm = (spectrogram, options) => {
+const generateWaveForm = (spectrogram, rawData, options) => {
 
-    const { width, height, data, rate } = spectrogram
+    const { width, height, rate } = spectrogram
 
     let amplitude = []
 
@@ -331,7 +331,7 @@ const generateWaveForm = (spectrogram, options) => {
         let currentSpectrum = []
 
         for (let h = 0; h < height; h++) {
-            currentSpectrum.push(data[h][t])
+            currentSpectrum.push(rawData[h][t])
         }
 
         amplitude.push(mean(currentSpectrum))
@@ -343,13 +343,13 @@ const generateWaveForm = (spectrogram, options) => {
 
     amplitude = amplitude.map(v => (v - minValue) / (maxValue - minValue))
 
-    let values = amplitude.map((v, t) => v * Math.sin(t * 2 * Math.PI / options.waveForm.period))
-    values = values.map(v => Number.parseFloat(v.toFixed(3)))
-    let chart = JSON.parse(JSON.stringify(options.waveForm.chartTemplate))
-    chart.series[0].data = values
+    // let values = amplitude.map((v, t) => v * Math.sin(t * 2 * Math.PI / options.waveForm.period))
+    // values = values.map(v => Number.parseFloat(v.toFixed(3)))
+    // let chart = JSON.parse(JSON.stringify(options.waveForm.chartTemplate))
+    // chart.series[0].data = values
     return {
         amplitude,
-        chart,
+        // chart,
         rate
     }
 
@@ -373,7 +373,10 @@ const build = (buffer, options) => {
         lowFiltered: generateImage(spectrogram, spectrogram.data.lowFiltered, options),
         mediumFiltered: generateImage(spectrogram, spectrogram.data.mediumFiltered, options),
     }    
-    let wave = generateWaveForm(spectrogram, options)
+    let wave = {
+        lowFiltered: generateWaveForm(spectrogram, spectrogram.data.lowFiltered, options),
+        mediumFiltered: generateWaveForm(spectrogram, spectrogram.data.mediumFiltered, options),
+    }    
 
     return {
         spectrogram,

@@ -95,9 +95,10 @@ const processData = async (err, msg, next) => {
         
         log(id)
         const spectrogramDir = `ADE-SPECTROGRAMS/${id}`
-        const exists = await s3.objectExists(`${spectrogramDir}/spectrogram.low.png`)
-                    && await s3.objectExists(`${spectrogramDir}/spectrogram.medium.png`) 
-                    && await s3.objectExists(`${spectrogramDir}/waveform.json`)
+        const exists = await s3.objectExists(`${spectrogramDir}/low/spectrogram.png`)
+                    && await s3.objectExists(`${spectrogramDir}/medium/spectrogram.png`) 
+                    && await s3.objectExists(`${spectrogramDir}/low/waveform.json`)
+                    && await s3.objectExists(`${spectrogramDir}/medium/waveform.json`)
     
         if (!exists) {
 
@@ -112,17 +113,22 @@ const processData = async (err, msg, next) => {
             
             let vizBuffer = await visualisation.spectrogram.image.lowFiltered.getBuffer("image/png")
             
-            log(`Upload ${spectrogramDir}/spectrogram.low.png`)
-            await s3.uploadFile(`${spectrogramDir}/spectrogram.low.png`, vizBuffer);
+            log(`Upload ${spectrogramDir}/low/spectrogram.png`)
+            await s3.uploadFile(`${spectrogramDir}/low/spectrogram.png`, vizBuffer);
             
             vizBuffer = await visualisation.spectrogram.image.mediumFiltered.getBuffer("image/png")
             
-            log(`Upload ${spectrogramDir}/spectrogram.medium.png`)
-            await s3.uploadFile(`${spectrogramDir}/spectrogram.medium.png`, vizBuffer);
+            log(`Upload ${spectrogramDir}/medium/spectrogram.png`)
+            await s3.uploadFile(`${spectrogramDir}/medium/spectrogram.png`, vizBuffer);
             
-            log(`Upload ${spectrogramDir}/waveform.json`)
-            await s3.uploadFile(`${spectrogramDir}/waveform.json`, JSON.stringify(visualisation.wave))
-          
+            
+            log(`Upload ${spectrogramDir}/low/waveform.json`)
+            await s3.uploadFile(`${spectrogramDir}/low/waveform.json`, JSON.stringify(visualisation.wave.lowFiltered))
+         
+            log(`Upload ${spectrogramDir}/medium/waveform.json`)
+            await s3.uploadFile(`${spectrogramDir}/medium/waveform.json`, JSON.stringify(visualisation.wave.mediumFiltered))
+         
+
            } else {
               log(`File ADE-RECORDS/${id}.wav not exists.`)
            } 

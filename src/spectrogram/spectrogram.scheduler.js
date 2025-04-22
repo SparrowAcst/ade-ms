@@ -75,7 +75,6 @@ const getPublisher = async () => {
         publisher = await AmqpManager.createPublisher(DATA_PUBLISHER)
         publisher.use(Middlewares.Json.stringify)
     }
-    log(publisher)
     return publisher
 }
 
@@ -124,9 +123,7 @@ const eventLoop = async () => {
         log(`No task. Skip task generation.`)
         return
     }
-
-    log(idList)
-
+    
     const publisher = await getPublisher()
 
     for (let id of idList) {
