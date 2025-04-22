@@ -20,6 +20,12 @@ const filterWave = (buffer, rate) => {
     );
 }
 
+const FILTER = {
+    medium: value => Math.sqrt(value)
+    low: value => Math.pow(value, 2 / 3) 
+}
+
+
 const defaultOptions = {
     filter: { name: '' },
     amplifier: '',
@@ -131,14 +137,29 @@ const createHanningWindow = size => {
 }
 
 
+const createMatrix = (width, height) => {
+    
+    const result = new Array(height)
+    for (let i = 0; i < result.length; i++) {
+        result[i] = new Array(width) // Uint8Array(A[0].length)
+    }
+    
+    return result
+
+}
+
 const normalizeValues = f32array2d => {
  
     // A short alias for the in/out array
     const A = f32array2d;
-    const result = new Array(A.length)
-    for (let i = 0; i < result.length; i++) {
-        result[i] = new Array(A[0].length) // Uint8Array(A[0].length)
-    }
+
+    // const result = new Array(A.length)
+    // for (let i = 0; i < result.length; i++) {
+    //     result[i] = new Array(A[0].length) // Uint8Array(A[0].length)
+    // }
+
+    const lowFiltered = createMatrix(A[0].length, A.length)
+    const mediumFiltered = createMatrix(A[0].length, A.length)
  
     // Find global maximum
     let max = A[0][0];
@@ -156,7 +177,7 @@ const normalizeValues = f32array2d => {
         return;
     }
  
-    const applyAmplify = value => Math.pow(value, 2 / 3)
+    // const applyAmplify = value => Math.pow(value, 2 / 3)
     const defaultCutOff = 0.00000000001
     const applyCutoff = value => {
         const res = (value - defaultCutOff)/(1 - defaultCutOff)
@@ -167,14 +188,20 @@ const normalizeValues = f32array2d => {
     const inverseMax = 1 / max;
     for (let j = 0; j < A.length; j++) {
         const row = A[j];
-        const r = result[j]
+        const lowFilteredRow = lowFiltered[j]
+        const mediumFilteredRow = mediumFiltered[j]
+        
         for (let i = 0; i < row.length; i++) {
-            r[i] = Number.parseFloat(row[i]) * Number.parseFloat(inverseMax)
-            r[i] = applyAmplify(applyCutoff(r[i]))
+            let normalizedValue = Number.parseFloat(row[i]) * Number.parseFloat(inverseMax)
+            lowFilteredRow[i] = FILTER.low(normalizedValue)
+            mediumFilteredRow[i] = FILTER.medium(normalizedValue)
         }
     }
  
-    return result
+    return {
+        lowFiltered,
+        mediumFiltered
+    }
 }
 
 const generate = (buffer, options) => {
@@ -240,26 +267,27 @@ const generate = (buffer, options) => {
     spectrogram = normalizeValues(spectrogram);
 
     return {
-        width: spectrogram[0].length,
-        height: spectrogram.length,
+        width: spectrogram.lowFiltered[0].length,
+        height: spectrogram.lowFiltered.length,
         data: spectrogram,
         rate: options.rate
     }
 }
 
-const generateImage = (spectrogram, options) => {
+const generateImages = (spectrogram, rawData, options) => {
 
     const width = spectrogram.width
     const height = spectrogram.height
 
     const data = Buffer.alloc(width * height * 4);
+    
     let offs = 0;
     let amplitude = 0;
     let color = 0;
 
     for (let j = 0; j < height; j++) {
         for (let i = 0; i < width; i++) {
-            amplitude = spectrogram.data[j][i];
+            amplitude = rawData[j][i];
             if (options.colorPalette) {
                 color = options.colorPalette(amplitude).rgb() //Math.trunc(amplitude * (0x200 - 1));
 
@@ -341,7 +369,10 @@ const build = (buffer, options) => {
     )
 
     let spectrogram = generate(buffer, options)
-    spectrogram.image = generateImage(spectrogram, options)
+    spectrogram.image = {
+        lowFiltered: generateImage(spectrogram, spectrogram.data.lowFiltered, options),
+        mediumFiltered: generateImage(spectrogram, spectrogram.data.mediumFiltered, options),
+    }    
     let wave = generateWaveForm(spectrogram, options)
 
     return {

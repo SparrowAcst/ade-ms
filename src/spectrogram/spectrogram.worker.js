@@ -95,7 +95,9 @@ const processData = async (err, msg, next) => {
         
         log(id)
         const spectrogramDir = `ADE-SPECTROGRAMS/${id}`
-        const exists = await s3.objectExists(`${spectrogramDir}/spectrogram.png`) && await s3.objectExists(`${spectrogramDir}/waveform.json`)
+        const exists = await s3.objectExists(`${spectrogramDir}/spectrogram.low.png`)
+                    && await s3.objectExists(`${spectrogramDir}/spectrogram.medium.png`) 
+                    && await s3.objectExists(`${spectrogramDir}/waveform.json`)
     
         if (!exists) {
 
@@ -107,9 +109,17 @@ const processData = async (err, msg, next) => {
             const buffer = await streamToBuffer(stream);
              
             const visualisation = build(buffer, {})
-            const vizBuffer = await visualisation.spectrogram.image.getBuffer("image/png")
-            log(`Upload ${spectrogramDir}/spectrogram.png`)
-            await s3.uploadFile(`${spectrogramDir}/spectrogram.png`, vizBuffer);
+            
+            let vizBuffer = await visualisation.spectrogram.image.lowFiltered.getBuffer("image/png")
+            
+            log(`Upload ${spectrogramDir}/spectrogram.low.png`)
+            await s3.uploadFile(`${spectrogramDir}/spectrogram.low.png`, vizBuffer);
+            
+            vizBuffer = await visualisation.spectrogram.image.mediumFiltered.getBuffer("image/png")
+            
+            log(`Upload ${spectrogramDir}/spectrogram.medium.png`)
+            await s3.uploadFile(`${spectrogramDir}/spectrogram.medium.png`, vizBuffer);
+            
             log(`Upload ${spectrogramDir}/waveform.json`)
             await s3.uploadFile(`${spectrogramDir}/waveform.json`, JSON.stringify(visualisation.wave))
           
