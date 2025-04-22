@@ -160,7 +160,7 @@ const run = async () => {
     let currentMessage = null
 
     let guard = heapMemoryGuard({
-        heapSizeLimit: 80,
+        heapSizeLimit: 1000,
         interval: 1000,
         callback: () => {
 
