@@ -1,6 +1,7 @@
 const Tick = require('exectimer').Tick
 const Timers = require('exectimer').timers
 let tick = new Tick("total")
+const heapMemoryGuard = require("../utils/heap-utils")
 
 restartMetric = () => {
    if(Timers.total){
@@ -109,7 +110,7 @@ const processData = async (err, msg, next) => {
             const stream = await s3.getObjectStream(`ADE-RECORDS/${id}.wav`);
             const buffer = await streamToBuffer(stream);
              
-            const visualisation = build(buffer, {})
+            const visualisation = await build(buffer, {})
             
             let vizBuffer = await visualisation.spectrogram.image.lowFiltered.getBuffer("image/png")
             
@@ -121,7 +122,7 @@ const processData = async (err, msg, next) => {
             log(`Upload ${spectrogramDir}/medium/spectrogram.png`)
             await s3.uploadFile(`${spectrogramDir}/medium/spectrogram.png`, vizBuffer);
             
-            
+
             log(`Upload ${spectrogramDir}/low/waveform.json`)
             await s3.uploadFile(`${spectrogramDir}/low/waveform.json`, JSON.stringify(visualisation.wave.lowFiltered))
          
@@ -156,6 +157,24 @@ const processData = async (err, msg, next) => {
 
 const run = async () => {
 
+    let currentMessage = null
+
+    let guard = heapMemoryGuard({
+        heapSizeLimit: 80,
+        interval: 1000,
+        callback: () => {
+
+            console.log("HEAP MEMORY GUARD break process")
+            if(currentMessage){
+                currentMessage.ack()
+            }
+            process.exit()
+        
+        }
+    })
+
+
+
     log(`Configure ${SERVICE_NAME}`)
     log("Data Consumer:", DATA_CONSUMER)
    
@@ -164,8 +183,13 @@ const run = async () => {
     // publisher = await AmqpManager.createPublisher(NEXT_PUBLISHER)
     // publisher.use(Middlewares.Json.stringify)
 
+    
     await consumer
         .use(Middlewares.Json.parse)
+        .use((err, msg, next) => {
+            currentMessage = msg
+            next()
+        })
         .use(processData)
         .use(Middlewares.Error.Log)
         .use((err, msg, next) => {

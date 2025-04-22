@@ -204,186 +204,207 @@ const normalizeValues = f32array2d => {
     }
 }
 
-const generate = (buffer, options) => {
+const generate = (buffer, options) => new Promise((resolve, reject) => {
+    try {
+        let b = wav.decode(buffer)
+        let audioData = Array.prototype.slice.call(b.channelData[0])
+        audioData = filterWave(audioData, b.sampleRate)
 
-    let b = wav.decode(buffer)
-    let audioData = Array.prototype.slice.call(b.channelData[0])
-    audioData = filterWave(audioData, b.sampleRate)
+        options = extend({},
+            defaultOptions, {
+                rate: b.sampleRate,
+                end: audioData.length,
+            },
+            options
+        )
 
-    options = extend({},
-        defaultOptions, {
-            rate: b.sampleRate,
-            end: audioData.length,
-        },
-        options
-    )
+        // console.log(options)
 
-    // console.log(options)
+        let {
+            //rate,
+            filter,
+            amplifier,
+            cutOff,
+            start,
+            end,
+            top,
+            bottom,
+            fftWindowWidth,
+            fftExtendedWindowWidth,
+            fftWindowJump
+        } = options
 
-    let {
-        //rate,
-        filter,
-        amplifier,
-        cutOff,
-        start,
-        end,
-        top,
-        bottom,
-        fftWindowWidth,
-        fftExtendedWindowWidth,
-        fftWindowJump
-    } = options
+        bottom = 20
+        top = 2000
+        const rate = 4096
+        // Validate frequency range exactly like frontend
+        // bottom = (bottom < 1) ? 1 : bottom
+        // bottom = (bottom > rate) ? rate : bottom
+        // top = (top < 1) ? 1 : top
+        // top = (top > rate) ? rate : top
 
-    bottom = 20
-    top = 2000
-    const rate = 4096
-    // Validate frequency range exactly like frontend
-    // bottom = (bottom < 1) ? 1 : bottom
-    // bottom = (bottom > rate) ? rate : bottom
-    // top = (top < 1) ? 1 : top
-    // top = (top > rate) ? rate : top
+        const bins = calculateBinInterval(bottom, top, fftExtendedWindowWidth, rate)
+        const height = bins.top - bins.bottom + 1;
+        const jump = fftWindowJump;
+        const width = Math.trunc((end - start) / jump);
 
-    const bins = calculateBinInterval(bottom, top, fftExtendedWindowWidth, rate)
-    const height = bins.top - bins.bottom + 1;
-    const jump = fftWindowJump;
-    const width = Math.trunc((end - start) / jump);
-
-    // Create the empty spectrogram - 2-dimensional array of floats
-    let spectrogram = new Array(height);
-    for (let j = 0; j < height; j++) {
-        spectrogram[j] = new Float32Array(width);
-    }
-
-    // Fill the spectrogram by sliding FFT window
-    const align = -Math.trunc(fftWindowWidth / 2); // Center alignment of the FFT window.
-    for (let i = 0; i < width; i++) {
-        const windowPosition = start + i * jump + align;
-        const transform = getFFT(audioData, windowPosition, fftWindowWidth, fftExtendedWindowWidth);
+        // Create the empty spectrogram - 2-dimensional array of floats
+        let spectrogram = new Array(height);
         for (let j = 0; j < height; j++) {
-            spectrogram[height - j - 1][i] = transform[bins.bottom + j];
+            spectrogram[j] = new Float32Array(width);
         }
-    }
 
-    spectrogram = normalizeValues(spectrogram);
-
-    return {
-        width: spectrogram.lowFiltered[0].length,
-        height: spectrogram.lowFiltered.length,
-        data: spectrogram,
-        rate: options.rate
-    }
-}
-
-const generateImage = (spectrogram, rawData, options) => {
-
-    const width = spectrogram.width
-    const height = spectrogram.height
-
-    const data = Buffer.alloc(width * height * 4);
-    
-    let offs = 0;
-    let amplitude = 0;
-    let color = 0;
-
-    for (let j = 0; j < height; j++) {
+        // Fill the spectrogram by sliding FFT window
+        const align = -Math.trunc(fftWindowWidth / 2); // Center alignment of the FFT window.
         for (let i = 0; i < width; i++) {
-            amplitude = rawData[j][i];
-            if (options.colorPalette) {
-                color = options.colorPalette(amplitude).rgb() //Math.trunc(amplitude * (0x200 - 1));
+            const windowPosition = start + i * jump + align;
+            const transform = getFFT(audioData, windowPosition, fftWindowWidth, fftExtendedWindowWidth);
+            for (let j = 0; j < height; j++) {
+                spectrogram[height - j - 1][i] = transform[bins.bottom + j];
+            }
+        }
 
-            } else {
-                color = [amplitude, amplitude, amplitude]
+        spectrogram = normalizeValues(spectrogram);
+
+        resolve({
+            width: spectrogram.lowFiltered[0].length,
+            height: spectrogram.lowFiltered.length,
+            data: spectrogram,
+            rate: options.rate
+        })
+
+    } catch(e) {
+        reject(e)
+    }     
+})
+
+const generateImage = (spectrogram, rawData, options) => new Promise((resolve, reject) => {
+    try {
+        
+        const width = spectrogram.width
+        const height = spectrogram.height
+
+        const data = Buffer.alloc(width * height * 4);
+        
+        let offs = 0;
+        let amplitude = 0;
+        let color = 0;
+
+        for (let j = 0; j < height; j++) {
+            for (let i = 0; i < width; i++) {
+                amplitude = rawData[j][i];
+                if (options.colorPalette) {
+                    color = options.colorPalette(amplitude).rgb() //Math.trunc(amplitude * (0x200 - 1));
+
+                } else {
+                    color = [amplitude, amplitude, amplitude]
+                }
+
+                data[offs] = color[0] // & 0xff;
+                data[offs + 1] = color[1] //& 0xff
+                data[offs + 2] = color[2] //& 0xff
+                data[offs + 3] = 255
+                offs += 4;
+            }
+        }
+
+        // console.log(width, height)
+
+        const rawImageData = {
+            data,
+            width,
+            height
+        };
+
+        const rawImage = Jimp.fromBitmap(rawImageData)
+        
+        // rawImage.resize(options.imageSize)
+
+        console.log(`Spectrogram size: ${rawImage.bitmap.width}, ${rawImage.bitmap.height}`)
+        resolve(rawImage)
+    
+    } catch(e) {
+        reject(e)
+    } 
+
+})
+
+
+const generateWaveForm = (spectrogram, rawData, options) => new Promise((resolve, reject) => {
+
+    try {
+        const { width, height, rate } = spectrogram
+
+        let amplitude = []
+
+        for (let t = 0; t < width; t++) {
+
+            let currentSpectrum = []
+
+            for (let h = 0; h < height; h++) {
+                currentSpectrum.push(rawData[h][t])
             }
 
-            data[offs] = color[0] // & 0xff;
-            data[offs + 1] = color[1] //& 0xff
-            data[offs + 2] = color[2] //& 0xff
-            data[offs + 3] = 255
-            offs += 4;
-        }
-    }
+            amplitude.push(mean(currentSpectrum))
 
-    // console.log(width, height)
-
-    const rawImageData = {
-        data,
-        width,
-        height
-    };
-
-    const rawImage = Jimp.fromBitmap(rawImageData)
-    
-    // rawImage.resize(options.imageSize)
-
-    console.log(`Spectrogram size: ${rawImage.bitmap.width}, ${rawImage.bitmap.height}`)
-    return rawImage
-}
-
-
-const generateWaveForm = (spectrogram, rawData, options) => {
-
-    const { width, height, rate } = spectrogram
-
-    let amplitude = []
-
-    for (let t = 0; t < width; t++) {
-
-        let currentSpectrum = []
-
-        for (let h = 0; h < height; h++) {
-            currentSpectrum.push(rawData[h][t])
         }
 
-        amplitude.push(mean(currentSpectrum))
+        const minValue = min(amplitude)
+        const maxValue = max(amplitude)
 
-    }
+        amplitude = amplitude.map(v => (v - minValue) / (maxValue - minValue))
 
-    const minValue = min(amplitude)
-    const maxValue = max(amplitude)
+        // let values = amplitude.map((v, t) => v * Math.sin(t * 2 * Math.PI / options.waveForm.period))
+        // values = values.map(v => Number.parseFloat(v.toFixed(3)))
+        // let chart = JSON.parse(JSON.stringify(options.waveForm.chartTemplate))
+        // chart.series[0].data = values
+        resolve({
+            amplitude,
+            // chart,
+            rate
+        })
 
-    amplitude = amplitude.map(v => (v - minValue) / (maxValue - minValue))
-
-    // let values = amplitude.map((v, t) => v * Math.sin(t * 2 * Math.PI / options.waveForm.period))
-    // values = values.map(v => Number.parseFloat(v.toFixed(3)))
-    // let chart = JSON.parse(JSON.stringify(options.waveForm.chartTemplate))
-    // chart.series[0].data = values
-    return {
-        amplitude,
-        // chart,
-        rate
-    }
-
-}
-
-const build = (buffer, options) => {
-
-    const newOptions = {
-      imageDir: ".",
-      imageFormat: "png",
-    };
-
-    options = extend({},
-        defaultOptions,
-        newOptions,
-        options,
-    )
-
-    let spectrogram = generate(buffer, options)
-    spectrogram.image = {
-        lowFiltered: generateImage(spectrogram, spectrogram.data.lowFiltered, options),
-        mediumFiltered: generateImage(spectrogram, spectrogram.data.mediumFiltered, options),
-    }    
-    let wave = {
-        lowFiltered: generateWaveForm(spectrogram, spectrogram.data.lowFiltered, options),
-        mediumFiltered: generateWaveForm(spectrogram, spectrogram.data.mediumFiltered, options),
+    } catch(e) {
+        reject(e)
     }    
 
-    return {
-        spectrogram,
-        wave
-    }
+})
 
-}
+const build = (buffer, options) => new Promise( async (resolve, reject) => {
+    try {
+        const newOptions = {
+          imageDir: ".",
+          imageFormat: "png",
+        };
+
+        options = extend({},
+            defaultOptions,
+            newOptions,
+            options,
+        )
+
+        let spectrogram = await generate(buffer, options)
+        spectrogram.image = {
+            lowFiltered: await generateImage(spectrogram, spectrogram.data.lowFiltered, options),
+            mediumFiltered: await generateImage(spectrogram, spectrogram.data.mediumFiltered, options),
+        }    
+        let wave = {
+            lowFiltered: await generateWaveForm(spectrogram, spectrogram.data.lowFiltered, options),
+            mediumFiltered: await generateWaveForm(spectrogram, spectrogram.data.mediumFiltered, options),
+        }    
+
+        resolve({
+            spectrogram,
+            wave
+        })
+  
+    } catch(e) {
+  
+        reject(e)
+  
+    }    
+
+})
 
 
 module.exports = build
