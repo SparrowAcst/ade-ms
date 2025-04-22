@@ -21,7 +21,7 @@ const filterWave = (buffer, rate) => {
 }
 
 const FILTER = {
-    medium: value => Math.sqrt(value)
+    medium: value => Math.sqrt(value),
     low: value => Math.pow(value, 2 / 3) 
 }
 
