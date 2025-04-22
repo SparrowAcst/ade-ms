@@ -274,7 +274,7 @@ const generate = (buffer, options) => {
     }
 }
 
-const generateImages = (spectrogram, rawData, options) => {
+const generateImage = (spectrogram, rawData, options) => {
 
     const width = spectrogram.width
     const height = spectrogram.height
