@@ -109,9 +109,15 @@ const processData = async (err, msg, next) => {
           const existsWavFile = await s3.objectExists(`ADE-RECORDS/${id}.wav`)
 
           if(existsWavFile){
-          
+            heapMemoryGuard.detectHeapOverflow("Start")            
             const stream = await s3.getObjectStream(`ADE-RECORDS/${id}.wav`);
+            heapMemoryGuard.detectHeapOverflow("Allocate memory for stream")
             const buffer = await streamToBuffer(stream);
+            heapMemoryGuard.detectHeapOverflow("Allocate memory for buffer")
+            
+            console.log(heapMemoryGuard.metrics())
+            console.log("buffer size:", (buffer.length/1024/1024).toFixed(2))
+
            
             const visualisation = await build(buffer, {heapMemoryGuard})
             

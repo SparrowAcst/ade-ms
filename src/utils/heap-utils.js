@@ -31,7 +31,12 @@ const heapGuard = ({ heapSizeLimit, heapSizeFactor, interval = 1000, callback = 
 
     return {
         interval: setInterval(detectHeapOverflow, interval),
-        detectHeapOverflow
+        detectHeapOverflow,
+        metrics: () => {
+            let stats = v8.getHeapStatistics();
+            Object.keys(stats).forEach(key => stats[key] = toMB(stats[key]));
+            return stats
+        }
     }
 
 } 
