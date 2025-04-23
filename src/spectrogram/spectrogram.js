@@ -148,18 +148,19 @@ const createMatrix = (width, height) => {
 
 }
 
-const normalizeValues = f32array2d => {
+const normalizeValues = (f32array2d, options) => {
  
     // A short alias for the in/out array
     const A = f32array2d;
 
-    // const result = new Array(A.length)
-    // for (let i = 0; i < result.length; i++) {
-    //     result[i] = new Array(A[0].length) // Uint8Array(A[0].length)
-    // }
-
     const lowFiltered = createMatrix(A[0].length, A.length)
+
+    if(options.heapMemoryGuard) options.heapMemoryGuard.detectHeapOverflow("Allocate memory for lowFiltered data")
+
     const mediumFiltered = createMatrix(A[0].length, A.length)
+    
+    if(options.heapMemoryGuard) options.heapMemoryGuard.detectHeapOverflow("Allocate memory for mediumFiltered data")
+
  
     // Find global maximum
     let max = A[0][0];
@@ -206,6 +207,7 @@ const normalizeValues = f32array2d => {
 
 const generate = (buffer, options) => new Promise((resolve, reject) => {
     try {
+        
         let b = wav.decode(buffer)
         let audioData = Array.prototype.slice.call(b.channelData[0])
         audioData = filterWave(audioData, b.sampleRate)
@@ -217,8 +219,6 @@ const generate = (buffer, options) => new Promise((resolve, reject) => {
             },
             options
         )
-
-        // console.log(options)
 
         let {
             //rate,
@@ -254,6 +254,8 @@ const generate = (buffer, options) => new Promise((resolve, reject) => {
             spectrogram[j] = new Float32Array(width);
         }
 
+        if(options.heapMemoryGuard) options.heapMemoryGuard.detectHeapOverflow("Allocate memory for spectrogram data")
+
         // Fill the spectrogram by sliding FFT window
         const align = -Math.trunc(fftWindowWidth / 2); // Center alignment of the FFT window.
         for (let i = 0; i < width; i++) {
@@ -264,7 +266,7 @@ const generate = (buffer, options) => new Promise((resolve, reject) => {
             }
         }
 
-        spectrogram = normalizeValues(spectrogram);
+        spectrogram = normalizeValues(spectrogram, options);
 
         resolve({
             width: spectrogram.lowFiltered[0].length,
@@ -308,8 +310,7 @@ const generateImage = (spectrogram, rawData, options) => new Promise((resolve, r
             }
         }
 
-        // console.log(width, height)
-
+  
         const rawImageData = {
             data,
             width,
@@ -318,8 +319,6 @@ const generateImage = (spectrogram, rawData, options) => new Promise((resolve, r
 
         const rawImage = Jimp.fromBitmap(rawImageData)
         
-        // rawImage.resize(options.imageSize)
-
         console.log(`Spectrogram size: ${rawImage.bitmap.width}, ${rawImage.bitmap.height}`)
         resolve(rawImage)
     

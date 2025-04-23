@@ -1,7 +1,10 @@
 const Tick = require('exectimer').Tick
 const Timers = require('exectimer').timers
 let tick = new Tick("total")
-const heapMemoryGuard = require("../utils/heap-utils")
+
+const HeapMemoryGuard = require("../utils/heap-utils")
+let heapMemoryGuard
+
 
 restartMetric = () => {
    if(Timers.total){
@@ -109,8 +112,8 @@ const processData = async (err, msg, next) => {
           
             const stream = await s3.getObjectStream(`ADE-RECORDS/${id}.wav`);
             const buffer = await streamToBuffer(stream);
-             
-            const visualisation = await build(buffer, {})
+           
+            const visualisation = await build(buffer, {heapMemoryGuard})
             
             let vizBuffer = await visualisation.spectrogram.image.lowFiltered.getBuffer("image/png")
             
@@ -159,7 +162,7 @@ const run = async () => {
 
     let currentMessage = null
 
-    let guard = heapMemoryGuard({
+    heapMemoryGuard = HeapMemoryGuard({
         heapSizeLimit: 1000,
         interval: 1000,
         callback: () => {
