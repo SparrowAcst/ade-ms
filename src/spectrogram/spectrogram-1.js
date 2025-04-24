@@ -3,7 +3,9 @@ const { extend, mean, min, max } = require("lodash")
 const uuid = require('uuid');
 const fs = require("fs")
 const path = require('path');
-const wav = require("node-wav")
+// const wav = require("node-wav")
+const WaveFile = require('wavefile').WaveFile;
+
 const { ComplexArray, FFT } = require('./fft_js/fft.js');
 const chroma = require("chroma-js")
 const createPalette = require('./color-palette.js')
@@ -138,7 +140,7 @@ const createHanningWindow = size => {
 
 
 const createMatrix = (width, height) => {
-    console.log("createMatrix", width, height)
+    
     const result = new Array(height)
     for (let i = 0; i < height; i++) {
         result[i] = new Array(width) // Uint8Array(A[0].length)
@@ -208,9 +210,13 @@ const normalizeValues = (f32array2d, options) => {
 const generate = (buffer, options) => new Promise((resolve, reject) => {
     try {
         
-        let b = wav.decode(buffer)
-        let audioData = Array.prototype.slice.call(b.channelData[0])
-        audioData = filterWave(audioData, b.sampleRate)
+        let b = new WaveFile(buffer)
+        let audioData = Array.prototype.slice.call(b.data.samples)
+        audioData = filterWave(audioData, b.fmt.sampleRate)
+
+        // let b = wav.decode(buffer)
+        // let audioData = Array.prototype.slice.call(b.channelData[0])
+        // audioData = filterWave(audioData, b.sampleRate)
 
         options = extend({},
             defaultOptions, {
@@ -249,8 +255,6 @@ const generate = (buffer, options) => new Promise((resolve, reject) => {
         const width = Math.trunc((end - start) / jump);
 
         // Create the empty spectrogram - 2-dimensional array of floats
-        console.log("create spectrogram", width, height)
-    
         let spectrogram = new Array(height);
         for (let j = 0; j < height; j++) {
             spectrogram[j] = new Float32Array(width);
@@ -288,8 +292,7 @@ const generateImage = (spectrogram, rawData, options) => new Promise((resolve, r
         const width = spectrogram.width
         const height = spectrogram.height
 
-        console.log("create buffer", width * height* 4)
-            const data = Buffer.alloc(width * height * 4);
+        const data = Buffer.alloc(width * height * 4);
         
         let offs = 0;
         let amplitude = 0;
@@ -410,3 +413,32 @@ const build = (buffer, options) => new Promise( async (resolve, reject) => {
 
 
 module.exports = build
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+// async function streamToBuffer(stream) {
+//   return new Promise((resolve, reject) => {
+//     const chunks = [];
+//     stream.on('data', (chunk) => chunks.push(chunk));
+//     stream.on('error', reject);
+//     stream.on('end', () => resolve(Buffer.concat(chunks)));
+//   });
+// }
+
+// const s3 = require("../utils/s3-bucket")
+
+// const run = async () => {
+
+//     const id = "0007de3a-09c8-4a54-bdb3-e6f7cb1d0bf3"
+//     const stream = await s3.getObjectStream(`ADE-RECORDS/${id}.wav`);
+//     const buffer = await streamToBuffer(stream);
+//     const visualisation = await build(buffer, {})
+//     await visualisation.spectrogram.image.lowFiltered.write(`${id}.low.png`);
+//     await visualisation.spectrogram.image.mediumFiltered.write(`${id}.medium.png`);        
+
+// }
+
+
+// run()

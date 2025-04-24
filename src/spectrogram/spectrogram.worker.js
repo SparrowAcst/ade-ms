@@ -27,7 +27,7 @@ const { AmqpManager, Middlewares } = require('@molfar/amqp-client');
 
 const log = require("../utils//logger")(__filename)
 
-const build = require('./spectrogram')
+const build = require('./spectrogram-1')
 
 const config = require("../../.config/ade-import")
 const configRB = config.rabbitmq.TEST
@@ -116,19 +116,30 @@ const processData = async (err, msg, next) => {
             const buffer = await streamToBuffer(stream);
             heapMemoryGuard.detectHeapOverflow("Allocate memory for buffer")
             
-            console.log(heapMemoryGuard.metrics())
-            console.log("buffer size:", (buffer.length/1024/1024).toFixed(2))
+            // console.log(heapMemoryGuard.metrics())
+            // console.log("buffer size:", (buffer.length/1024/1024).toFixed(2))
 
            
             const visualisation = await build(buffer, {heapMemoryGuard})
             
+            heapMemoryGuard.detectHeapOverflow("After spectrogram generation")
+                        
             let vizBuffer = await visualisation.spectrogram.image.lowFiltered.getBuffer("image/png")
-            
+            heapMemoryGuard.detectHeapOverflow("viz buff alloc")
+           
+            visualisation.spectrogram.image.lowFiltered.bitmap.data = null
+            heapMemoryGuard.detectHeapOverflow("viz buff free")
+           
+
             log(`Upload ${spectrogramDir}/low/spectrogram.png`)
             await s3.uploadFile(`${spectrogramDir}/low/spectrogram.png`, vizBuffer);
             
             vizBuffer = await visualisation.spectrogram.image.mediumFiltered.getBuffer("image/png")
             
+            heapMemoryGuard.detectHeapOverflow("viz buff alloc")
+            visualisation.spectrogram.image.mediumFiltered.bitmap.data = null
+            heapMemoryGuard.detectHeapOverflow("viz buff free")
+           
             log(`Upload ${spectrogramDir}/medium/spectrogram.png`)
             await s3.uploadFile(`${spectrogramDir}/medium/spectrogram.png`, vizBuffer);
             
