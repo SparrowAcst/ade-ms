@@ -100,11 +100,13 @@ const processData = async (err, msg, next) => {
         
         log(id)
         const spectrogramDir = `ADE-SPECTROGRAMS/${id}`
-        const exists = await s3.objectExists(`${spectrogramDir}/low/spectrogram.png`)
-                    && await s3.objectExists(`${spectrogramDir}/medium/spectrogram.png`) 
-                    && await s3.objectExists(`${spectrogramDir}/low/waveform.json`)
-                    && await s3.objectExists(`${spectrogramDir}/medium/waveform.json`)
+        // const exists = await s3.objectExists(`${spectrogramDir}/low/spectrogram.png`)
+        //             && await s3.objectExists(`${spectrogramDir}/medium/spectrogram.png`) 
+        //             && await s3.objectExists(`${spectrogramDir}/low/waveform.json`)
+        //             && await s3.objectExists(`${spectrogramDir}/medium/waveform.json`)
     
+        const exists = true
+
         if (!exists) {
 
           const existsWavFile = await s3.objectExists(`ADE-RECORDS/${id}.wav`)
@@ -181,7 +183,7 @@ const run = async () => {
     let currentMessage = null
 
     heapMemoryGuard = HeapMemoryGuard({
-        heapSizeLimit: 1000,
+        heapSizeLimit: 2048, //MB
         interval: 1000,
         callback: () => {
 
