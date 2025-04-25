@@ -428,42 +428,42 @@ module.exports = build
 ////////////////////////////////////////////////////////////////////////////////
 
 
-async function streamToBuffer(stream) {
-  return new Promise((resolve, reject) => {
-    const chunks = [];
-    stream.on('data', (chunk) => chunks.push(chunk));
-    stream.on('error', reject);
-    stream.on('end', () => resolve(Buffer.concat(chunks)));
-  });
-}
+// async function streamToBuffer(stream) {
+//   return new Promise((resolve, reject) => {
+//     const chunks = [];
+//     stream.on('data', (chunk) => chunks.push(chunk));
+//     stream.on('error', reject);
+//     stream.on('end', () => resolve(Buffer.concat(chunks)));
+//   });
+// }
 
-const s3 = require("../utils/s3-bucket")
+// const s3 = require("../utils/s3-bucket")
 
-const run = async () => {
+// const run = async () => {
 
-    // const id = "5d029068-8112-46b8-815f-b720b5521e19"
-     // const id ="47a5f2da-61d0-48fb-b230-d8bb959d0d20"
-    // const id = "a5934a3c-a193-4a46-be82-3a348fd16aa3"
-   const id ="0007de3a-09c8-4a54-bdb3-e6f7cb1d0bf3"
-    // var wavFileInfo = require('wav-file-info');
+//     // const id = "5d029068-8112-46b8-815f-b720b5521e19"
+//      // const id ="47a5f2da-61d0-48fb-b230-d8bb959d0d20"
+//     // const id = "a5934a3c-a193-4a46-be82-3a348fd16aa3"
+//    const id ="f66bb6f6-e458-4e71-a80b-1de0595c4407"
+//     // var wavFileInfo = require('wav-file-info');
      
-    // await new Promise(resolve => {
-    //     wavFileInfo.infoByFilename(`./${id}.wav`, function(err, info){
-    //   if (err) throw err;
-    //   console.log(info);
-    //     resolve()
+//     // await new Promise(resolve => {
+//     //     wavFileInfo.infoByFilename(`./${id}.wav`, function(err, info){
+//     //   if (err) throw err;
+//     //   console.log(info);
+//     //     resolve()
         
-    // });
-    // })    
+//     // });
+//     // })    
 
 
-    // const stream =  await s3.getObjectStream(`ADE-RECORDS/${id}.wav`);
-    const buffer = require("fs").readFileSync(`./${id}.wav`)  //await streamToBuffer(stream);
-    const visualisation = await build(buffer, {})
-    await visualisation.spectrogram.image.lowFiltered.write(`${id}.low.png`);
-    await visualisation.spectrogram.image.mediumFiltered.write(`${id}.medium.png`);        
+//     // const stream =  await s3.getObjectStream(`ADE-RECORDS/${id}.wav`);
+//     const buffer = require("fs").readFileSync(`./${id}.wav`)  //await streamToBuffer(stream);
+//     const visualisation = await build(buffer, {})
+//     await visualisation.spectrogram.image.lowFiltered.write(`${id}.low.png`);
+//     await visualisation.spectrogram.image.mediumFiltered.write(`${id}.medium.png`);        
 
-}
+// }
 
 
-run()
+// run()
