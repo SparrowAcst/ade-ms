@@ -26,9 +26,6 @@
     "mongodb": "^4.13.0",
     "nanomatch": "^1.2.13",
     "node-cache": "^5.1.2",
-    "node-wav": "^0.0.2",
-    "uuid": "^11.0.5",
-    "wav-file-info": "^0.0.10",
-    "wavefile": "^11.0.0"
+    "uuid": "^11.0.5"
   }
 }

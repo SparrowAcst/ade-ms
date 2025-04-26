@@ -31,9 +31,9 @@ const processChunk = async chunk => {
             await s3.objectExists(`${spectrogramDir}/medium/spectrogram.png`) &&
             await s3.objectExists(`${spectrogramDir}/low/waveform.json`) &&
             await s3.objectExists(`${spectrogramDir}/medium/waveform.json`)
-        
+
         process.stdout.write(`${index} from ${chunk.length}: ${data.id}: ${exists}                                     ${'\x1b[0G'}`)
-            
+
         if (!exists) {
             idList.push(data.id)
         }
@@ -44,17 +44,60 @@ const processChunk = async chunk => {
 
 }
 
+const { parseArgs } = require('node:util');
+
 const processDataset = async () => {
 
-    COLLECTION = process.argv[2] || LABELING_COLLECTION
-    console.log(`collection: ${COLLECTION}`)
+    const args = process.argv;
+    const options = {
+        collection: {
+            type: 'string',
+            short: 'c'
+        },
+        skip: {
+            type: 'string',
+            short: 's'
+        },
+        limit: {
+            type: 'string',
+            short: 'l'
+        },
+        id: {
+            type: 'string'
+        },
+    };
 
-    let $skip = (process.argv[3]) ? Number.parseInt(process.argv[3]) : 0
-    let $limit = (process.argv[4]) ? Number.parseInt(process.argv[4]) : LIMIT
+    const {
+        values,
+        positionals
+    } = parseArgs({ args, options, allowPositionals: true });
+
+    console.table(values)
+   
+    COLLECTION = values?.collection || LABELING_COLLECTION
+    let $skip = Number.parseInt(values?.skip) || 0
+    let $limit = Number.parseInt(values?.limit) || LIMIT
+    const id = values?.id || ""
+
+    if (id) {
+
+        const spectrogramDir = `ADE-SPECTROGRAMS/${id}`
+
+        const res = [
+            { file: `${spectrogramDir}/low/spectrogram.png`, exists: await s3.objectExists(`${spectrogramDir}/low/spectrogram.png`), url: await s3.getPresignedUrl(`${spectrogramDir}/low/spectrogram.png`) },
+            { file: `${spectrogramDir}/medium/spectrogram.png`, exists: await s3.objectExists(`${spectrogramDir}/medium/spectrogram.png`), url: await s3.getPresignedUrl(`${spectrogramDir}/medium/spectrogram.png`) },
+            { file: `${spectrogramDir}/low/waveform.json`, exists: await s3.objectExists(`${spectrogramDir}/low/waveform.json`), url: await s3.getPresignedUrl(`${spectrogramDir}/low/waveform.json`) },
+            { file: `${spectrogramDir}/medium/waveform.json`, exists: await s3.objectExists(`${spectrogramDir}/medium/waveform.json`), url: await s3.getPresignedUrl(`${spectrogramDir}/medium/waveform.json`) }
+        ]
+        console.table(res)
+
+        return
+    }
+
 
     let idList = []
     let chunk = []
-    
+
     do {
         const pipeline = [{
                 $sort: {
