@@ -133,7 +133,21 @@ const processDataset = async () => {
     } while (chunk.length > 0)
 
     console.log(`Spectrogram not exists for ${idList.length} items:`)
-    console.log(JSON.stringify(idList))
+    // console.log(JSON.stringify(idList))
+    
+    await docdb.replaceOne({
+        db: DATABASE,
+        collection: 'spectrogram.checks',
+        filter: { id: uuid()},
+        data:{
+            date: new Date(),
+            collection: COLLECTION,
+            message: `Spectrogram not exists for ${idList.length} items`,
+            idList
+        }
+
+    })
+
 }
 
 processDataset()
