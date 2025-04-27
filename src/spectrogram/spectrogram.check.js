@@ -36,6 +36,7 @@ const processChunk = async chunk => {
 
         if (!exists) {
             idList.push(data.id)
+            console.log()
         }
 
     }
