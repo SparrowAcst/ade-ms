@@ -210,13 +210,8 @@ const normalizeValues = (f32array2d, options) => {
 
 const wav = require("./wav")
 
-const generate = (buffer, options) => new Promise((resolve, reject) => {
+const generate = (buffer, options) => {
     try {
-
-        // let b = new WaveFile(buffer)
-        // console.log(b)
-        // let audioData = Array.prototype.slice.call(b.data.samples)
-        // audioData = filterWave(audioData, b.fmt.sampleRate)
 
         let b = wav.decode(buffer)
         console.table({
@@ -253,12 +248,6 @@ const generate = (buffer, options) => new Promise((resolve, reject) => {
         bottom = 20
         top = 2000
         const rate = 4096
-        // Validate frequency range exactly like frontend
-        // bottom = (bottom < 1) ? 1 : bottom
-        // bottom = (bottom > rate) ? rate : bottom
-        // top = (top < 1) ? 1 : top
-        // top = (top > rate) ? rate : top
-
         const bins = calculateBinInterval(bottom, top, fftExtendedWindowWidth, rate)
         const height = bins.top - bins.bottom + 1;
         const jump = fftWindowJump;
@@ -284,19 +273,19 @@ const generate = (buffer, options) => new Promise((resolve, reject) => {
 
         spectrogram = normalizeValues(spectrogram, options);
 
-        resolve({
+        return {
             width: spectrogram.lowFiltered[0].length,
             height: spectrogram.lowFiltered.length,
             data: spectrogram,
             rate: options.rate
-        })
+        }
 
     } catch (e) {
-        reject(e)
+        throw e
     }
-})
+}
 
-const generateImage = (spectrogram, rawData, options) => new Promise((resolve, reject) => {
+const generateImage = (spectrogram, rawData, options) => {
     try {
 
         const width = spectrogram.width
@@ -336,16 +325,16 @@ const generateImage = (spectrogram, rawData, options) => new Promise((resolve, r
         const rawImage = Jimp.fromBitmap(rawImageData)
 
         console.log(`Spectrogram size: ${rawImage.bitmap.width}, ${rawImage.bitmap.height}`)
-        resolve(rawImage)
+        return rawImage
 
     } catch (e) {
-        reject(e)
+        throw e
     }
 
-})
+}
 
 
-const generateWaveForm = (spectrogram, rawData, options) => new Promise((resolve, reject) => {
+const generateWaveForm = (spectrogram, rawData, options) => {
 
     try {
         const { width, height, rate } = spectrogram
@@ -369,23 +358,19 @@ const generateWaveForm = (spectrogram, rawData, options) => new Promise((resolve
 
         amplitude = amplitude.map(v => (v - minValue) / (maxValue - minValue))
 
-        // let values = amplitude.map((v, t) => v * Math.sin(t * 2 * Math.PI / options.waveForm.period))
-        // values = values.map(v => Number.parseFloat(v.toFixed(3)))
-        // let chart = JSON.parse(JSON.stringify(options.waveForm.chartTemplate))
-        // chart.series[0].data = values
-        resolve({
+        return {
             amplitude,
-            // chart,
             rate
-        })
+        }
 
     } catch (e) {
-        reject(e)
+        throw e
     }
 
-})
+}
 
-const build = (buffer, options) => new Promise(async (resolve, reject) => {
+const processData = (buffer, options) => new Promise( (resolve, reject) => {
+    
     try {
 
         const onProgress = options.onProgress || (progressObject => {})
@@ -404,54 +389,64 @@ const build = (buffer, options) => new Promise(async (resolve, reject) => {
         )
 
         onProgress({
-            requiestId: options.requestId,
+            requestId: options.requestId,
             progress: 0.05,
             message: `Start spectrogram generation.`
         })
 
-        let spectrogram = await generate(buffer, options)
+        let spectrogram = generate(buffer, options)
 
         onProgress({
-            requiestId: options.requestId,
+            requestId: options.requestId,
             progress: 0.50,
             message: `Build spectrogram images.`
         })
 
         spectrogram.image = {
-            lowFiltered: await generateImage(spectrogram, spectrogram.data.lowFiltered, options),
-            mediumFiltered: await generateImage(spectrogram, spectrogram.data.mediumFiltered, options),
+            lowFiltered: generateImage(spectrogram, spectrogram.data.lowFiltered, options),
+            mediumFiltered: generateImage(spectrogram, spectrogram.data.mediumFiltered, options),
         }
 
         onProgress({
-            requiestId: options.requestId,
+            requestId: options.requestId,
             progress: 0.80,
             message: `Build waveforms data.`
         })
 
         let wave = {
-            lowFiltered: await generateWaveForm(spectrogram, spectrogram.data.lowFiltered, options),
-            mediumFiltered: await generateWaveForm(spectrogram, spectrogram.data.mediumFiltered, options),
+            lowFiltered: generateWaveForm(spectrogram, spectrogram.data.lowFiltered, options),
+            mediumFiltered: generateWaveForm(spectrogram, spectrogram.data.mediumFiltered, options),
         }
 
         onProgress({
-            requiestId: options.requestId,
+            requestId: options.requestId,
             progress: 1,
-            message: `Spectrogram data completed.`
+            message: `Spectrogram data completed.`,
+            result: {
+                spectrogram,
+                wave
+            }
         })
 
-        resolve({
-            spectrogram,
-            wave
-        })
+        resolve()
 
     } catch (e) {
-
         reject(e)
-
     }
 
 })
 
+
+const build = (buffer, options) => {
+    options = extend({},
+        options, 
+        {
+            requestId: uuid()
+        }
+    )
+    processData(buffer, options)
+    return options.requestId
+}
 
 module.exports = build
 
@@ -459,35 +454,45 @@ module.exports = build
 ////////////////////////////////////////////////////////////////////////////////
 
 
-// async function streamToBuffer(stream) {
-//     return new Promise((resolve, reject) => {
-//         const chunks = [];
-//         stream.on('data', (chunk) => chunks.push(chunk));
-//         stream.on('error', reject);
-//         stream.on('end', () => resolve(Buffer.concat(chunks)));
-//     });
-// }
+async function streamToBuffer(stream) {
+    return new Promise((resolve, reject) => {
+        const chunks = [];
+        stream.on('data', (chunk) => chunks.push(chunk));
+        stream.on('error', reject);
+        stream.on('end', () => resolve(Buffer.concat(chunks)));
+    });
+}
 
-// const s3 = require("../utils/s3-bucket")
+const s3 = require("../utils/s3-bucket")
 
-// const run = async () => {
+const run = async () => {
 
-//     const id = "000c1058-89b7-43de-8b15-f3687280f366"
-//     const buffer = require("fs").readFileSync(`./${id}.wav`)
+    const id = "000c1058-89b7-43de-8b15-f3687280f366"
+    const buffer = require("fs").readFileSync(`./${id}.wav`)
 
-//     const visualisation = await build(buffer, {
-//         // onProgress: progressObject => {
-//         //     progressObject.progress = 0.5 * progressObject.progress
-//         //     console.table(progressObject)
-//         // }
-//     })
+    let buildProgress = {}
+    
+    const requestId = build(buffer, {
+        onProgress: progressObject => {
+            buildProgress = progressObject
+            buildProgress.progress = 0.5 * buildProgress.progress
+            console.log(buildProgress)
+        }
+    })
 
-//     console.log(0.5, "Save spectrogram images")
-//     await visualisation.spectrogram.image.lowFiltered.write(`${id}.low.png`);
-//     await visualisation.spectrogram.image.mediumFiltered.write(`${id}.medium.png`);
-//     console.log(1, "Done.")
+    const interval = setInterval( async () => {
+        console.table(buildProgress)
+        if(buildProgress.result){
+            clearInterval(interval)
+            console.log(0.5, "Save spectrogram images")
+            const visualisation = buildProgress.result
+            await visualisation.spectrogram.image.lowFiltered.write(`${id}.low.png`);
+            await visualisation.spectrogram.image.mediumFiltered.write(`${id}.medium.png`);
+            console.log(1, "Done.")
+        }
+    }, 1000)
+    
+}
 
-// }
 
-
-// run()
+run()
