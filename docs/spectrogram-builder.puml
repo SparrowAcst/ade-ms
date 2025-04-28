@@ -1,0 +1,38 @@
+@startuml
+== Spectrogram files exists ==
+Client -> spectrogram: get spectrogram image
+spectrogram -> spectrogram: check files
+spectrogram -> spectrogram: get presigned urls
+spectrogram --> Client: {presignedUrls: "..."}
+
+== Spectrogram files not exists ==
+Client -> spectrogram: get spectrogram image
+spectrogram -> spectrogram: check files
+spectrogram -> Builder: build(..., {onProgress: () => {...}})
+activate Builder
+Builder --> spectrogram: requestId
+Builder -> spectrogram: onProgress({ requestId, progress, message })
+spectrogram --> Builder 
+spectrogram --> Client: { requestId, progress, message }
+Client -> spectrogram: get status for requestId
+Builder -> spectrogram: onProgress({ requestId, progress, message })
+spectrogram --> Builder 
+
+spectrogram --> Client: { requestId, progress, message }
+Client -> spectrogram: get status for requestId
+spectrogram --> Client: { requestId, progress, message }
+
+Builder -> spectrogram: onProgress({ requestId, progress, message, result: { segmentation, waveform } })
+spectrogram --> Builder 
+
+destroy Builder
+
+spectrogram -> spectrogram: save files
+spectrogram -> spectrogram: get presigned urls
+
+...
+Client -> spectrogram: get status for requestId
+
+spectrogram --> Client: {presignedUrls: "..."}
+
+@enduml

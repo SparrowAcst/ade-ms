@@ -6,8 +6,8 @@
 
 // const LABELING_COLLECTION = 'sparrow.yoda'
 // const LABELING_COLLECTION = 'sparrow.H2'
-const LABELING_COLLECTION = 'sparrow.H3'
-
+// const LABELING_COLLECTION = 'sparrow.H3'
+const LABELING_COLLECTION = 'sparrow.phonendo'
 const LIMIT = 60
 const REFRESH_INTERVAL = 1 * 30 * 1000 // 1 min
 
