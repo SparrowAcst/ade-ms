@@ -142,14 +142,15 @@ const eventLoop = async () => {
 
     if (tasks.length == 0) {
         log(`No task. Skip task generation.`)
-        return
-    }
+        // return
+    } else {
     
-    const publisher = await getPublisher()
+        const publisher = await getPublisher()
 
-    for (let task of tasks) {
-        await publisher.send(task)
-    }
+        for (let task of tasks) {
+            await publisher.send(task)
+        }
+    }    
 
     await docdb.updateMany({
         db: DATABASE,
