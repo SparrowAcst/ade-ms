@@ -134,9 +134,9 @@ const eventLoop = async () => {
 
     let tasks = []
 
-    for(let id of idList){
-        let result = await exists(id)
-        if(!result) tasks.push(id)
+    for(let task of idList){
+        let result = await exists(task.id)
+        if(!result) tasks.push(task)
     }
 
     if (tasks.length == 0) {
@@ -146,8 +146,8 @@ const eventLoop = async () => {
     
     const publisher = await getPublisher()
 
-    for (let id of tasks) {
-        await publisher.send(id)
+    for (let task of tasks) {
+        await publisher.send(task)
     }
 
     await docdb.updateMany({
