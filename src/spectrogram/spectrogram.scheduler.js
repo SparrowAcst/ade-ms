@@ -127,23 +127,50 @@ const eventLoop = async () => {
         },
     ]
 
-    let idList = await docdb.aggregate({
-        db: DATABASE,
-        collection: LABELING_COLLECTION,
-        pipeline
-    })
-
     let tasks = []
 
-    for(let task of idList){
-        let result = await exists(task.id)
-        if(!result) tasks.push(task)
-    }
+    do {
+    
+        log(`Get ${LIMIT} items`)
 
-    if (tasks.length == 0) {
-        log(`No task. Skip task generation.`)
-        // return
-    } else {
+        let idList = await docdb.aggregate({
+            db: DATABASE,
+            collection: LABELING_COLLECTION,
+            pipeline
+        })
+
+        if (idList.length == 0) {
+            log(`No task. Skip task generation.`)
+            return
+        }
+
+        await docdb.updateMany({
+            db: DATABASE,
+            collection: LABELING_COLLECTION,
+            filter: {
+                id: {
+                    $in: idList.map(d => d.id)
+                }
+            },
+            data: {
+                "spectrogram": true
+            }
+        })
+
+
+        for(let task of idList){
+            let result = await exists(task.id)
+            if(!result) tasks.push(task)
+        }
+
+        log(`Tasks: ${tasks.length} items`)
+
+    } while (tasks.length > 0)
+
+    // if (tasks.length == 0) {
+    //     log(`No task. Skip task generation.`)
+    //     // return
+    // } else {
     
         const publisher = await getPublisher()
 
@@ -152,18 +179,18 @@ const eventLoop = async () => {
         }
     }    
 
-    await docdb.updateMany({
-        db: DATABASE,
-        collection: LABELING_COLLECTION,
-        filter: {
-            id: {
-                $in: idList.map(d => d.id)
-            }
-        },
-        data: {
-            "spectrogram": true
-        }
-    })
+    // await docdb.updateMany({
+    //     db: DATABASE,
+    //     collection: LABELING_COLLECTION,
+    //     filter: {
+    //         id: {
+    //             $in: idList.map(d => d.id)
+    //         }
+    //     },
+    //     data: {
+    //         "spectrogram": true
+    //     }
+    // })
 
     let left = await docdb.aggregate({
         db: DATABASE,
