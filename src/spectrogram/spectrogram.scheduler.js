@@ -164,7 +164,7 @@ const eventLoop = async () => {
 
         log(`Tasks: ${tasks.length} items`)
 
-    } while (tasks.length > 0)
+    } while (tasks.length == 0)
 
     // if (tasks.length == 0) {
     //     log(`No task. Skip task generation.`)
