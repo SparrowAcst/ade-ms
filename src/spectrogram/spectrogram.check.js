@@ -7,7 +7,7 @@ const docdb = require("../utils/docdb")
 
 const config = require("../../.config/ade-import")
 
-const DATABASE = config.SPARROW_DATABASE
+const DATABASE = config.ADE_DATABASE //SPARROW_DATABASE
 
 const s3 = require("../utils/s3-bucket")
 
