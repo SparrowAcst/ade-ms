@@ -12,6 +12,19 @@ const DATABASE = config.ADE_DATABASE
 const configRB = config.rabbitmq.TEST
 const normalize = configRB.normalize
 
+const s3 = require("../utils/s3-bucket")
+
+
+const exists = async id => {
+    const spectrogramDir = `ADE-SPECTROGRAMS/${id}`
+    const result = await s3.objectExists(`${spectrogramDir}/low/spectrogram.png`) &&
+            await s3.objectExists(`${spectrogramDir}/medium/spectrogram.png`) &&
+            await s3.objectExists(`${spectrogramDir}/low/waveform.json`) &&
+            await s3.objectExists(`${spectrogramDir}/medium/waveform.json`)
+    return result        
+}
+
+
 const STAGE_NAME = "SPECTROGRAM SCHEDULER"
 const SERVICE_NAME = `${STAGE_NAME} microservice`
 
@@ -94,7 +107,8 @@ const eventLoop = async () => {
         return
     }
 
-    const pipeline = [{
+    const pipeline = [
+        {
             $match: {
                 "spectrogram": {
                     $ne: true
@@ -112,20 +126,27 @@ const eventLoop = async () => {
         },
     ]
 
-    const idList = await docdb.aggregate({
+    let idList = await docdb.aggregate({
         db: DATABASE,
         collection: LABELING_COLLECTION,
         pipeline
     })
 
-    if (idList.length == 0) {
+    let tasks = []
+
+    for(let id of idList){
+        let result = await exists(id)
+        if(!result) tasks.push(id)
+    }
+
+    if (tasks.length == 0) {
         log(`No task. Skip task generation.`)
         return
     }
     
     const publisher = await getPublisher()
 
-    for (let id of idList) {
+    for (let id of tasks) {
         await publisher.send(id)
     }
 
