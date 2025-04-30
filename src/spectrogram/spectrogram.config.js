@@ -10,7 +10,7 @@
 const LABELING_COLLECTION = 'strazhesko-part-3.labels'
 
 const LIMIT = 100
-const REFRESH_INTERVAL = 1 * 10 * 1000 // 1 min
+const REFRESH_INTERVAL = 1 * 60 * 1000 // 1 min
 
 module.exports = {
     LABELING_COLLECTION,
