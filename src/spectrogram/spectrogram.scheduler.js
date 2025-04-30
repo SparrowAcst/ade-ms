@@ -18,10 +18,10 @@ const s3 = require("../utils/s3-bucket")
 const exists = async id => {
     const spectrogramDir = `ADE-SPECTROGRAMS/${id}`
     const result = await s3.objectExists(`${spectrogramDir}/low/spectrogram.png`) &&
-            await s3.objectExists(`${spectrogramDir}/medium/spectrogram.png`) &&
-            await s3.objectExists(`${spectrogramDir}/low/waveform.json`) &&
-            await s3.objectExists(`${spectrogramDir}/medium/waveform.json`)
-    return result        
+        await s3.objectExists(`${spectrogramDir}/medium/spectrogram.png`) &&
+        await s3.objectExists(`${spectrogramDir}/low/waveform.json`) &&
+        await s3.objectExists(`${spectrogramDir}/medium/waveform.json`)
+    return result
 }
 
 
@@ -108,8 +108,7 @@ const eventLoop = async () => {
         return
     }
 
-    const pipeline = [
-        {
+    const pipeline = [{
             $match: {
                 "spectrogram": {
                     $ne: true
@@ -130,7 +129,7 @@ const eventLoop = async () => {
     let tasks = []
 
     do {
-    
+
         log(`Get ${LIMIT} items`)
 
         let idList = await docdb.aggregate({
@@ -158,9 +157,9 @@ const eventLoop = async () => {
         })
 
 
-        for(let task of idList){
+        for (let task of idList) {
             let result = await exists(task.id)
-            if(!result) tasks.push(task)
+            if (!result) tasks.push(task)
         }
 
         log(`Tasks: ${tasks.length} items`)
@@ -171,13 +170,12 @@ const eventLoop = async () => {
     //     log(`No task. Skip task generation.`)
     //     // return
     // } else {
-    
-        const publisher = await getPublisher()
 
-        for (let task of tasks) {
-            await publisher.send(task)
-        }
-    }    
+    const publisher = await getPublisher()
+
+    for (let task of tasks) {
+        await publisher.send(task)
+    }
 
     // await docdb.updateMany({
     //     db: DATABASE,
