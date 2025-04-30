@@ -28,6 +28,7 @@ const exists = async id => {
 const STAGE_NAME = "SPECTROGRAM SCHEDULER"
 const SERVICE_NAME = `${STAGE_NAME} microservice`
 
+
 const DATA_CONSUMER = normalize({
     queue: {
         name: "spectrogram_task",
