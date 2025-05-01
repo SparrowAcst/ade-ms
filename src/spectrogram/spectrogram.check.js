@@ -48,6 +48,21 @@ const processChunk = async chunk => {
 
 const { parseArgs } = require('node:util');
 
+const normalizeCollectionName = collectionName => {
+    let partitions = collectionName.split(".")
+    if(partitions.length == 2){
+       return {
+            DATABASE: "ADE",
+            COLLECTION: collectionName
+       }
+    } else {
+        return {
+            DATABASE: partitions.splice(0,1)[0],
+            COLLECTION: partitions.join(".")    
+        }
+    }
+}
+
 const processDataset = async () => {
 
     const args = process.argv;
@@ -76,16 +91,13 @@ const processDataset = async () => {
 
     console.table(values)
    
-    COLLECTION = values?.collection || LABELING_COLLECTION
     let $skip = Number.parseInt(values?.skip) || 0
     let $limit = Number.parseInt(values?.limit) || LIMIT
-    const id = values?.id || ""
+    const id = values?.id || "";
 
-    let partitions = COLLECTION.split(".")
-    DATASET_CLUSTER = (partitions.length == 2) ? first(partitions) : "ADE"
-    DATABASE = DATASET_CLUSTER //config.docdb[DATASET_CLUSTER]
-
-    console.log(DATASET_CLUSTER, ": ", DATABASE)
+    ({ DATABASE, COLLECTION } = normalizeCollectionName( values?.collection || LABELING_COLLECTION ))
+    
+    console.log(DATABASE, COLLECTION)
 
     if (id) {
 
