@@ -9,7 +9,17 @@
 
  const config = require("../../.config/ade-import")
 
- const DATABASE = config.SPARROW_DATABASE
+ const {
+     LABELING_COLLECTION,
+     LIMIT,
+     REFRESH_INTERVAL,
+     DATABASE_CLUSTER
+ } = require("./spectrogram.config")
+
+ let TASK_LIST = require("./spectrogram.config").TASK_LIST
+
+
+ const DATABASE = config[DATABASE_CLUSTER]
 
  const configRB = config.rabbitmq.TEST
  const normalize = configRB.normalize
@@ -52,14 +62,7 @@
  // const LIMIT = 10
  // const REFRESH_INTERVAL = 1 * 30 * 1000 // 1 min
 
- const {
-     LABELING_COLLECTION,
-     LIMIT,
-     REFRESH_INTERVAL,
- } = require("./spectrogram.config")
-
- let TASK_LIST = require("./spectrogram.config").TASK_LIST
-
+ 
  let totalRecords = 0
 
  let consumer
@@ -218,17 +221,6 @@
      log("DB:", config.docdb[DATABASE])
      log("LABELING_COLLECTION", LABELING_COLLECTION)
      log(("TASK LIST", (TASK_LIST || []).length))
-
-     let docs = await docdb.aggregate({
-         db: DATABASE,
-         collection: LABELING_COLLECTION,
-         pipeline: [{
-             $count: "count",
-         }, ]
-     })
-
-     totalRecords = (docs.length > 0) ? docs[0].count : 0
-
      log("LIMIT", LIMIT)
      log("REFRESH_INTERVAL:", REFRESH_INTERVAL)
      log(`${SERVICE_NAME} started`)
@@ -236,6 +228,7 @@
 
 
      if (TASK_LIST.length > 0) {
+         
          const notResolvedTasks = []
          for (let id of TASK_LIST) {
              const resolved = await exists(id)
@@ -256,9 +249,21 @@
 
      } else {
 
+         let docs = await docdb.aggregate({
+             db: DATABASE,
+             collection: LABELING_COLLECTION,
+             pipeline: [{
+                 $count: "count",
+             }, ]
+         })
+
+         totalRecords = (docs.length > 0) ? docs[0].count : 0
+
          await eventLoop()
          setInterval(eventLoop, REFRESH_INTERVAL)
 
      }
 
  }
+
+ run()
