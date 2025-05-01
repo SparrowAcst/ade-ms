@@ -236,7 +236,7 @@
              index++
              const resolved = await exists(id)
              process.stdout.write(`${index} from ${TASK_LIST.length}: ${id}: ${resolved}                                     ${'\x1b[0G'}`)
-             if (!exists) {
+             if (!resolved) {
                  console.log()
                  notResolvedTasks.push(id)
              }
