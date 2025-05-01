@@ -7,7 +7,7 @@
 // const LABELING_COLLECTION = 'sparrow.yoda'
 // const LABELING_COLLECTION = 'sparrow.H2'
 // const LABELING_COLLECTION = 'sparrow.H3'
-const LABELING_COLLECTION = 'poltava-part-3.labels'
+const LABELING_COLLECTION = 'sparrow.taged-records'
 const TASK_LIST = require("./spectrogram.tasklist")
 const LIMIT = 100
 const REFRESH_INTERVAL = 1 * 30 * 1000 // 1 min
