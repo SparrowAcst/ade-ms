@@ -230,7 +230,9 @@
      if (TASK_LIST.length > 0) {
          
          const notResolvedTasks = []
+         let index = 0
          for (let id of TASK_LIST) {
+             index++
              const resolved = await exists(id)
              process.stdout.write(`${index} from ${TASK_LIST.length}: ${id}: ${resolved}                                     ${'\x1b[0G'}`)
              if (!exists) {
