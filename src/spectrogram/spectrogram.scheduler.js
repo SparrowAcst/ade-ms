@@ -19,7 +19,7 @@
  let TASK_LIST = require("./spectrogram.config").TASK_LIST
 
 
- const DATABASE = config[DATABASE_CLUSTER]
+ const DATABASE = DATABASE_CLUSTER
 
  const configRB = config.rabbitmq.TEST
  const normalize = configRB.normalize
