@@ -107,7 +107,6 @@
      const publisher = await getPublisher()
 
      for (let id of partition) {
-        log({ id })
          await publisher.send({ id })
      }
 
