@@ -200,7 +200,7 @@
 
  }
 
- const exists = id => {
+ const exists = async id => {
      const spectrogramDir = `ADE-SPECTROGRAMS/${id}`
      const result = await s3.objectExists(`${spectrogramDir}/low/spectrogram.png`) &&
          await s3.objectExists(`${spectrogramDir}/medium/spectrogram.png`) &&
