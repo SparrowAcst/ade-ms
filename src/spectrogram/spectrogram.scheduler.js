@@ -102,13 +102,14 @@
 
      let partition = TASK_LIST.splice(0, LIMIT)
 
+     log(`generate ${partition.length} tasks`)
+     
      const publisher = await getPublisher()
 
      for (let id of partition) {
+        log({ id })
          await publisher.send({ id })
      }
-
-
 
  }
 
@@ -242,7 +243,7 @@
          }
          console.log()
 
-         log(`${notResolvedTasks.lenth} from ${TASK_LIST.length} will be processed/`)
+         log(`${notResolvedTasks.length} from ${TASK_LIST.length} will be processed/`)
 
          TASK_LIST = notResolvedTasks
 
