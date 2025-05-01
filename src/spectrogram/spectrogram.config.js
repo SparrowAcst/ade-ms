@@ -8,12 +8,13 @@
 // const LABELING_COLLECTION = 'sparrow.H2'
 // const LABELING_COLLECTION = 'sparrow.H3'
 const LABELING_COLLECTION = 'strazhesko-part-3.labels'
-
+const TASK_LIST = require("./spectrogram.taskList")
 const LIMIT = 100
 const REFRESH_INTERVAL = 1 * 60 * 1000 // 1 min
 
 module.exports = {
     LABELING_COLLECTION,
     LIMIT,
-    REFRESH_INTERVAL
+    REFRESH_INTERVAL,
+    TASK_LIST
 }
