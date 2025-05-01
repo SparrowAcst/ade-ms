@@ -206,10 +206,10 @@
 
  const exists = async id => {
      const spectrogramDir = `ADE-SPECTROGRAMS/${id}`
-     const result = await s3.objectExists(`${spectrogramDir}/low/spectrogram.png`) &&
-         await s3.objectExists(`${spectrogramDir}/medium/spectrogram.png`) &&
-         await s3.objectExists(`${spectrogramDir}/low/waveform.json`) &&
-         await s3.objectExists(`${spectrogramDir}/medium/waveform.json`)
+     const result = (await s3.objectExists(`${spectrogramDir}/low/spectrogram.png`)) &&
+         (await s3.objectExists(`${spectrogramDir}/medium/spectrogram.png`)) &&
+         (await s3.objectExists(`${spectrogramDir}/low/waveform.json`)) &&
+         (await s3.objectExists(`${spectrogramDir}/medium/waveform.json`))
      return result
  }
 
@@ -237,6 +237,7 @@
              const resolved = await exists(id)
              process.stdout.write(`${index} from ${TASK_LIST.length}: ${id}: ${resolved}                                     ${'\x1b[0G'}`)
              if (!exists) {
+                 console.log()
                  notResolvedTasks.push(id)
              }
 

@@ -28,10 +28,10 @@ const processChunk = async chunk => {
     for (let data of chunk) {
         index++
         const spectrogramDir = `ADE-SPECTROGRAMS/${data.id}`
-        const exists = await s3.objectExists(`${spectrogramDir}/low/spectrogram.png`) &&
-            await s3.objectExists(`${spectrogramDir}/medium/spectrogram.png`) &&
-            await s3.objectExists(`${spectrogramDir}/low/waveform.json`) &&
-            await s3.objectExists(`${spectrogramDir}/medium/waveform.json`)
+        const exists = (await s3.objectExists(`${spectrogramDir}/low/spectrogram.png`)) &&
+            (await s3.objectExists(`${spectrogramDir}/medium/spectrogram.png`)) &&
+            (await s3.objectExists(`${spectrogramDir}/low/waveform.json`)) &&
+            (await s3.objectExists(`${spectrogramDir}/medium/waveform.json`))
 
         process.stdout.write(`${index} from ${chunk.length}: ${data.id}: ${exists}                                     ${'\x1b[0G'}`)
 
