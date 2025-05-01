@@ -1,5 +1,5 @@
 const uuid = require("uuid").v4
-const { extend } = require("lodash")
+const { extend, first } = require("lodash")
 
 const log = require("../utils//logger")(__filename)
 
@@ -7,7 +7,8 @@ const docdb = require("../utils/docdb")
 
 const config = require("../../.config/ade-import")
 
-let DATABASE = config.ADE_DATABASE //SPARROW_DATABASE
+let DATABASE 
+// = config.ADE_DATABASE //SPARROW_DATABASE
 
 const s3 = require("../utils/s3-bucket")
 
@@ -82,7 +83,9 @@ const processDataset = async () => {
 
     let partitions = COLLECTION.split(".")
     DATASET_CLUSTER = (partitions.length == 2) ? first(partitions) : "ADE"
-    DATABASE = config[DATASET_CLUSTER]
+    DATABASE = DATASET_CLUSTER //config.docdb[DATASET_CLUSTER]
+
+    console.log(DATASET_CLUSTER, ": ", DATABASE)
 
     if (id) {
 
