@@ -7,7 +7,7 @@ const docdb = require("../utils/docdb")
 
 const config = require("../../.config/ade-import")
 
-const DATABASE = config.ADE_DATABASE //SPARROW_DATABASE
+let DATABASE = config.ADE_DATABASE //SPARROW_DATABASE
 
 const s3 = require("../utils/s3-bucket")
 
@@ -79,6 +79,10 @@ const processDataset = async () => {
     let $skip = Number.parseInt(values?.skip) || 0
     let $limit = Number.parseInt(values?.limit) || LIMIT
     const id = values?.id || ""
+
+    let partitions = COLLECTION.split(".")
+    DATASET_CLUSTER = (partitions.length == 2) ? first(partitions) : "ADE"
+    DATABASE = config[DATASET_CLUSTER]
 
     if (id) {
 
