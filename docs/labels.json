@@ -1,0 +1,4411 @@
+[{
+  "_id": {
+    "$oid": "6814e2328c6043152167af9a"
+  },
+  "id": "ec901e25-eefd-4721-91ea-da0ca0a7a090",
+  "examinationId": "76f0bf70-f647-4995-ac63-af677aa96356",
+  "Age (Years)": "60",
+  "Sex at Birth": "Female",
+  "Ethnicity": "White",
+  "model": "android",
+  "deviceDescription": {
+    "appVersion": "1.2.0(6)",
+    "osVersion": "13",
+    "model": "SM-S908W",
+    "deviceId": "TP1A.220624.014",
+    "brand": "samsung",
+    "manufacturer": "samsung"
+  },
+  "Body Position": "leftDecubitus",
+  "Body Spot": "Apex",
+  "Type of artifacts , Artifact": [],
+  "Systolic murmurs": [],
+  "Diastolic murmurs": [],
+  "Other murmurs": [],
+  "Pathological findings": [],
+  "Lung Sound Informativeness": "Non assessed",
+  "taskList": []
+},{
+  "_id": {
+    "$oid": "6814e2308c6043152167af86"
+  },
+  "id": "1a905740-28b5-4390-add2-08f564ce97d5",
+  "examinationId": "76f0bf70-f647-4995-ac63-af677aa96356",
+  "Age (Years)": "60",
+  "Sex at Birth": "Female",
+  "Ethnicity": "White",
+  "model": "rnk",
+  "deviceDescription": {
+    "appVersion": "1.2.0(11)",
+    "brand": "iPhone",
+    "deviceId": "6E8F31B3-525F-4BDA-BBCE-E7CE934E94D7",
+    "manufacturer": "Apple",
+    "model": "iPhone 13 Pro",
+    "osVersion": "17.5.1"
+  },
+  "Body Position": "supine",
+  "Body Spot": "Left Carotid",
+  "Type of artifacts , Artifact": [],
+  "Systolic murmurs": [],
+  "Diastolic murmurs": [],
+  "Other murmurs": [],
+  "Pathological findings": [],
+  "Lung Sound Informativeness": "Non assessed",
+  "taskList": [],
+  "aiSegmentation": {
+    "quality": "bad",
+    "api_version": "2024.11.19.anno",
+    "id": "f7e4e254-4a8c-41eb-befa-e152fc5fc0e0"
+  }
+},{
+  "_id": {
+    "$oid": "6814e2308c6043152167af87"
+  },
+  "id": "c25f8c87-eef5-42ae-989d-3100a6e086c8",
+  "examinationId": "76f0bf70-f647-4995-ac63-af677aa96356",
+  "Age (Years)": "60",
+  "Sex at Birth": "Female",
+  "Ethnicity": "White",
+  "model": "android",
+  "deviceDescription": {
+    "appVersion": "1.2.0(6)",
+    "osVersion": "13",
+    "model": "SM-S908W",
+    "deviceId": "TP1A.220624.014",
+    "brand": "samsung",
+    "manufacturer": "samsung"
+  },
+  "Body Position": "supine",
+  "Body Spot": "Left Carotid",
+  "Type of artifacts , Artifact": [],
+  "Systolic murmurs": [],
+  "Diastolic murmurs": [],
+  "Other murmurs": [],
+  "Pathological findings": [],
+  "Lung Sound Informativeness": "Non assessed",
+  "taskList": [],
+  "aiSegmentation": {
+    "quality": "bad",
+    "api_version": "2024.11.19.anno",
+    "id": "4cb80341-b67b-4677-8ae5-e430a4548e0f"
+  }
+},{
+  "_id": {
+    "$oid": "6814e2318c6043152167af89"
+  },
+  "id": "e2d99ec1-c27e-4f70-b73d-eabc04dd00a3",
+  "examinationId": "76f0bf70-f647-4995-ac63-af677aa96356",
+  "Age (Years)": "60",
+  "Sex at Birth": "Female",
+  "Ethnicity": "White",
+  "model": "android",
+  "deviceDescription": {
+    "appVersion": "1.2.0(6)",
+    "osVersion": "13",
+    "model": "SM-S908W",
+    "deviceId": "TP1A.220624.014",
+    "brand": "samsung",
+    "manufacturer": "samsung"
+  },
+  "Body Position": "supine",
+  "Body Spot": "Aortic",
+  "Type of artifacts , Artifact": [],
+  "Systolic murmurs": [],
+  "Diastolic murmurs": [],
+  "Other murmurs": [],
+  "Pathological findings": [],
+  "Lung Sound Informativeness": "Non assessed",
+  "taskList": [],
+  "aiSegmentation": {
+    "quality": "good",
+    "segmentation": {
+      "unsegmentable": [
+        {
+          "start": 0,
+          "end": 1.16
+        },
+        {
+          "start": 6.81,
+          "end": 7.04
+        }
+      ],
+      "s1": [
+        {
+          "start": 1.66,
+          "end": 1.79
+        },
+        {
+          "start": 2.63,
+          "end": 2.81
+        },
+        {
+          "start": 3.53,
+          "end": 3.66
+        },
+        {
+          "start": 4.4,
+          "end": 4.52
+        },
+        {
+          "start": 5.22,
+          "end": 5.34
+        },
+        {
+          "start": 6.09,
+          "end": 6.23
+        },
+        {
+          "start": 7.27,
+          "end": 7.38
+        },
+        {
+          "start": 8.15,
+          "end": 8.3
+        },
+        {
+          "start": 9.07,
+          "end": 9.2
+        },
+        {
+          "start": 9.89,
+          "end": 10.1
+        },
+        {
+          "start": 10.8,
+          "end": 10.93
+        },
+        {
+          "start": 11.64,
+          "end": 11.78
+        },
+        {
+          "start": 12.55,
+          "end": 12.68
+        },
+        {
+          "start": 13.43,
+          "end": 13.57
+        },
+        {
+          "start": 14.25,
+          "end": 14.4
+        },
+        {
+          "start": 15.15,
+          "end": 15.29
+        },
+        {
+          "start": 16.02,
+          "end": 16.16
+        },
+        {
+          "start": 16.98,
+          "end": 17.12
+        },
+        {
+          "start": 17.87,
+          "end": 18.01
+        },
+        {
+          "start": 18.75,
+          "end": 18.87
+        },
+        {
+          "start": 19.73,
+          "end": 19.87
+        }
+      ],
+      "s2": [
+        {
+          "start": 2,
+          "end": 2.14
+        },
+        {
+          "start": 2.99,
+          "end": 3.12
+        },
+        {
+          "start": 3.88,
+          "end": 4
+        },
+        {
+          "start": 4.75,
+          "end": 4.86
+        },
+        {
+          "start": 5.54,
+          "end": 5.66
+        },
+        {
+          "start": 6.72,
+          "end": 6.8
+        },
+        {
+          "start": 7.05,
+          "end": 7.16
+        },
+        {
+          "start": 7.6,
+          "end": 7.73
+        },
+        {
+          "start": 8.54,
+          "end": 8.67
+        },
+        {
+          "start": 9.43,
+          "end": 9.55
+        },
+        {
+          "start": 10.29,
+          "end": 10.43
+        },
+        {
+          "start": 11.1,
+          "end": 11.28
+        },
+        {
+          "start": 12.02,
+          "end": 12.13
+        },
+        {
+          "start": 12.9,
+          "end": 13.01
+        },
+        {
+          "start": 13.78,
+          "end": 13.9
+        },
+        {
+          "start": 14.62,
+          "end": 14.74
+        },
+        {
+          "start": 15.49,
+          "end": 15.61
+        },
+        {
+          "start": 16.32,
+          "end": 16.46
+        },
+        {
+          "start": 17.34,
+          "end": 17.47
+        },
+        {
+          "start": 18.21,
+          "end": 18.33
+        },
+        {
+          "start": 19.07,
+          "end": 19.21
+        }
+      ],
+      "s3": [],
+      "s4": []
+    },
+    "murmur_present": "no",
+    "heart_rate": 67,
+    "afib_present": "no",
+    "api_version": "2024.11.19.anno",
+    "id": "615572ea-6a8e-4b9e-af03-ffc5f153f6d6"
+  }
+},{
+  "_id": {
+    "$oid": "6814e2318c6043152167af8d"
+  },
+  "id": "f0a3e2ac-4a4f-412b-941d-0f9ec2b9f53d",
+  "examinationId": "76f0bf70-f647-4995-ac63-af677aa96356",
+  "Age (Years)": "60",
+  "Sex at Birth": "Female",
+  "Ethnicity": "White",
+  "model": "iOS",
+  "deviceDescription": {
+    "appVersion": "1.2.0(11)",
+    "brand": "iPhone",
+    "deviceId": "6E8F31B3-525F-4BDA-BBCE-E7CE934E94D7",
+    "manufacturer": "Apple",
+    "model": "iPhone 13 Pro",
+    "osVersion": "17.5.1"
+  },
+  "Body Position": "supine",
+  "Body Spot": "Aortic",
+  "Type of artifacts , Artifact": [],
+  "Systolic murmurs": [],
+  "Diastolic murmurs": [],
+  "Other murmurs": [],
+  "Pathological findings": [],
+  "Lung Sound Informativeness": "Non assessed",
+  "taskList": [],
+  "aiSegmentation": {
+    "quality": "good",
+    "segmentation": {
+      "unsegmentable": [
+        {
+          "start": 0,
+          "end": 1.58
+        },
+        {
+          "start": 17.18,
+          "end": 17.96
+        }
+      ],
+      "s1": [
+        {
+          "start": 1.76,
+          "end": 1.87
+        },
+        {
+          "start": 2.71,
+          "end": 2.84
+        },
+        {
+          "start": 3.67,
+          "end": 3.8
+        },
+        {
+          "start": 4.44,
+          "end": 4.56
+        },
+        {
+          "start": 5.44,
+          "end": 5.57
+        },
+        {
+          "start": 6.31,
+          "end": 6.44
+        },
+        {
+          "start": 7.21,
+          "end": 7.34
+        },
+        {
+          "start": 8.11,
+          "end": 8.23
+        },
+        {
+          "start": 9,
+          "end": 9.12
+        },
+        {
+          "start": 9.85,
+          "end": 9.96
+        },
+        {
+          "start": 10.54,
+          "end": 10.67
+        },
+        {
+          "start": 11.63,
+          "end": 11.75
+        },
+        {
+          "start": 12.49,
+          "end": 12.61
+        },
+        {
+          "start": 13.36,
+          "end": 13.49
+        },
+        {
+          "start": 14.19,
+          "end": 14.32
+        },
+        {
+          "start": 14.99,
+          "end": 15.12
+        },
+        {
+          "start": 15.86,
+          "end": 15.98
+        },
+        {
+          "start": 16.7,
+          "end": 16.83
+        },
+        {
+          "start": 18.53,
+          "end": 18.65
+        },
+        {
+          "start": 19.49,
+          "end": 19.64
+        }
+      ],
+      "s2": [
+        {
+          "start": 2.12,
+          "end": 2.22
+        },
+        {
+          "start": 3.03,
+          "end": 3.15
+        },
+        {
+          "start": 3.95,
+          "end": 4.05
+        },
+        {
+          "start": 4.86,
+          "end": 4.96
+        },
+        {
+          "start": 5.76,
+          "end": 5.89
+        },
+        {
+          "start": 6.65,
+          "end": 6.77
+        },
+        {
+          "start": 7.56,
+          "end": 7.67
+        },
+        {
+          "start": 8.44,
+          "end": 8.56
+        },
+        {
+          "start": 9.33,
+          "end": 9.46
+        },
+        {
+          "start": 10.16,
+          "end": 10.3
+        },
+        {
+          "start": 10.85,
+          "end": 10.98
+        },
+        {
+          "start": 11.95,
+          "end": 12.07
+        },
+        {
+          "start": 12.82,
+          "end": 12.94
+        },
+        {
+          "start": 13.69,
+          "end": 13.79
+        },
+        {
+          "start": 14.55,
+          "end": 14.68
+        },
+        {
+          "start": 15.3,
+          "end": 15.45
+        },
+        {
+          "start": 16.17,
+          "end": 16.31
+        },
+        {
+          "start": 17.05,
+          "end": 17.17
+        },
+        {
+          "start": 17.97,
+          "end": 18.24
+        },
+        {
+          "start": 18.87,
+          "end": 18.98
+        },
+        {
+          "start": 19.8,
+          "end": 19.9
+        }
+      ],
+      "s3": [],
+      "s4": []
+    },
+    "murmur_present": "no",
+    "heart_rate": 68,
+    "afib_present": "no",
+    "api_version": "2024.11.19.anno",
+    "id": "e54f06b8-6be3-4922-8d51-d0f40ed9b564"
+  }
+},{
+  "_id": {
+    "$oid": "6814e2318c6043152167af90"
+  },
+  "id": "362c64e7-fcdf-4aa2-bcc6-f948e7b394a0",
+  "examinationId": "76f0bf70-f647-4995-ac63-af677aa96356",
+  "Age (Years)": "60",
+  "Sex at Birth": "Female",
+  "Ethnicity": "White",
+  "model": "rnk",
+  "deviceDescription": {
+    "appVersion": "1.2.0(11)",
+    "brand": "iPhone",
+    "deviceId": "6E8F31B3-525F-4BDA-BBCE-E7CE934E94D7",
+    "manufacturer": "Apple",
+    "model": "iPhone 13 Pro",
+    "osVersion": "17.5.1"
+  },
+  "Body Position": "supine",
+  "Body Spot": "Right Carotid",
+  "Type of artifacts , Artifact": [],
+  "Systolic murmurs": [],
+  "Diastolic murmurs": [],
+  "Other murmurs": [],
+  "Pathological findings": [],
+  "Lung Sound Informativeness": "Non assessed",
+  "taskList": [],
+  "aiSegmentation": {
+    "quality": "bad",
+    "api_version": "2024.11.19.anno",
+    "id": "cf711610-1aed-4af1-afd8-d4f6299db47b"
+  }
+},{
+  "_id": {
+    "$oid": "6814e2318c6043152167af94"
+  },
+  "id": "107e66b0-e8a9-4c68-856e-3daa995eca71",
+  "examinationId": "76f0bf70-f647-4995-ac63-af677aa96356",
+  "Age (Years)": "60",
+  "Sex at Birth": "Female",
+  "Ethnicity": "White",
+  "model": "rnk",
+  "deviceDescription": {
+    "appVersion": "1.2.0(11)",
+    "brand": "iPhone",
+    "deviceId": "6E8F31B3-525F-4BDA-BBCE-E7CE934E94D7",
+    "manufacturer": "Apple",
+    "model": "iPhone 13 Pro",
+    "osVersion": "17.5.1"
+  },
+  "Body Position": "sitting",
+  "Body Spot": "Erb's Right",
+  "Type of artifacts , Artifact": [],
+  "Systolic murmurs": [],
+  "Diastolic murmurs": [],
+  "Other murmurs": [],
+  "Pathological findings": [],
+  "Lung Sound Informativeness": "Non assessed",
+  "taskList": [],
+  "aiSegmentation": {
+    "quality": "bad",
+    "api_version": "2024.11.19.anno",
+    "id": "1f6eb680-38cc-4fc9-adc0-5891a111cda1"
+  }
+},{
+  "_id": {
+    "$oid": "6814e2318c6043152167af95"
+  },
+  "id": "501ec8ae-3e12-40a6-8bdf-295a33bf6556",
+  "examinationId": "76f0bf70-f647-4995-ac63-af677aa96356",
+  "Age (Years)": "60",
+  "Sex at Birth": "Female",
+  "Ethnicity": "White",
+  "model": "rnk",
+  "deviceDescription": {
+    "appVersion": "1.2.0(11)",
+    "brand": "iPhone",
+    "deviceId": "6E8F31B3-525F-4BDA-BBCE-E7CE934E94D7",
+    "manufacturer": "Apple",
+    "model": "iPhone 13 Pro",
+    "osVersion": "17.5.1"
+  },
+  "Body Position": "supine",
+  "Body Spot": "Pulmonic",
+  "Type of artifacts , Artifact": [],
+  "Systolic murmurs": [],
+  "Diastolic murmurs": [],
+  "Other murmurs": [],
+  "Pathological findings": [],
+  "Lung Sound Informativeness": "Non assessed",
+  "taskList": [],
+  "aiSegmentation": {
+    "quality": "good",
+    "segmentation": {
+      "unsegmentable": [
+        {
+          "start": 0,
+          "end": 1.13
+        }
+      ],
+      "s1": [
+        {
+          "start": 1.31,
+          "end": 1.44
+        },
+        {
+          "start": 2.23,
+          "end": 2.36
+        },
+        {
+          "start": 3.14,
+          "end": 3.3
+        },
+        {
+          "start": 4.07,
+          "end": 4.2
+        },
+        {
+          "start": 5,
+          "end": 5.14
+        },
+        {
+          "start": 5.93,
+          "end": 6.05
+        },
+        {
+          "start": 6.81,
+          "end": 6.95
+        },
+        {
+          "start": 7.69,
+          "end": 7.82
+        },
+        {
+          "start": 8.61,
+          "end": 8.76
+        },
+        {
+          "start": 9.48,
+          "end": 9.6
+        },
+        {
+          "start": 10.35,
+          "end": 10.48
+        },
+        {
+          "start": 11.17,
+          "end": 11.32
+        },
+        {
+          "start": 12.04,
+          "end": 12.19
+        },
+        {
+          "start": 12.94,
+          "end": 13.07
+        },
+        {
+          "start": 13.85,
+          "end": 13.97
+        },
+        {
+          "start": 14.69,
+          "end": 14.83
+        },
+        {
+          "start": 15.58,
+          "end": 15.72
+        },
+        {
+          "start": 16.48,
+          "end": 16.6
+        },
+        {
+          "start": 17.34,
+          "end": 17.5
+        },
+        {
+          "start": 18.28,
+          "end": 18.4
+        },
+        {
+          "start": 19.18,
+          "end": 19.31
+        }
+      ],
+      "s2": [
+        {
+          "start": 1.65,
+          "end": 1.77
+        },
+        {
+          "start": 2.59,
+          "end": 2.7
+        },
+        {
+          "start": 3.5,
+          "end": 3.62
+        },
+        {
+          "start": 4.43,
+          "end": 4.54
+        },
+        {
+          "start": 5.35,
+          "end": 5.47
+        },
+        {
+          "start": 6.25,
+          "end": 6.38
+        },
+        {
+          "start": 7.18,
+          "end": 7.29
+        },
+        {
+          "start": 8.03,
+          "end": 8.15
+        },
+        {
+          "start": 8.96,
+          "end": 9.09
+        },
+        {
+          "start": 9.83,
+          "end": 9.94
+        },
+        {
+          "start": 10.72,
+          "end": 10.84
+        },
+        {
+          "start": 11.53,
+          "end": 11.68
+        },
+        {
+          "start": 12.32,
+          "end": 12.51
+        },
+        {
+          "start": 13.29,
+          "end": 13.42
+        },
+        {
+          "start": 14.2,
+          "end": 14.31
+        },
+        {
+          "start": 15.06,
+          "end": 15.17
+        },
+        {
+          "start": 15.95,
+          "end": 16.05
+        },
+        {
+          "start": 16.84,
+          "end": 16.95
+        },
+        {
+          "start": 17.65,
+          "end": 17.82
+        },
+        {
+          "start": 18.64,
+          "end": 18.74
+        },
+        {
+          "start": 19.53,
+          "end": 19.65
+        }
+      ],
+      "s3": [],
+      "s4": []
+    },
+    "murmur_present": "no",
+    "heart_rate": 67,
+    "afib_present": "no",
+    "api_version": "2024.11.19.anno",
+    "id": "18f57fe1-72c9-4596-a83a-9c03cec7226b"
+  }
+},{
+  "_id": {
+    "$oid": "6814e2308c6043152167af83"
+  },
+  "id": "505c909e-6ec2-417a-b193-5018e54c920b",
+  "examinationId": "76f0bf70-f647-4995-ac63-af677aa96356",
+  "Age (Years)": "60",
+  "Sex at Birth": "Female",
+  "Ethnicity": "White",
+  "model": "rnk",
+  "deviceDescription": {
+    "appVersion": "1.2.0(11)",
+    "brand": "iPhone",
+    "deviceId": "6E8F31B3-525F-4BDA-BBCE-E7CE934E94D7",
+    "manufacturer": "Apple",
+    "model": "iPhone 13 Pro",
+    "osVersion": "17.5.1"
+  },
+  "Body Position": "sitting",
+  "Body Spot": "Erb's",
+  "Type of artifacts , Artifact": [],
+  "Systolic murmurs": [],
+  "Diastolic murmurs": [],
+  "Other murmurs": [],
+  "Pathological findings": [],
+  "Lung Sound Informativeness": "Non assessed",
+  "taskList": [],
+  "aiSegmentation": {
+    "quality": "good",
+    "segmentation": {
+      "s2": [
+        {
+          "start": 0.21,
+          "end": 0.31
+        },
+        {
+          "start": 1.1,
+          "end": 1.2
+        },
+        {
+          "start": 1.95,
+          "end": 2.09
+        },
+        {
+          "start": 2.87,
+          "end": 2.98
+        },
+        {
+          "start": 3.68,
+          "end": 3.86
+        },
+        {
+          "start": 4.63,
+          "end": 4.76
+        },
+        {
+          "start": 5.51,
+          "end": 5.63
+        },
+        {
+          "start": 6.38,
+          "end": 6.51
+        },
+        {
+          "start": 7.2,
+          "end": 7.35
+        },
+        {
+          "start": 8.09,
+          "end": 8.25
+        },
+        {
+          "start": 8.96,
+          "end": 9.1
+        },
+        {
+          "start": 9.87,
+          "end": 9.98
+        },
+        {
+          "start": 10.75,
+          "end": 10.86
+        },
+        {
+          "start": 11.57,
+          "end": 11.72
+        },
+        {
+          "start": 12.51,
+          "end": 12.63
+        },
+        {
+          "start": 13.41,
+          "end": 13.51
+        },
+        {
+          "start": 14.31,
+          "end": 14.43
+        },
+        {
+          "start": 15.21,
+          "end": 15.33
+        },
+        {
+          "start": 16.06,
+          "end": 16.18
+        },
+        {
+          "start": 16.98,
+          "end": 17.11
+        },
+        {
+          "start": 18.03,
+          "end": 18.16
+        },
+        {
+          "start": 18.76,
+          "end": 18.89
+        },
+        {
+          "start": 19.57,
+          "end": 19.69
+        }
+      ],
+      "s1": [
+        {
+          "start": 0.74,
+          "end": 0.87
+        },
+        {
+          "start": 1.64,
+          "end": 1.75
+        },
+        {
+          "start": 2.51,
+          "end": 2.63
+        },
+        {
+          "start": 3.37,
+          "end": 3.49
+        },
+        {
+          "start": 4.29,
+          "end": 4.42
+        },
+        {
+          "start": 5.15,
+          "end": 5.27
+        },
+        {
+          "start": 6.05,
+          "end": 6.18
+        },
+        {
+          "start": 6.87,
+          "end": 7
+        },
+        {
+          "start": 7.73,
+          "end": 7.9
+        },
+        {
+          "start": 8.63,
+          "end": 8.76
+        },
+        {
+          "start": 9.5,
+          "end": 9.67
+        },
+        {
+          "start": 10.39,
+          "end": 10.52
+        },
+        {
+          "start": 11.28,
+          "end": 11.41
+        },
+        {
+          "start": 12.13,
+          "end": 12.26
+        },
+        {
+          "start": 13.05,
+          "end": 13.18
+        },
+        {
+          "start": 13.95,
+          "end": 14.07
+        },
+        {
+          "start": 14.85,
+          "end": 14.98
+        },
+        {
+          "start": 15.71,
+          "end": 15.85
+        },
+        {
+          "start": 16.61,
+          "end": 16.74
+        },
+        {
+          "start": 18.42,
+          "end": 18.56
+        },
+        {
+          "start": 19.22,
+          "end": 19.36
+        }
+      ],
+      "unsegmentable": [
+        {
+          "start": 17.12,
+          "end": 18.02
+        }
+      ],
+      "s3": [],
+      "s4": []
+    },
+    "murmur_present": "no",
+    "heart_rate": 67,
+    "afib_present": "no",
+    "api_version": "2024.11.19.anno",
+    "id": "75591df4-f291-4b67-bde6-32cb55852464"
+  }
+},{
+  "_id": {
+    "$oid": "6814e2308c6043152167af84"
+  },
+  "id": "ffe14ec1-1c72-41cf-9d4c-09e2301aa1da",
+  "examinationId": "76f0bf70-f647-4995-ac63-af677aa96356",
+  "Age (Years)": "60",
+  "Sex at Birth": "Female",
+  "Ethnicity": "White",
+  "model": "iOS",
+  "deviceDescription": {
+    "appVersion": "1.2.0(11)",
+    "brand": "iPhone",
+    "deviceId": "6E8F31B3-525F-4BDA-BBCE-E7CE934E94D7",
+    "manufacturer": "Apple",
+    "model": "iPhone 13 Pro",
+    "osVersion": "17.5.1"
+  },
+  "Body Position": "sitting",
+  "Body Spot": "Erb's",
+  "Type of artifacts , Artifact": [],
+  "Systolic murmurs": [],
+  "Diastolic murmurs": [],
+  "Other murmurs": [],
+  "Pathological findings": [],
+  "Lung Sound Informativeness": "Non assessed",
+  "taskList": [],
+  "aiSegmentation": {
+    "quality": "good",
+    "segmentation": {
+      "s1": [
+        {
+          "start": 0.68,
+          "end": 0.79
+        },
+        {
+          "start": 1.59,
+          "end": 1.76
+        },
+        {
+          "start": 2.48,
+          "end": 2.61
+        },
+        {
+          "start": 3.35,
+          "end": 3.5
+        },
+        {
+          "start": 4.31,
+          "end": 4.44
+        },
+        {
+          "start": 5.26,
+          "end": 5.39
+        },
+        {
+          "start": 5.83,
+          "end": 5.93
+        },
+        {
+          "start": 7.06,
+          "end": 7.19
+        },
+        {
+          "start": 7.98,
+          "end": 8.1
+        },
+        {
+          "start": 8.88,
+          "end": 9.01
+        },
+        {
+          "start": 9.78,
+          "end": 9.92
+        },
+        {
+          "start": 10.67,
+          "end": 10.8
+        },
+        {
+          "start": 11.51,
+          "end": 11.65
+        },
+        {
+          "start": 12.41,
+          "end": 12.59
+        },
+        {
+          "start": 15.72,
+          "end": 15.9
+        },
+        {
+          "start": 16.55,
+          "end": 16.67
+        },
+        {
+          "start": 17.44,
+          "end": 17.57
+        },
+        {
+          "start": 18.35,
+          "end": 18.47
+        },
+        {
+          "start": 19.26,
+          "end": 19.38
+        }
+      ],
+      "s2": [
+        {
+          "start": 0.99,
+          "end": 1.08
+        },
+        {
+          "start": 1.93,
+          "end": 2.06
+        },
+        {
+          "start": 2.8,
+          "end": 2.93
+        },
+        {
+          "start": 3.67,
+          "end": 3.81
+        },
+        {
+          "start": 4.65,
+          "end": 4.78
+        },
+        {
+          "start": 5.58,
+          "end": 5.7
+        },
+        {
+          "start": 6.17,
+          "end": 6.31
+        },
+        {
+          "start": 6.55,
+          "end": 6.65
+        },
+        {
+          "start": 7.42,
+          "end": 7.53
+        },
+        {
+          "start": 8.33,
+          "end": 8.45
+        },
+        {
+          "start": 9.19,
+          "end": 9.31
+        },
+        {
+          "start": 10.11,
+          "end": 10.27
+        },
+        {
+          "start": 11.01,
+          "end": 11.13
+        },
+        {
+          "start": 11.86,
+          "end": 11.99
+        },
+        {
+          "start": 16.06,
+          "end": 16.17
+        },
+        {
+          "start": 16.9,
+          "end": 17.01
+        },
+        {
+          "start": 17.78,
+          "end": 17.9
+        },
+        {
+          "start": 18.69,
+          "end": 18.81
+        },
+        {
+          "start": 19.58,
+          "end": 19.71
+        }
+      ],
+      "unsegmentable": [
+        {
+          "start": 6.32,
+          "end": 6.54
+        },
+        {
+          "start": 12.91,
+          "end": 15.02
+        }
+      ],
+      "s3": [],
+      "s4": []
+    },
+    "murmur_present": "no",
+    "heart_rate": 68,
+    "afib_present": "no",
+    "api_version": "2024.11.19.anno",
+    "id": "cf6c92e3-aea6-4a19-a05d-7d59668f3d04"
+  }
+},{
+  "_id": {
+    "$oid": "6814e2308c6043152167af85"
+  },
+  "id": "30f93143-1b7b-4b3a-882a-bfc6816f4a50",
+  "examinationId": "76f0bf70-f647-4995-ac63-af677aa96356",
+  "Age (Years)": "60",
+  "Sex at Birth": "Female",
+  "Ethnicity": "White",
+  "model": "rnk",
+  "deviceDescription": {
+    "appVersion": "1.2.0(11)",
+    "brand": "iPhone",
+    "deviceId": "6E8F31B3-525F-4BDA-BBCE-E7CE934E94D7",
+    "manufacturer": "Apple",
+    "model": "iPhone 13 Pro",
+    "osVersion": "17.5.1"
+  },
+  "Body Position": "supine",
+  "Body Spot": "Aortic",
+  "Type of artifacts , Artifact": [],
+  "Systolic murmurs": [],
+  "Diastolic murmurs": [],
+  "Other murmurs": [],
+  "Pathological findings": [],
+  "Lung Sound Informativeness": "Non assessed",
+  "taskList": [],
+  "aiSegmentation": {
+    "quality": "good",
+    "segmentation": {
+      "s2": [
+        {
+          "start": 0.04,
+          "end": 0.17
+        },
+        {
+          "start": 0.98,
+          "end": 1.08
+        },
+        {
+          "start": 1.81,
+          "end": 1.93
+        },
+        {
+          "start": 2.79,
+          "end": 2.9
+        },
+        {
+          "start": 3.69,
+          "end": 3.8
+        },
+        {
+          "start": 4.91,
+          "end": 5
+        },
+        {
+          "start": 5.53,
+          "end": 5.63
+        },
+        {
+          "start": 6.43,
+          "end": 6.54
+        },
+        {
+          "start": 7.35,
+          "end": 7.46
+        },
+        {
+          "start": 8.79,
+          "end": 8.89
+        },
+        {
+          "start": 9.22,
+          "end": 9.31
+        },
+        {
+          "start": 10.1,
+          "end": 10.22
+        },
+        {
+          "start": 11.02,
+          "end": 11.13
+        },
+        {
+          "start": 11.93,
+          "end": 12.05
+        },
+        {
+          "start": 12.82,
+          "end": 12.99
+        },
+        {
+          "start": 13.73,
+          "end": 13.86
+        },
+        {
+          "start": 14.58,
+          "end": 14.69
+        },
+        {
+          "start": 15.46,
+          "end": 15.58
+        },
+        {
+          "start": 16.35,
+          "end": 16.47
+        },
+        {
+          "start": 17.28,
+          "end": 17.39
+        },
+        {
+          "start": 18.14,
+          "end": 18.26
+        },
+        {
+          "start": 19.01,
+          "end": 19.13
+        }
+      ],
+      "s1": [
+        {
+          "start": 0.61,
+          "end": 0.75
+        },
+        {
+          "start": 1.47,
+          "end": 1.62
+        },
+        {
+          "start": 2.5,
+          "end": 2.61
+        },
+        {
+          "start": 3.34,
+          "end": 3.47
+        },
+        {
+          "start": 4.62,
+          "end": 4.73
+        },
+        {
+          "start": 5.17,
+          "end": 5.3
+        },
+        {
+          "start": 6.08,
+          "end": 6.21
+        },
+        {
+          "start": 6.98,
+          "end": 7.12
+        },
+        {
+          "start": 9.74,
+          "end": 9.87
+        },
+        {
+          "start": 10.65,
+          "end": 10.79
+        },
+        {
+          "start": 11.56,
+          "end": 11.7
+        },
+        {
+          "start": 12.47,
+          "end": 12.63
+        },
+        {
+          "start": 13.37,
+          "end": 13.51
+        },
+        {
+          "start": 14.2,
+          "end": 14.34
+        },
+        {
+          "start": 15.1,
+          "end": 15.23
+        },
+        {
+          "start": 16.01,
+          "end": 16.16
+        },
+        {
+          "start": 16.93,
+          "end": 17.06
+        },
+        {
+          "start": 17.8,
+          "end": 17.93
+        },
+        {
+          "start": 18.67,
+          "end": 18.8
+        },
+        {
+          "start": 19.54,
+          "end": 19.69
+        }
+      ],
+      "unsegmentable": [
+        {
+          "start": 7.47,
+          "end": 8.78
+        },
+        {
+          "start": 8.9,
+          "end": 9.21
+        }
+      ],
+      "s3": [],
+      "s4": []
+    },
+    "murmur_present": "no",
+    "heart_rate": 66,
+    "afib_present": "no",
+    "api_version": "2024.11.19.anno",
+    "id": "9bcd3b22-3cf6-4c14-a6e7-777697576559"
+  }
+},{
+  "_id": {
+    "$oid": "6814e2318c6043152167af88"
+  },
+  "id": "7b34b475-944d-42a5-823b-be86b2a1c0e8",
+  "examinationId": "76f0bf70-f647-4995-ac63-af677aa96356",
+  "Age (Years)": "60",
+  "Sex at Birth": "Female",
+  "Ethnicity": "White",
+  "model": "iOS",
+  "deviceDescription": {
+    "appVersion": "1.2.0(11)",
+    "brand": "iPhone",
+    "deviceId": "6E8F31B3-525F-4BDA-BBCE-E7CE934E94D7",
+    "manufacturer": "Apple",
+    "model": "iPhone 13 Pro",
+    "osVersion": "17.5.1"
+  },
+  "Body Position": "supine",
+  "Body Spot": "Left Carotid",
+  "Type of artifacts , Artifact": [],
+  "Systolic murmurs": [],
+  "Diastolic murmurs": [],
+  "Other murmurs": [],
+  "Pathological findings": [],
+  "Lung Sound Informativeness": "Non assessed",
+  "taskList": [],
+  "aiSegmentation": {
+    "quality": "good",
+    "segmentation": {
+      "s1": [
+        {
+          "start": 0.21,
+          "end": 0.35
+        },
+        {
+          "start": 0.92,
+          "end": 1.07
+        },
+        {
+          "start": 1.64,
+          "end": 1.77
+        },
+        {
+          "start": 2.36,
+          "end": 2.49
+        },
+        {
+          "start": 3.06,
+          "end": 3.18
+        },
+        {
+          "start": 3.81,
+          "end": 3.94
+        },
+        {
+          "start": 4.54,
+          "end": 4.68
+        },
+        {
+          "start": 5.26,
+          "end": 5.39
+        },
+        {
+          "start": 6,
+          "end": 6.15
+        },
+        {
+          "start": 6.76,
+          "end": 6.89
+        },
+        {
+          "start": 7.52,
+          "end": 7.65
+        },
+        {
+          "start": 8.24,
+          "end": 8.37
+        },
+        {
+          "start": 8.97,
+          "end": 9.1
+        },
+        {
+          "start": 9.69,
+          "end": 9.83
+        },
+        {
+          "start": 10.47,
+          "end": 10.59
+        },
+        {
+          "start": 11.2,
+          "end": 11.33
+        },
+        {
+          "start": 11.89,
+          "end": 12.02
+        },
+        {
+          "start": 12.6,
+          "end": 12.74
+        },
+        {
+          "start": 13.35,
+          "end": 13.48
+        },
+        {
+          "start": 14.05,
+          "end": 14.19
+        },
+        {
+          "start": 14.78,
+          "end": 14.91
+        },
+        {
+          "start": 15.53,
+          "end": 15.66
+        },
+        {
+          "start": 16.28,
+          "end": 16.41
+        },
+        {
+          "start": 16.99,
+          "end": 17.12
+        },
+        {
+          "start": 17.72,
+          "end": 17.85
+        },
+        {
+          "start": 18.45,
+          "end": 18.58
+        },
+        {
+          "start": 19.21,
+          "end": 19.35
+        }
+      ],
+      "s2": [
+        {
+          "start": 0.52,
+          "end": 0.63
+        },
+        {
+          "start": 1.24,
+          "end": 1.36
+        },
+        {
+          "start": 1.95,
+          "end": 2.06
+        },
+        {
+          "start": 2.64,
+          "end": 2.77
+        },
+        {
+          "start": 3.37,
+          "end": 3.5
+        },
+        {
+          "start": 4.11,
+          "end": 4.22
+        },
+        {
+          "start": 4.85,
+          "end": 4.97
+        },
+        {
+          "start": 5.56,
+          "end": 5.69
+        },
+        {
+          "start": 6.32,
+          "end": 6.44
+        },
+        {
+          "start": 7.07,
+          "end": 7.2
+        },
+        {
+          "start": 7.84,
+          "end": 7.96
+        },
+        {
+          "start": 8.55,
+          "end": 8.66
+        },
+        {
+          "start": 9.28,
+          "end": 9.39
+        },
+        {
+          "start": 10,
+          "end": 10.12
+        },
+        {
+          "start": 10.77,
+          "end": 10.9
+        },
+        {
+          "start": 11.51,
+          "end": 11.62
+        },
+        {
+          "start": 12.19,
+          "end": 12.32
+        },
+        {
+          "start": 12.92,
+          "end": 13.04
+        },
+        {
+          "start": 13.66,
+          "end": 13.77
+        },
+        {
+          "start": 14.35,
+          "end": 14.48
+        },
+        {
+          "start": 15.08,
+          "end": 15.21
+        },
+        {
+          "start": 15.83,
+          "end": 15.96
+        },
+        {
+          "start": 16.59,
+          "end": 16.7
+        },
+        {
+          "start": 17.3,
+          "end": 17.42
+        },
+        {
+          "start": 18.03,
+          "end": 18.14
+        },
+        {
+          "start": 18.76,
+          "end": 18.88
+        },
+        {
+          "start": 19.52,
+          "end": 19.65
+        }
+      ],
+      "s3": [],
+      "s4": []
+    },
+    "murmur_present": "no",
+    "heart_rate": 82,
+    "afib_present": "no",
+    "api_version": "2024.11.19.anno",
+    "id": "fde9b28d-0e56-426a-b4d9-9e169b50bcb3"
+  }
+},{
+  "_id": {
+    "$oid": "6814e2318c6043152167af8a"
+  },
+  "id": "68ef47d4-7760-45e4-9d83-f537737a6ddb",
+  "examinationId": "76f0bf70-f647-4995-ac63-af677aa96356",
+  "Age (Years)": "60",
+  "Sex at Birth": "Female",
+  "Ethnicity": "White",
+  "model": "iOS",
+  "deviceDescription": {
+    "appVersion": "1.2.0(11)",
+    "brand": "iPhone",
+    "deviceId": "6E8F31B3-525F-4BDA-BBCE-E7CE934E94D7",
+    "manufacturer": "Apple",
+    "model": "iPhone 13 Pro",
+    "osVersion": "17.5.1"
+  },
+  "Body Position": "sitting",
+  "Body Spot": "Erb's Right",
+  "Type of artifacts , Artifact": [],
+  "Systolic murmurs": [],
+  "Diastolic murmurs": [],
+  "Other murmurs": [],
+  "Pathological findings": [],
+  "Lung Sound Informativeness": "Non assessed",
+  "taskList": [],
+  "aiSegmentation": {
+    "quality": "good",
+    "segmentation": {
+      "s1": [
+        {
+          "start": 0.3,
+          "end": 0.43
+        },
+        {
+          "start": 1.26,
+          "end": 1.39
+        },
+        {
+          "start": 2.19,
+          "end": 2.32
+        },
+        {
+          "start": 3.12,
+          "end": 3.24
+        },
+        {
+          "start": 4.06,
+          "end": 4.21
+        },
+        {
+          "start": 5.01,
+          "end": 5.15
+        },
+        {
+          "start": 5.95,
+          "end": 6.1
+        },
+        {
+          "start": 6.86,
+          "end": 6.99
+        },
+        {
+          "start": 7.79,
+          "end": 7.94
+        },
+        {
+          "start": 8.68,
+          "end": 8.82
+        },
+        {
+          "start": 9.59,
+          "end": 9.73
+        },
+        {
+          "start": 10.47,
+          "end": 10.63
+        },
+        {
+          "start": 11.4,
+          "end": 11.53
+        },
+        {
+          "start": 12.33,
+          "end": 12.49
+        },
+        {
+          "start": 13.19,
+          "end": 13.32
+        },
+        {
+          "start": 14.09,
+          "end": 14.22
+        },
+        {
+          "start": 15,
+          "end": 15.16
+        },
+        {
+          "start": 15.96,
+          "end": 16.11
+        },
+        {
+          "start": 16.85,
+          "end": 16.98
+        },
+        {
+          "start": 17.75,
+          "end": 17.9
+        },
+        {
+          "start": 18.69,
+          "end": 18.79
+        },
+        {
+          "start": 19.6,
+          "end": 19.74
+        }
+      ],
+      "s2": [
+        {
+          "start": 0.63,
+          "end": 0.75
+        },
+        {
+          "start": 1.61,
+          "end": 1.73
+        },
+        {
+          "start": 2.54,
+          "end": 2.66
+        },
+        {
+          "start": 3.48,
+          "end": 3.59
+        },
+        {
+          "start": 4.44,
+          "end": 4.57
+        },
+        {
+          "start": 5.39,
+          "end": 5.5
+        },
+        {
+          "start": 6.3,
+          "end": 6.42
+        },
+        {
+          "start": 7.21,
+          "end": 7.33
+        },
+        {
+          "start": 8.08,
+          "end": 8.22
+        },
+        {
+          "start": 9.05,
+          "end": 9.18
+        },
+        {
+          "start": 9.93,
+          "end": 10.06
+        },
+        {
+          "start": 10.85,
+          "end": 10.97
+        },
+        {
+          "start": 11.75,
+          "end": 11.88
+        },
+        {
+          "start": 12.68,
+          "end": 12.8
+        },
+        {
+          "start": 13.54,
+          "end": 13.67
+        },
+        {
+          "start": 14.43,
+          "end": 14.58
+        },
+        {
+          "start": 15.34,
+          "end": 15.51
+        },
+        {
+          "start": 16.31,
+          "end": 16.43
+        },
+        {
+          "start": 17.22,
+          "end": 17.33
+        },
+        {
+          "start": 18.14,
+          "end": 18.27
+        },
+        {
+          "start": 19.96,
+          "end": 20.1
+        }
+      ],
+      "s3": [
+        {
+          "start": 19.11,
+          "end": 19.19,
+          "freq_lower": 0,
+          "freq_upper": 65
+        }
+      ],
+      "s4": [
+        {
+          "start": 1.14,
+          "end": 1.26,
+          "freq_lower": 0,
+          "freq_upper": 68
+        },
+        {
+          "start": 2.1,
+          "end": 2.19,
+          "freq_lower": 0,
+          "freq_upper": 62
+        },
+        {
+          "start": 3.02,
+          "end": 3.12,
+          "freq_lower": 0,
+          "freq_upper": 64
+        },
+        {
+          "start": 6.72,
+          "end": 6.86,
+          "freq_lower": 0,
+          "freq_upper": 62
+        },
+        {
+          "start": 9.45,
+          "end": 9.58,
+          "freq_lower": 0,
+          "freq_upper": 74
+        },
+        {
+          "start": 10.35,
+          "end": 10.47,
+          "freq_lower": 0,
+          "freq_upper": 73
+        },
+        {
+          "start": 13.08,
+          "end": 13.17,
+          "freq_lower": 0,
+          "freq_upper": 54
+        },
+        {
+          "start": 19.49,
+          "end": 19.6,
+          "freq_lower": 0,
+          "freq_upper": 84
+        }
+      ]
+    },
+    "murmur_present": "no",
+    "heart_rate": 65,
+    "afib_present": "no",
+    "api_version": "2024.11.19.anno",
+    "id": "5dfb8bf9-f59f-4f45-9a14-ea6b923564ff"
+  }
+},{
+  "_id": {
+    "$oid": "6814e2318c6043152167af8b"
+  },
+  "id": "f1b8a27c-0455-42be-a7fe-7f2ec9987e33",
+  "examinationId": "76f0bf70-f647-4995-ac63-af677aa96356",
+  "Age (Years)": "60",
+  "Sex at Birth": "Female",
+  "Ethnicity": "White",
+  "model": "iOS",
+  "deviceDescription": {
+    "appVersion": "1.2.0(11)",
+    "brand": "iPhone",
+    "deviceId": "6E8F31B3-525F-4BDA-BBCE-E7CE934E94D7",
+    "manufacturer": "Apple",
+    "model": "iPhone 13 Pro",
+    "osVersion": "17.5.1"
+  },
+  "Body Position": "supine",
+  "Body Spot": "Right Carotid",
+  "Type of artifacts , Artifact": [],
+  "Systolic murmurs": [],
+  "Diastolic murmurs": [],
+  "Other murmurs": [],
+  "Pathological findings": [],
+  "Lung Sound Informativeness": "Non assessed",
+  "taskList": [],
+  "aiSegmentation": {
+    "quality": "good",
+    "segmentation": {
+      "s1": [
+        {
+          "start": 0.39,
+          "end": 0.53
+        },
+        {
+          "start": 1.24,
+          "end": 1.37
+        },
+        {
+          "start": 2.07,
+          "end": 2.21
+        },
+        {
+          "start": 2.96,
+          "end": 3.08
+        },
+        {
+          "start": 3.8,
+          "end": 3.94
+        },
+        {
+          "start": 4.65,
+          "end": 4.78
+        },
+        {
+          "start": 5.48,
+          "end": 5.62
+        },
+        {
+          "start": 6.38,
+          "end": 6.51
+        },
+        {
+          "start": 7.18,
+          "end": 7.32
+        },
+        {
+          "start": 8.02,
+          "end": 8.15
+        },
+        {
+          "start": 8.85,
+          "end": 9
+        },
+        {
+          "start": 9.73,
+          "end": 9.9
+        },
+        {
+          "start": 10.55,
+          "end": 10.67
+        },
+        {
+          "start": 11.41,
+          "end": 11.56
+        },
+        {
+          "start": 12.3,
+          "end": 12.44
+        },
+        {
+          "start": 13.1,
+          "end": 13.28
+        },
+        {
+          "start": 13.98,
+          "end": 14.11
+        },
+        {
+          "start": 14.84,
+          "end": 14.99
+        },
+        {
+          "start": 15.67,
+          "end": 15.84
+        },
+        {
+          "start": 16.54,
+          "end": 16.67
+        },
+        {
+          "start": 17.39,
+          "end": 17.54
+        },
+        {
+          "start": 18.25,
+          "end": 18.38
+        },
+        {
+          "start": 19.08,
+          "end": 19.22
+        }
+      ],
+      "s2": [
+        {
+          "start": 0.69,
+          "end": 0.83
+        },
+        {
+          "start": 1.55,
+          "end": 1.65
+        },
+        {
+          "start": 2.39,
+          "end": 2.52
+        },
+        {
+          "start": 3.26,
+          "end": 3.38
+        },
+        {
+          "start": 4.11,
+          "end": 4.22
+        },
+        {
+          "start": 4.98,
+          "end": 5.1
+        },
+        {
+          "start": 5.81,
+          "end": 5.92
+        },
+        {
+          "start": 6.67,
+          "end": 6.78
+        },
+        {
+          "start": 7.5,
+          "end": 7.62
+        },
+        {
+          "start": 8.32,
+          "end": 8.47
+        },
+        {
+          "start": 9.18,
+          "end": 9.32
+        },
+        {
+          "start": 10.03,
+          "end": 10.15
+        },
+        {
+          "start": 10.84,
+          "end": 10.99
+        },
+        {
+          "start": 11.74,
+          "end": 11.87
+        },
+        {
+          "start": 12.6,
+          "end": 12.74
+        },
+        {
+          "start": 13.44,
+          "end": 13.56
+        },
+        {
+          "start": 14.29,
+          "end": 14.44
+        },
+        {
+          "start": 15.15,
+          "end": 15.29
+        },
+        {
+          "start": 16.02,
+          "end": 16.14
+        },
+        {
+          "start": 16.85,
+          "end": 16.97
+        },
+        {
+          "start": 17.72,
+          "end": 17.85
+        },
+        {
+          "start": 18.57,
+          "end": 18.69
+        },
+        {
+          "start": 19.39,
+          "end": 19.5
+        }
+      ],
+      "s3": [],
+      "s4": []
+    },
+    "murmur_present": "no",
+    "heart_rate": 70,
+    "afib_present": "no",
+    "api_version": "2024.11.19.anno",
+    "id": "d4255dc4-e200-4591-bc5c-5437716c1967"
+  }
+},{
+  "_id": {
+    "$oid": "6814e2318c6043152167af8c"
+  },
+  "id": "aff1f846-d02f-4e86-adfe-507ef0568c7c",
+  "examinationId": "76f0bf70-f647-4995-ac63-af677aa96356",
+  "Age (Years)": "60",
+  "Sex at Birth": "Female",
+  "Ethnicity": "White",
+  "model": "iOS",
+  "deviceDescription": {
+    "appVersion": "1.2.0(11)",
+    "brand": "iPhone",
+    "deviceId": "6E8F31B3-525F-4BDA-BBCE-E7CE934E94D7",
+    "manufacturer": "Apple",
+    "model": "iPhone 13 Pro",
+    "osVersion": "17.5.1"
+  },
+  "Body Position": "leftDecubitus",
+  "Body Spot": "Apex",
+  "Type of artifacts , Artifact": [],
+  "Systolic murmurs": [],
+  "Diastolic murmurs": [],
+  "Other murmurs": [],
+  "Pathological findings": [],
+  "Lung Sound Informativeness": "Non assessed",
+  "taskList": [],
+  "aiSegmentation": {
+    "quality": "good",
+    "segmentation": {
+      "unsegmentable": [
+        {
+          "start": 0,
+          "end": 6.81
+        },
+        {
+          "start": 8.33,
+          "end": 10.83
+        },
+        {
+          "start": 16.46,
+          "end": 17.19
+        },
+        {
+          "start": 18.46,
+          "end": 18.64
+        },
+        {
+          "start": 18.74,
+          "end": 19.26
+        }
+      ],
+      "s1": [
+        {
+          "start": 7.09,
+          "end": 7.21
+        },
+        {
+          "start": 7.98,
+          "end": 8.11
+        },
+        {
+          "start": 11.59,
+          "end": 11.72
+        },
+        {
+          "start": 12.49,
+          "end": 12.62
+        },
+        {
+          "start": 13.4,
+          "end": 13.52
+        },
+        {
+          "start": 14.3,
+          "end": 14.43
+        },
+        {
+          "start": 15.19,
+          "end": 15.32
+        },
+        {
+          "start": 16.11,
+          "end": 16.24
+        },
+        {
+          "start": 17.95,
+          "end": 18.07
+        }
+      ],
+      "s2": [
+        {
+          "start": 7.41,
+          "end": 7.54
+        },
+        {
+          "start": 11.03,
+          "end": 11.15
+        },
+        {
+          "start": 11.94,
+          "end": 12.05
+        },
+        {
+          "start": 12.83,
+          "end": 12.95
+        },
+        {
+          "start": 13.7,
+          "end": 13.85
+        },
+        {
+          "start": 14.66,
+          "end": 14.77
+        },
+        {
+          "start": 15.54,
+          "end": 15.66
+        },
+        {
+          "start": 17.33,
+          "end": 17.43
+        },
+        {
+          "start": 18.32,
+          "end": 18.43
+        }
+      ],
+      "s3": [],
+      "s4": []
+    },
+    "murmur_present": "no",
+    "heart_rate": 66,
+    "afib_present": "no",
+    "api_version": "2024.11.19.anno",
+    "id": "ab976549-1298-4592-b72a-c724109092b8"
+  }
+},{
+  "_id": {
+    "$oid": "6814e2318c6043152167af8e"
+  },
+  "id": "ce656301-7e92-46e5-9c06-3f43d0fd472a",
+  "examinationId": "76f0bf70-f647-4995-ac63-af677aa96356",
+  "Age (Years)": "60",
+  "Sex at Birth": "Female",
+  "Ethnicity": "White",
+  "model": "android",
+  "deviceDescription": {
+    "appVersion": "1.2.0(6)",
+    "osVersion": "13",
+    "model": "SM-S908W",
+    "deviceId": "TP1A.220624.014",
+    "brand": "samsung",
+    "manufacturer": "samsung"
+  },
+  "Body Position": "supine",
+  "Body Spot": "Pulmonic",
+  "Type of artifacts , Artifact": [],
+  "Systolic murmurs": [],
+  "Diastolic murmurs": [],
+  "Other murmurs": [],
+  "Pathological findings": [],
+  "Lung Sound Informativeness": "Non assessed",
+  "taskList": [],
+  "aiSegmentation": {
+    "quality": "good",
+    "segmentation": {
+      "s1": [
+        {
+          "start": 0.22,
+          "end": 0.37
+        },
+        {
+          "start": 1.16,
+          "end": 1.29
+        },
+        {
+          "start": 2.05,
+          "end": 2.18
+        },
+        {
+          "start": 2.97,
+          "end": 3.09
+        },
+        {
+          "start": 3.9,
+          "end": 4.03
+        },
+        {
+          "start": 4.82,
+          "end": 4.96
+        },
+        {
+          "start": 5.76,
+          "end": 5.9
+        },
+        {
+          "start": 6.69,
+          "end": 6.83
+        },
+        {
+          "start": 7.64,
+          "end": 7.78
+        },
+        {
+          "start": 8.57,
+          "end": 8.7
+        },
+        {
+          "start": 9.46,
+          "end": 9.59
+        },
+        {
+          "start": 10.41,
+          "end": 10.54
+        },
+        {
+          "start": 11.31,
+          "end": 11.52
+        },
+        {
+          "start": 12.22,
+          "end": 12.37
+        },
+        {
+          "start": 13.13,
+          "end": 13.27
+        },
+        {
+          "start": 14.05,
+          "end": 14.21
+        },
+        {
+          "start": 14.91,
+          "end": 15.06
+        },
+        {
+          "start": 15.76,
+          "end": 15.91
+        },
+        {
+          "start": 16.72,
+          "end": 16.89
+        },
+        {
+          "start": 17.6,
+          "end": 17.74
+        },
+        {
+          "start": 18.5,
+          "end": 18.62
+        },
+        {
+          "start": 19.37,
+          "end": 19.49
+        },
+        {
+          "start": 20.25,
+          "end": 20.37
+        }
+      ],
+      "s2": [
+        {
+          "start": 0.59,
+          "end": 0.71
+        },
+        {
+          "start": 1.51,
+          "end": 1.62
+        },
+        {
+          "start": 2.42,
+          "end": 2.53
+        },
+        {
+          "start": 3.34,
+          "end": 3.46
+        },
+        {
+          "start": 4.26,
+          "end": 4.39
+        },
+        {
+          "start": 5.18,
+          "end": 5.3
+        },
+        {
+          "start": 6.12,
+          "end": 6.24
+        },
+        {
+          "start": 7.07,
+          "end": 7.18
+        },
+        {
+          "start": 8.01,
+          "end": 8.13
+        },
+        {
+          "start": 8.93,
+          "end": 9.05
+        },
+        {
+          "start": 9.8,
+          "end": 9.95
+        },
+        {
+          "start": 10.78,
+          "end": 10.9
+        },
+        {
+          "start": 11.72,
+          "end": 11.84
+        },
+        {
+          "start": 12.6,
+          "end": 12.73
+        },
+        {
+          "start": 13.51,
+          "end": 13.62
+        },
+        {
+          "start": 14.43,
+          "end": 14.54
+        },
+        {
+          "start": 15.29,
+          "end": 15.4
+        },
+        {
+          "start": 16.15,
+          "end": 16.3
+        },
+        {
+          "start": 17.08,
+          "end": 17.2
+        },
+        {
+          "start": 17.96,
+          "end": 18.08
+        },
+        {
+          "start": 18.86,
+          "end": 18.98
+        },
+        {
+          "start": 19.75,
+          "end": 19.86
+        }
+      ],
+      "s3": [],
+      "s4": [
+        {
+          "start": 5.64,
+          "end": 5.75,
+          "freq_lower": 0,
+          "freq_upper": 48
+        },
+        {
+          "start": 19.28,
+          "end": 19.37,
+          "freq_lower": 0,
+          "freq_upper": 50
+        }
+      ]
+    },
+    "murmur_present": "no",
+    "heart_rate": 65,
+    "afib_present": "no",
+    "api_version": "2024.11.19.anno",
+    "id": "f04fd63c-b2eb-4000-bb0c-783701e646cd"
+  }
+},{
+  "_id": {
+    "$oid": "6814e2318c6043152167af8f"
+  },
+  "id": "13dd8207-aed4-4cb5-b526-122326193226",
+  "examinationId": "76f0bf70-f647-4995-ac63-af677aa96356",
+  "Age (Years)": "60",
+  "Sex at Birth": "Female",
+  "Ethnicity": "White",
+  "model": "android",
+  "deviceDescription": {
+    "appVersion": "1.2.0(6)",
+    "osVersion": "13",
+    "model": "SM-S908W",
+    "deviceId": "TP1A.220624.014",
+    "brand": "samsung",
+    "manufacturer": "samsung"
+  },
+  "Body Position": "sitting",
+  "Body Spot": "Erb's Right",
+  "Type of artifacts , Artifact": [],
+  "Systolic murmurs": [],
+  "Diastolic murmurs": [],
+  "Other murmurs": [],
+  "Pathological findings": [],
+  "Lung Sound Informativeness": "Non assessed",
+  "taskList": [],
+  "aiSegmentation": {
+    "quality": "good",
+    "segmentation": {
+      "unsegmentable": [
+        {
+          "start": 0,
+          "end": 1.47
+        },
+        {
+          "start": 2.37,
+          "end": 5.29
+        },
+        {
+          "start": 5.46,
+          "end": 5.81
+        },
+        {
+          "start": 6.94,
+          "end": 7.33
+        },
+        {
+          "start": 8.8,
+          "end": 9.54
+        },
+        {
+          "start": 10.56,
+          "end": 11.34
+        },
+        {
+          "start": 13.03,
+          "end": 13.31
+        }
+      ],
+      "s2": [
+        {
+          "start": 1.62,
+          "end": 1.7
+        },
+        {
+          "start": 6.08,
+          "end": 6.2
+        },
+        {
+          "start": 7.8,
+          "end": 7.92
+        },
+        {
+          "start": 8.67,
+          "end": 8.79
+        },
+        {
+          "start": 9.55,
+          "end": 9.72
+        },
+        {
+          "start": 10.43,
+          "end": 10.55
+        },
+        {
+          "start": 11.35,
+          "end": 11.44
+        },
+        {
+          "start": 12.09,
+          "end": 12.27
+        },
+        {
+          "start": 13.93,
+          "end": 14.06
+        },
+        {
+          "start": 14.86,
+          "end": 14.97
+        },
+        {
+          "start": 15.73,
+          "end": 15.85
+        },
+        {
+          "start": 16.6,
+          "end": 16.72
+        },
+        {
+          "start": 17.49,
+          "end": 17.61
+        },
+        {
+          "start": 18.43,
+          "end": 18.56
+        },
+        {
+          "start": 19.27,
+          "end": 19.41
+        }
+      ],
+      "s1": [
+        {
+          "start": 2.15,
+          "end": 2.26
+        },
+        {
+          "start": 7.48,
+          "end": 7.58
+        },
+        {
+          "start": 8.33,
+          "end": 8.46
+        },
+        {
+          "start": 10.12,
+          "end": 10.24
+        },
+        {
+          "start": 11.78,
+          "end": 11.92
+        },
+        {
+          "start": 12.72,
+          "end": 12.83
+        },
+        {
+          "start": 13.62,
+          "end": 13.72
+        },
+        {
+          "start": 14.52,
+          "end": 14.65
+        },
+        {
+          "start": 15.43,
+          "end": 15.57
+        },
+        {
+          "start": 16.25,
+          "end": 16.4
+        },
+        {
+          "start": 17.14,
+          "end": 17.28
+        },
+        {
+          "start": 18.09,
+          "end": 18.24
+        },
+        {
+          "start": 18.94,
+          "end": 19.07
+        },
+        {
+          "start": 19.85,
+          "end": 19.98
+        }
+      ],
+      "s3": [],
+      "s4": []
+    },
+    "murmur_present": "no",
+    "heart_rate": 67,
+    "afib_present": "no",
+    "api_version": "2024.11.19.anno",
+    "id": "22835596-648e-4a07-b95b-2baea2e112ca"
+  }
+},{
+  "_id": {
+    "$oid": "6814e2318c6043152167af91"
+  },
+  "id": "c2531e61-ef63-4116-a1a3-ca7458159a11",
+  "examinationId": "76f0bf70-f647-4995-ac63-af677aa96356",
+  "Age (Years)": "60",
+  "Sex at Birth": "Female",
+  "Ethnicity": "White",
+  "model": "iOS",
+  "deviceDescription": {
+    "appVersion": "1.2.0(11)",
+    "brand": "iPhone",
+    "deviceId": "6E8F31B3-525F-4BDA-BBCE-E7CE934E94D7",
+    "manufacturer": "Apple",
+    "model": "iPhone 13 Pro",
+    "osVersion": "17.5.1"
+  },
+  "Body Position": "supine",
+  "Body Spot": "Tricuspid",
+  "Type of artifacts , Artifact": [],
+  "Systolic murmurs": [],
+  "Diastolic murmurs": [],
+  "Other murmurs": [],
+  "Pathological findings": [],
+  "Lung Sound Informativeness": "Non assessed",
+  "taskList": [],
+  "aiSegmentation": {
+    "quality": "good",
+    "segmentation": {
+      "s1": [
+        {
+          "start": 0.12,
+          "end": 0.29
+        },
+        {
+          "start": 1,
+          "end": 1.13
+        },
+        {
+          "start": 1.87,
+          "end": 2
+        },
+        {
+          "start": 2.73,
+          "end": 2.86
+        },
+        {
+          "start": 3.56,
+          "end": 3.69
+        },
+        {
+          "start": 4.43,
+          "end": 4.58
+        },
+        {
+          "start": 5.26,
+          "end": 5.39
+        },
+        {
+          "start": 6.1,
+          "end": 6.23
+        },
+        {
+          "start": 7.01,
+          "end": 7.11
+        },
+        {
+          "start": 7.92,
+          "end": 8.06
+        },
+        {
+          "start": 8.81,
+          "end": 8.95
+        },
+        {
+          "start": 9.77,
+          "end": 9.94
+        },
+        {
+          "start": 10.8,
+          "end": 10.93
+        },
+        {
+          "start": 11.76,
+          "end": 11.9
+        },
+        {
+          "start": 12.72,
+          "end": 12.85
+        },
+        {
+          "start": 13.56,
+          "end": 13.7
+        },
+        {
+          "start": 14.46,
+          "end": 14.6
+        },
+        {
+          "start": 15.31,
+          "end": 15.45
+        },
+        {
+          "start": 16.07,
+          "end": 16.2
+        },
+        {
+          "start": 16.85,
+          "end": 16.98
+        },
+        {
+          "start": 17.62,
+          "end": 17.75
+        },
+        {
+          "start": 18.52,
+          "end": 18.64
+        },
+        {
+          "start": 19.42,
+          "end": 19.58
+        }
+      ],
+      "s2": [
+        {
+          "start": 0.47,
+          "end": 0.61
+        },
+        {
+          "start": 1.35,
+          "end": 1.47
+        },
+        {
+          "start": 2.23,
+          "end": 2.34
+        },
+        {
+          "start": 3.09,
+          "end": 3.21
+        },
+        {
+          "start": 3.91,
+          "end": 4.03
+        },
+        {
+          "start": 4.79,
+          "end": 4.97
+        },
+        {
+          "start": 5.61,
+          "end": 5.74
+        },
+        {
+          "start": 6.45,
+          "end": 6.57
+        },
+        {
+          "start": 7.66,
+          "end": 7.76
+        },
+        {
+          "start": 8.28,
+          "end": 8.41
+        },
+        {
+          "start": 9.16,
+          "end": 9.28
+        },
+        {
+          "start": 10.11,
+          "end": 10.23
+        },
+        {
+          "start": 11.12,
+          "end": 11.24
+        },
+        {
+          "start": 12.12,
+          "end": 12.23
+        },
+        {
+          "start": 13.08,
+          "end": 13.2
+        },
+        {
+          "start": 13.93,
+          "end": 14.05
+        },
+        {
+          "start": 14.81,
+          "end": 14.95
+        },
+        {
+          "start": 15.65,
+          "end": 15.79
+        },
+        {
+          "start": 16.43,
+          "end": 16.56
+        },
+        {
+          "start": 17.2,
+          "end": 17.32
+        },
+        {
+          "start": 17.97,
+          "end": 18.09
+        },
+        {
+          "start": 18.87,
+          "end": 19
+        },
+        {
+          "start": 19.77,
+          "end": 19.9
+        }
+      ],
+      "s3": [
+        {
+          "start": 0.64,
+          "end": 0.73,
+          "freq_lower": 0,
+          "freq_upper": 58
+        },
+        {
+          "start": 4.05,
+          "end": 4.16,
+          "freq_lower": 0,
+          "freq_upper": 74
+        }
+      ],
+      "s4": [
+        {
+          "start": 3.45,
+          "end": 3.56,
+          "freq_lower": 0,
+          "freq_upper": 68
+        },
+        {
+          "start": 8.7,
+          "end": 8.81,
+          "freq_lower": 0,
+          "freq_upper": 64
+        },
+        {
+          "start": 9.66,
+          "end": 9.77,
+          "freq_lower": 0,
+          "freq_upper": 59
+        },
+        {
+          "start": 15.21,
+          "end": 15.31,
+          "freq_lower": 0,
+          "freq_upper": 66
+        },
+        {
+          "start": 16.74,
+          "end": 16.85,
+          "freq_lower": 0,
+          "freq_upper": 60
+        }
+      ]
+    },
+    "murmur_present": "no",
+    "heart_rate": 68,
+    "afib_present": "no",
+    "api_version": "2024.11.19.anno",
+    "id": "bf156878-48bf-4fb6-8ea2-a7dafe8d2f5f"
+  }
+},{
+  "_id": {
+    "$oid": "6814e2318c6043152167af92"
+  },
+  "id": "6ea3d2e8-2d21-4c69-b947-9474c9a7c1ae",
+  "examinationId": "76f0bf70-f647-4995-ac63-af677aa96356",
+  "Age (Years)": "60",
+  "Sex at Birth": "Female",
+  "Ethnicity": "White",
+  "model": "android",
+  "deviceDescription": {
+    "appVersion": "1.2.0(6)",
+    "osVersion": "13",
+    "model": "SM-S908W",
+    "deviceId": "TP1A.220624.014",
+    "brand": "samsung",
+    "manufacturer": "samsung"
+  },
+  "Body Position": "supine",
+  "Body Spot": "Tricuspid",
+  "Type of artifacts , Artifact": [],
+  "Systolic murmurs": [],
+  "Diastolic murmurs": [],
+  "Other murmurs": [],
+  "Pathological findings": [],
+  "Lung Sound Informativeness": "Non assessed",
+  "taskList": [],
+  "aiSegmentation": {
+    "quality": "good",
+    "segmentation": {
+      "s1": [
+        {
+          "start": 0.6,
+          "end": 0.77
+        },
+        {
+          "start": 1.57,
+          "end": 1.72
+        },
+        {
+          "start": 2.52,
+          "end": 2.66
+        },
+        {
+          "start": 3.34,
+          "end": 3.48
+        },
+        {
+          "start": 5,
+          "end": 5.18
+        },
+        {
+          "start": 5.91,
+          "end": 6.03
+        },
+        {
+          "start": 6.73,
+          "end": 6.87
+        },
+        {
+          "start": 7.57,
+          "end": 7.7
+        },
+        {
+          "start": 8.41,
+          "end": 8.56
+        },
+        {
+          "start": 9.28,
+          "end": 9.42
+        },
+        {
+          "start": 10.07,
+          "end": 10.21
+        },
+        {
+          "start": 10.92,
+          "end": 11.05
+        },
+        {
+          "start": 11.7,
+          "end": 11.86
+        },
+        {
+          "start": 12.57,
+          "end": 12.7
+        },
+        {
+          "start": 13.39,
+          "end": 13.54
+        },
+        {
+          "start": 14.26,
+          "end": 14.39
+        },
+        {
+          "start": 15.15,
+          "end": 15.29
+        },
+        {
+          "start": 16.04,
+          "end": 16.18
+        },
+        {
+          "start": 16.89,
+          "end": 17.01
+        },
+        {
+          "start": 17.78,
+          "end": 17.92
+        },
+        {
+          "start": 18.7,
+          "end": 18.84
+        },
+        {
+          "start": 19.59,
+          "end": 19.75
+        },
+        {
+          "start": 20.39,
+          "end": 20.5
+        }
+      ],
+      "s2": [
+        {
+          "start": 0.99,
+          "end": 1.13
+        },
+        {
+          "start": 1.95,
+          "end": 2.08
+        },
+        {
+          "start": 2.89,
+          "end": 3.01
+        },
+        {
+          "start": 3.7,
+          "end": 3.84
+        },
+        {
+          "start": 4.58,
+          "end": 4.67
+        },
+        {
+          "start": 5.41,
+          "end": 5.54
+        },
+        {
+          "start": 6.27,
+          "end": 6.39
+        },
+        {
+          "start": 7.1,
+          "end": 7.22
+        },
+        {
+          "start": 7.95,
+          "end": 8.06
+        },
+        {
+          "start": 8.8,
+          "end": 8.92
+        },
+        {
+          "start": 9.65,
+          "end": 9.78
+        },
+        {
+          "start": 10.44,
+          "end": 10.57
+        },
+        {
+          "start": 11.28,
+          "end": 11.4
+        },
+        {
+          "start": 12.07,
+          "end": 12.22
+        },
+        {
+          "start": 12.93,
+          "end": 13.06
+        },
+        {
+          "start": 13.76,
+          "end": 13.87
+        },
+        {
+          "start": 14.62,
+          "end": 14.74
+        },
+        {
+          "start": 15.51,
+          "end": 15.65
+        },
+        {
+          "start": 16.41,
+          "end": 16.52
+        },
+        {
+          "start": 17.24,
+          "end": 17.36
+        },
+        {
+          "start": 18.14,
+          "end": 18.29
+        },
+        {
+          "start": 19.08,
+          "end": 19.18
+        },
+        {
+          "start": 19.95,
+          "end": 20.07
+        }
+      ],
+      "unsegmentable": [
+        {
+          "start": 3.85,
+          "end": 4.57
+        }
+      ],
+      "s3": [
+        {
+          "start": 10.58,
+          "end": 10.68,
+          "freq_lower": 0,
+          "freq_upper": 78
+        }
+      ],
+      "s4": [
+        {
+          "start": 1.45,
+          "end": 1.57,
+          "freq_lower": 0,
+          "freq_upper": 63
+        }
+      ]
+    },
+    "murmur_present": "no",
+    "heart_rate": 70,
+    "afib_present": "no",
+    "api_version": "2024.11.19.anno",
+    "id": "2c721ece-d235-49d0-b03d-f81ee2b8a78f"
+  }
+},{
+  "_id": {
+    "$oid": "6814e2318c6043152167af93"
+  },
+  "id": "2778897e-de53-461c-a554-76ade31d1e2e",
+  "examinationId": "76f0bf70-f647-4995-ac63-af677aa96356",
+  "Age (Years)": "60",
+  "Sex at Birth": "Female",
+  "Ethnicity": "White",
+  "model": "rnk",
+  "deviceDescription": {
+    "appVersion": "1.2.0(11)",
+    "brand": "iPhone",
+    "deviceId": "6E8F31B3-525F-4BDA-BBCE-E7CE934E94D7",
+    "manufacturer": "Apple",
+    "model": "iPhone 13 Pro",
+    "osVersion": "17.5.1"
+  },
+  "Body Position": "supine",
+  "Body Spot": "Tricuspid",
+  "Type of artifacts , Artifact": [],
+  "Systolic murmurs": [],
+  "Diastolic murmurs": [],
+  "Other murmurs": [],
+  "Pathological findings": [],
+  "Lung Sound Informativeness": "Non assessed",
+  "taskList": [],
+  "aiSegmentation": {
+    "quality": "good",
+    "segmentation": {
+      "s1": [
+        {
+          "start": 0.05,
+          "end": 0.14
+        },
+        {
+          "start": 0.91,
+          "end": 1.04
+        },
+        {
+          "start": 1.81,
+          "end": 1.94
+        },
+        {
+          "start": 2.71,
+          "end": 2.84
+        },
+        {
+          "start": 3.59,
+          "end": 3.71
+        },
+        {
+          "start": 4.48,
+          "end": 4.6
+        },
+        {
+          "start": 5.33,
+          "end": 5.46
+        },
+        {
+          "start": 6.25,
+          "end": 6.38
+        },
+        {
+          "start": 7.16,
+          "end": 7.32
+        },
+        {
+          "start": 8.08,
+          "end": 8.18
+        },
+        {
+          "start": 8.97,
+          "end": 9.1
+        },
+        {
+          "start": 9.91,
+          "end": 10.03
+        },
+        {
+          "start": 10.82,
+          "end": 10.95
+        },
+        {
+          "start": 11.77,
+          "end": 11.93
+        },
+        {
+          "start": 12.73,
+          "end": 12.9
+        },
+        {
+          "start": 15.46,
+          "end": 15.59
+        },
+        {
+          "start": 16.36,
+          "end": 16.49
+        },
+        {
+          "start": 17.3,
+          "end": 17.44
+        },
+        {
+          "start": 18.22,
+          "end": 18.36
+        },
+        {
+          "start": 19.11,
+          "end": 19.24
+        }
+      ],
+      "s2": [
+        {
+          "start": 0.36,
+          "end": 0.46
+        },
+        {
+          "start": 1.28,
+          "end": 1.39
+        },
+        {
+          "start": 2.14,
+          "end": 2.28
+        },
+        {
+          "start": 3.06,
+          "end": 3.18
+        },
+        {
+          "start": 3.94,
+          "end": 4.07
+        },
+        {
+          "start": 4.82,
+          "end": 4.99
+        },
+        {
+          "start": 5.68,
+          "end": 5.8
+        },
+        {
+          "start": 6.6,
+          "end": 6.71
+        },
+        {
+          "start": 7.52,
+          "end": 7.65
+        },
+        {
+          "start": 8.35,
+          "end": 8.46
+        },
+        {
+          "start": 9.33,
+          "end": 9.44
+        },
+        {
+          "start": 10.26,
+          "end": 10.38
+        },
+        {
+          "start": 11.2,
+          "end": 11.31
+        },
+        {
+          "start": 12.12,
+          "end": 12.22
+        },
+        {
+          "start": 14.9,
+          "end": 15.02
+        },
+        {
+          "start": 15.83,
+          "end": 15.93
+        },
+        {
+          "start": 16.73,
+          "end": 16.84
+        },
+        {
+          "start": 17.66,
+          "end": 17.77
+        },
+        {
+          "start": 18.58,
+          "end": 18.7
+        },
+        {
+          "start": 19.48,
+          "end": 19.58
+        }
+      ],
+      "unsegmentable": [
+        {
+          "start": 13.15,
+          "end": 14.71
+        }
+      ],
+      "s3": [],
+      "s4": []
+    },
+    "murmur_present": "no",
+    "heart_rate": 66,
+    "afib_present": "no",
+    "api_version": "2024.11.19.anno",
+    "id": "a58cb815-84f1-40f4-8bda-2daf32691209"
+  }
+},{
+  "_id": {
+    "$oid": "6814e2318c6043152167af96"
+  },
+  "id": "7caef3e3-ce82-43d8-a893-1377ba202461",
+  "examinationId": "76f0bf70-f647-4995-ac63-af677aa96356",
+  "Age (Years)": "60",
+  "Sex at Birth": "Female",
+  "Ethnicity": "White",
+  "model": "iOS",
+  "deviceDescription": {
+    "appVersion": "1.2.0(11)",
+    "brand": "iPhone",
+    "deviceId": "6E8F31B3-525F-4BDA-BBCE-E7CE934E94D7",
+    "manufacturer": "Apple",
+    "model": "iPhone 13 Pro",
+    "osVersion": "17.5.1"
+  },
+  "Body Position": "supine",
+  "Body Spot": "Pulmonic",
+  "Type of artifacts , Artifact": [],
+  "Systolic murmurs": [],
+  "Diastolic murmurs": [],
+  "Other murmurs": [],
+  "Pathological findings": [],
+  "Lung Sound Informativeness": "Non assessed",
+  "taskList": [],
+  "aiSegmentation": {
+    "quality": "good",
+    "segmentation": {
+      "s1": [
+        {
+          "start": 0.15,
+          "end": 0.29
+        },
+        {
+          "start": 1.11,
+          "end": 1.23
+        },
+        {
+          "start": 2.03,
+          "end": 2.18
+        },
+        {
+          "start": 2.98,
+          "end": 3.11
+        },
+        {
+          "start": 3.84,
+          "end": 3.99
+        },
+        {
+          "start": 4.76,
+          "end": 4.88
+        },
+        {
+          "start": 5.65,
+          "end": 5.8
+        },
+        {
+          "start": 6.58,
+          "end": 6.72
+        },
+        {
+          "start": 7.54,
+          "end": 7.68
+        },
+        {
+          "start": 8.48,
+          "end": 8.61
+        },
+        {
+          "start": 9.43,
+          "end": 9.58
+        },
+        {
+          "start": 10.34,
+          "end": 10.47
+        },
+        {
+          "start": 11.27,
+          "end": 11.4
+        },
+        {
+          "start": 12.18,
+          "end": 12.34
+        },
+        {
+          "start": 13.13,
+          "end": 13.26
+        },
+        {
+          "start": 14.02,
+          "end": 14.16
+        },
+        {
+          "start": 14.93,
+          "end": 15.06
+        },
+        {
+          "start": 15.85,
+          "end": 15.99
+        },
+        {
+          "start": 16.71,
+          "end": 16.85
+        },
+        {
+          "start": 17.62,
+          "end": 17.74
+        },
+        {
+          "start": 18.53,
+          "end": 18.66
+        },
+        {
+          "start": 19.45,
+          "end": 19.58
+        }
+      ],
+      "s2": [
+        {
+          "start": 0.48,
+          "end": 0.65
+        },
+        {
+          "start": 1.44,
+          "end": 1.57
+        },
+        {
+          "start": 2.36,
+          "end": 2.49
+        },
+        {
+          "start": 3.31,
+          "end": 3.44
+        },
+        {
+          "start": 4.21,
+          "end": 4.33
+        },
+        {
+          "start": 5.11,
+          "end": 5.23
+        },
+        {
+          "start": 6.03,
+          "end": 6.14
+        },
+        {
+          "start": 6.96,
+          "end": 7.08
+        },
+        {
+          "start": 7.9,
+          "end": 8.01
+        },
+        {
+          "start": 8.84,
+          "end": 8.96
+        },
+        {
+          "start": 9.79,
+          "end": 9.91
+        },
+        {
+          "start": 10.7,
+          "end": 10.82
+        },
+        {
+          "start": 11.63,
+          "end": 11.75
+        },
+        {
+          "start": 12.58,
+          "end": 12.71
+        },
+        {
+          "start": 13.49,
+          "end": 13.6
+        },
+        {
+          "start": 14.38,
+          "end": 14.5
+        },
+        {
+          "start": 15.29,
+          "end": 15.42
+        },
+        {
+          "start": 16.21,
+          "end": 16.32
+        },
+        {
+          "start": 17.07,
+          "end": 17.2
+        },
+        {
+          "start": 17.97,
+          "end": 18.09
+        },
+        {
+          "start": 18.84,
+          "end": 19
+        },
+        {
+          "start": 19.81,
+          "end": 19.92
+        }
+      ],
+      "s3": [
+        {
+          "start": 13.69,
+          "end": 13.79,
+          "freq_lower": 0,
+          "freq_upper": 79
+        },
+        {
+          "start": 15.51,
+          "end": 15.6,
+          "freq_lower": 0,
+          "freq_upper": 60
+        },
+        {
+          "start": 19.04,
+          "end": 19.16,
+          "freq_lower": 0,
+          "freq_upper": 62
+        }
+      ],
+      "s4": [
+        {
+          "start": 1,
+          "end": 1.11,
+          "freq_lower": 0,
+          "freq_upper": 57
+        },
+        {
+          "start": 6.45,
+          "end": 6.58,
+          "freq_lower": 0,
+          "freq_upper": 57
+        },
+        {
+          "start": 7.4,
+          "end": 7.52,
+          "freq_lower": 0,
+          "freq_upper": 62
+        },
+        {
+          "start": 17.52,
+          "end": 17.62,
+          "freq_lower": 0,
+          "freq_upper": 67
+        }
+      ]
+    },
+    "murmur_present": "no",
+    "heart_rate": 65,
+    "afib_present": "no",
+    "api_version": "2024.11.19.anno",
+    "id": "50475996-d363-40dd-9514-f46afdb8661b"
+  }
+},{
+  "_id": {
+    "$oid": "6814e2318c6043152167af97"
+  },
+  "id": "55794833-9206-41ed-9848-3d0ae2c66839",
+  "examinationId": "76f0bf70-f647-4995-ac63-af677aa96356",
+  "Age (Years)": "60",
+  "Sex at Birth": "Female",
+  "Ethnicity": "White",
+  "model": "rnk",
+  "deviceDescription": {
+    "appVersion": "1.2.0(11)",
+    "brand": "iPhone",
+    "deviceId": "6E8F31B3-525F-4BDA-BBCE-E7CE934E94D7",
+    "manufacturer": "Apple",
+    "model": "iPhone 13 Pro",
+    "osVersion": "17.5.1"
+  },
+  "Body Position": "leftDecubitus",
+  "Body Spot": "Apex",
+  "Type of artifacts , Artifact": [],
+  "Systolic murmurs": [],
+  "Diastolic murmurs": [],
+  "Other murmurs": [],
+  "Pathological findings": [],
+  "Lung Sound Informativeness": "Non assessed",
+  "taskList": [],
+  "aiSegmentation": {
+    "quality": "good",
+    "segmentation": {
+      "unsegmentable": [
+        {
+          "start": 0,
+          "end": 1.52
+        },
+        {
+          "start": 3.11,
+          "end": 3.85
+        },
+        {
+          "start": 5.07,
+          "end": 7.04
+        }
+      ],
+      "s1": [
+        {
+          "start": 2.08,
+          "end": 2.21
+        },
+        {
+          "start": 2.99,
+          "end": 3.1
+        },
+        {
+          "start": 3.86,
+          "end": 3.99
+        },
+        {
+          "start": 4.73,
+          "end": 4.85
+        },
+        {
+          "start": 7.33,
+          "end": 7.44
+        },
+        {
+          "start": 8.17,
+          "end": 8.29
+        },
+        {
+          "start": 9.08,
+          "end": 9.21
+        },
+        {
+          "start": 9.97,
+          "end": 10.08
+        },
+        {
+          "start": 10.78,
+          "end": 10.9
+        },
+        {
+          "start": 11.61,
+          "end": 11.74
+        },
+        {
+          "start": 12.48,
+          "end": 12.63
+        },
+        {
+          "start": 13.35,
+          "end": 13.48
+        },
+        {
+          "start": 14.24,
+          "end": 14.36
+        },
+        {
+          "start": 15.06,
+          "end": 15.2
+        },
+        {
+          "start": 15.86,
+          "end": 16
+        },
+        {
+          "start": 16.7,
+          "end": 16.85
+        },
+        {
+          "start": 17.54,
+          "end": 17.71
+        },
+        {
+          "start": 18.41,
+          "end": 18.53
+        },
+        {
+          "start": 19.19,
+          "end": 19.32
+        }
+      ],
+      "s2": [
+        {
+          "start": 2.44,
+          "end": 2.58
+        },
+        {
+          "start": 4.22,
+          "end": 4.36
+        },
+        {
+          "start": 7.64,
+          "end": 7.77
+        },
+        {
+          "start": 8.54,
+          "end": 8.65
+        },
+        {
+          "start": 9.44,
+          "end": 9.56
+        },
+        {
+          "start": 10.32,
+          "end": 10.44
+        },
+        {
+          "start": 11.12,
+          "end": 11.23
+        },
+        {
+          "start": 11.97,
+          "end": 12.08
+        },
+        {
+          "start": 12.83,
+          "end": 12.94
+        },
+        {
+          "start": 13.72,
+          "end": 13.82
+        },
+        {
+          "start": 14.6,
+          "end": 14.71
+        },
+        {
+          "start": 15.42,
+          "end": 15.54
+        },
+        {
+          "start": 16.23,
+          "end": 16.34
+        },
+        {
+          "start": 17.08,
+          "end": 17.19
+        },
+        {
+          "start": 17.94,
+          "end": 18.05
+        },
+        {
+          "start": 18.77,
+          "end": 18.89
+        },
+        {
+          "start": 19.55,
+          "end": 19.65
+        }
+      ],
+      "s3": [],
+      "s4": []
+    },
+    "murmur_present": "no",
+    "heart_rate": 70,
+    "afib_present": "no",
+    "api_version": "2024.11.19.anno",
+    "id": "ac5c92ee-c32b-4f00-ac97-a8bab3118608"
+  }
+},{
+  "_id": {
+    "$oid": "6814e2328c6043152167af98"
+  },
+  "id": "a3538aa2-43ae-46d1-9d5a-c95547f8e40a",
+  "examinationId": "76f0bf70-f647-4995-ac63-af677aa96356",
+  "Age (Years)": "60",
+  "Sex at Birth": "Female",
+  "Ethnicity": "White",
+  "model": "android",
+  "deviceDescription": {
+    "appVersion": "1.2.0(6)",
+    "osVersion": "13",
+    "model": "SM-S908W",
+    "deviceId": "TP1A.220624.014",
+    "brand": "samsung",
+    "manufacturer": "samsung"
+  },
+  "Body Position": "sitting",
+  "Body Spot": "Erb's",
+  "Type of artifacts , Artifact": [],
+  "Systolic murmurs": [],
+  "Diastolic murmurs": [],
+  "Other murmurs": [],
+  "Pathological findings": [],
+  "Lung Sound Informativeness": "Non assessed",
+  "taskList": [],
+  "aiSegmentation": {
+    "quality": "good",
+    "segmentation": {
+      "s1": [
+        {
+          "start": 0.27,
+          "end": 0.41
+        },
+        {
+          "start": 1.24,
+          "end": 1.41
+        },
+        {
+          "start": 2.17,
+          "end": 2.28
+        },
+        {
+          "start": 3.2,
+          "end": 3.34
+        },
+        {
+          "start": 4.18,
+          "end": 4.32
+        },
+        {
+          "start": 5.12,
+          "end": 5.26
+        },
+        {
+          "start": 6.05,
+          "end": 6.2
+        },
+        {
+          "start": 7.02,
+          "end": 7.15
+        },
+        {
+          "start": 7.97,
+          "end": 8.11
+        },
+        {
+          "start": 8.9,
+          "end": 9.03
+        },
+        {
+          "start": 9.83,
+          "end": 9.96
+        },
+        {
+          "start": 10.75,
+          "end": 10.89
+        },
+        {
+          "start": 11.68,
+          "end": 11.81
+        },
+        {
+          "start": 12.58,
+          "end": 12.72
+        },
+        {
+          "start": 13.5,
+          "end": 13.63
+        },
+        {
+          "start": 14.42,
+          "end": 14.56
+        },
+        {
+          "start": 15.33,
+          "end": 15.47
+        },
+        {
+          "start": 16.24,
+          "end": 16.38
+        },
+        {
+          "start": 17.14,
+          "end": 17.28
+        },
+        {
+          "start": 18.1,
+          "end": 18.25
+        },
+        {
+          "start": 19.02,
+          "end": 19.14
+        },
+        {
+          "start": 19.91,
+          "end": 20.06
+        }
+      ],
+      "s2": [
+        {
+          "start": 0.62,
+          "end": 0.75
+        },
+        {
+          "start": 1.62,
+          "end": 1.74
+        },
+        {
+          "start": 2.44,
+          "end": 2.59
+        },
+        {
+          "start": 3.57,
+          "end": 3.7
+        },
+        {
+          "start": 4.55,
+          "end": 4.66
+        },
+        {
+          "start": 5.5,
+          "end": 5.62
+        },
+        {
+          "start": 6.39,
+          "end": 6.54
+        },
+        {
+          "start": 7.37,
+          "end": 7.51
+        },
+        {
+          "start": 8.34,
+          "end": 8.46
+        },
+        {
+          "start": 9.27,
+          "end": 9.39
+        },
+        {
+          "start": 10.2,
+          "end": 10.3
+        },
+        {
+          "start": 11.14,
+          "end": 11.25
+        },
+        {
+          "start": 12.05,
+          "end": 12.16
+        },
+        {
+          "start": 12.96,
+          "end": 13.08
+        },
+        {
+          "start": 13.87,
+          "end": 13.98
+        },
+        {
+          "start": 14.78,
+          "end": 14.91
+        },
+        {
+          "start": 15.7,
+          "end": 15.82
+        },
+        {
+          "start": 16.6,
+          "end": 16.72
+        },
+        {
+          "start": 17.45,
+          "end": 17.64
+        },
+        {
+          "start": 18.47,
+          "end": 18.58
+        },
+        {
+          "start": 19.38,
+          "end": 19.49
+        },
+        {
+          "start": 20.3,
+          "end": 20.42
+        }
+      ],
+      "s3": [],
+      "s4": [
+        {
+          "start": 5.96,
+          "end": 6.05,
+          "freq_lower": 0,
+          "freq_upper": 55
+        }
+      ]
+    },
+    "murmur_present": "no",
+    "heart_rate": 64,
+    "afib_present": "no",
+    "api_version": "2024.11.19.anno",
+    "id": "1a0a65b0-7bcb-4ee8-a58e-3075257dd1a2"
+  }
+},{
+  "_id": {
+    "$oid": "6814e2328c6043152167af99"
+  },
+  "id": "2f7469e5-7007-47aa-9193-3b2f0d98ffd5",
+  "examinationId": "76f0bf70-f647-4995-ac63-af677aa96356",
+  "Age (Years)": "60",
+  "Sex at Birth": "Female",
+  "Ethnicity": "White",
+  "model": "android",
+  "deviceDescription": {
+    "appVersion": "1.2.0(6)",
+    "osVersion": "13",
+    "model": "SM-S908W",
+    "deviceId": "TP1A.220624.014",
+    "brand": "samsung",
+    "manufacturer": "samsung"
+  },
+  "Body Position": "supine",
+  "Body Spot": "Right Carotid",
+  "Type of artifacts , Artifact": [],
+  "Systolic murmurs": [],
+  "Diastolic murmurs": [],
+  "Other murmurs": [],
+  "Pathological findings": [],
+  "Lung Sound Informativeness": "Non assessed",
+  "taskList": [],
+  "aiSegmentation": {
+    "quality": "good",
+    "segmentation": {
+      "s1": [
+        {
+          "start": 0.29,
+          "end": 0.4
+        },
+        {
+          "start": 2.13,
+          "end": 2.24
+        },
+        {
+          "start": 3.04,
+          "end": 3.16
+        },
+        {
+          "start": 3.97,
+          "end": 4.11
+        },
+        {
+          "start": 4.62,
+          "end": 4.74
+        },
+        {
+          "start": 5.77,
+          "end": 5.91
+        },
+        {
+          "start": 6.77,
+          "end": 6.9
+        },
+        {
+          "start": 7.72,
+          "end": 7.86
+        },
+        {
+          "start": 8.65,
+          "end": 8.79
+        },
+        {
+          "start": 9.64,
+          "end": 9.76
+        },
+        {
+          "start": 10.52,
+          "end": 10.66
+        },
+        {
+          "start": 11.49,
+          "end": 11.63
+        },
+        {
+          "start": 12.4,
+          "end": 12.57
+        },
+        {
+          "start": 13.35,
+          "end": 13.49
+        },
+        {
+          "start": 14.32,
+          "end": 14.45
+        },
+        {
+          "start": 15.23,
+          "end": 15.35
+        },
+        {
+          "start": 16.14,
+          "end": 16.27
+        },
+        {
+          "start": 17.98,
+          "end": 18.12
+        },
+        {
+          "start": 18.86,
+          "end": 19
+        },
+        {
+          "start": 20.16,
+          "end": 20.25
+        }
+      ],
+      "s2": [
+        {
+          "start": 0.59,
+          "end": 0.7
+        },
+        {
+          "start": 1.53,
+          "end": 1.64
+        },
+        {
+          "start": 3.34,
+          "end": 3.47
+        },
+        {
+          "start": 4.29,
+          "end": 4.42
+        },
+        {
+          "start": 4.91,
+          "end": 5.03
+        },
+        {
+          "start": 6.09,
+          "end": 6.22
+        },
+        {
+          "start": 7.1,
+          "end": 7.22
+        },
+        {
+          "start": 8.04,
+          "end": 8.17
+        },
+        {
+          "start": 8.99,
+          "end": 9.18
+        },
+        {
+          "start": 9.94,
+          "end": 10.07
+        },
+        {
+          "start": 10.9,
+          "end": 11.03
+        },
+        {
+          "start": 11.81,
+          "end": 11.94
+        },
+        {
+          "start": 12.74,
+          "end": 12.87
+        },
+        {
+          "start": 13.7,
+          "end": 13.83
+        },
+        {
+          "start": 14.63,
+          "end": 14.77
+        },
+        {
+          "start": 15.56,
+          "end": 15.68
+        },
+        {
+          "start": 16.46,
+          "end": 16.59
+        },
+        {
+          "start": 18.29,
+          "end": 18.41
+        },
+        {
+          "start": 20.4,
+          "end": 20.49
+        }
+      ],
+      "unsegmentable": [
+        {
+          "start": 0.71,
+          "end": 1.52
+        },
+        {
+          "start": 2.25,
+          "end": 3.03
+        },
+        {
+          "start": 19.28,
+          "end": 20.16
+        }
+      ],
+      "s3": [],
+      "s4": []
+    },
+    "murmur_present": "no",
+    "heart_rate": 60,
+    "afib_present": "no",
+    "api_version": "2024.11.19.anno",
+    "id": "d073b545-2405-4d3d-9a07-5cdb6ed40318"
+  }
+}]

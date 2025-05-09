@@ -129,8 +129,11 @@ const getTaskList = async trigger => {
 }
 
 const canEmit = (trigger, loadings, agent, agentList) => {
+    log("AGENT LIST", agentList)
     if (!agentList.includes(agent)) return false
+    log("AGENT", agent)    
     let f = find(loadings, l => l.agent == agent)
+    log("FOUND", f)
     let loading = (f) ? f.count || 0 : 0
     return loading < (trigger.options.limit * 2)
 }

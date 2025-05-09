@@ -1,0 +1,15 @@
+No.;Dataset;Systolic murmurs: No systolic murmurs;Systolic murmurs: Systolic murmur undetermined;Systolic murmurs: Ejection Type Murmur;Systolic murmurs: Midsystolic murmur;Systolic murmurs: Holosystolic Murmur;Systolic murmurs: Late Systolic Murmur;Systolic murmurs: null;Systolic murmurs: Non-significant murmur;Systolic murmurs: Still's Murmur;Systolic murmurs: Undetermined murmur significance;Systolic murmurs: Unstable systolic murmur;
+1;ARABIA;-;-;-;-;-;-;-;-;-;-;-;
+2;Clinic4;-;-;-;-;-;-;-;-;-;-;-;
+3;Digiscope;-;-;-;-;-;-;-;-;-;-;-;
+4;Heart Harvest 1;3561;-;41;1;81;1;-;-;-;-;-;
+5;Heart Harvest 2;1957;-;7;-;1;-;-;-;1;-;-;
+6;Heart Harvest 3;437;1;-;-;-;-;-;-;-;-;-;
+7;Heart Harvest America;79;-;-;-;-;-;-;-;-;-;-;
+8;Phisionet;-;-;-;-;-;-;-;-;-;-;-;
+9;Phonendo;1;-;-;-;-;-;-;-;-;-;-;
+10;Suspected Innocent from Reallife;-;-;-;-;-;-;-;-;-;-;-;
+11;Tagged records;-;-;-;-;-;-;-;-;-;-;-;
+12;Vinil;-;-;-;-;-;-;-;-;-;-;-;
+13;Vintage;-;-;-;-;-;-;-;-;-;-;-;
+14;YODA;4;-;-;-;4;-;-;-;-;-;-;
