@@ -55,14 +55,18 @@ const getAgentList = async () => {
             $project: {
                 _id: 0,
                 agents: 1,
+                workflow: "$name"
             },
         },
     ]
+    
     let result = await docdb.aggregate({
         db: DATABASE,
         collection: "ADE-SETTINGS.workflows",
         pipeline
     })
+
+    result = result.map( d => d.agents.map(a => `${d.workflow}_${a.name.split(" ").join("_")}`))
 
     return flatten(result)
 }
