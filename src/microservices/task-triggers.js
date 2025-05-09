@@ -129,9 +129,9 @@ const getTaskList = async trigger => {
 }
 
 const canEmit = (trigger, loadings, agent, agentList) => {
-    log("AGENT LIST", agentList)
+    log("AGENT LIST", JSON.stringify(agentList, null, " ")
+    log("AGENT", JSON.stringify(agent, null, " "))
     if (!agentList.includes(agent)) return false
-    log("AGENT", agent)    
     let f = find(loadings, l => l.agent == agent)
     log("FOUND", f)
     let loading = (f) ? f.count || 0 : 0
