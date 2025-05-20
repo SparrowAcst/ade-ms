@@ -6,19 +6,19 @@ const log = require("../utils//logger")(__filename)
 const docdb = require("../utils/docdb")
 
 const config = require("../../.config/ade-import")
-const DATABASE = config.ADE_DATABASE
+const DATABASE = "CLINIC"
 const configRB = config.rabbitmq.TEST
 const normalize = configRB.normalize
 
-const { resolveDataset } = require("./data-utils")
+const { resolveStady } = require("./data-resolver")
 
 
-const STAGE_NAME = "MIGRATE PROD DATA: 1. Process examination."
+const STAGE_NAME = "MIGRATE CLINIC DATA: 1. Process examination."
 const SERVICE_NAME = `${STAGE_NAME} microservice`
 
 const DATA_CONSUMER = normalize({
     queue: {
-        name: "migate_prod_1",
+        name: "migate_clinic_1",
         exchange: {
             name: 'migate_prod_1_exchange',
             options: {
@@ -35,7 +35,7 @@ const DATA_CONSUMER = normalize({
 
 const NEXT_PUBLISHER = normalize({
     exchange: {
-        name: 'migate_prod_2_exchange',
+        name: 'migate_clinic_2_exchange',
         options: {
             durable: true,
             persistent: true
@@ -48,8 +48,7 @@ const processData = async (err, msg, next) => {
 
     try {
 
-        // log("Process", msg.content)
-
+        
         if (!msg.content) {
             log("Cannot process empty message")
             throw new Error("Cannot process empty message")
@@ -58,19 +57,20 @@ const processData = async (err, msg, next) => {
         let items = JSON.parse(JSON.stringify(msg.content))
         items = (isArray(items)) ? items : [items]
 
-        // log("Items", items)
+        log("Items", items)
 
         for (let data of items) {
-
-            let dataset = await resolveDataset(data)
-            if (!dataset) {
-                log(`No resolve dataset for`, data)
-                continue
+            log(`Process record for examination ${data.examinationTitle} (${data.examinationId})`)
+            const stady = await resolveStady(data.examinationTitle)
+            if(!stady) {
+                log(`Ignore ${data.examinationTitle}. No stady.`)
+                next()
+                return
             }
-
+            
             let examination = await docdb.aggregate({
                 db: DATABASE,
-                collection: `${dataset.schema}.examinations`,
+                collection: stady.collection,
                 pipeline: [
                     { $match: { id: data.examinationId } },
                     { $project: { _id: 0 } }
@@ -82,41 +82,26 @@ const processData = async (err, msg, next) => {
             if (!examination) {
 
                 examination = {
-                    "id": data.examinationId,
-                    "siteId": dataset.siteId,
-                    "protocol": "No Protocol",
-                    "state": "accepted",
-                    "comment": data.examinationTitle,
-                    "forms": {
-                        "patient": {
-                            "type": "patient",
-                            "data": {
-                                "age": data.examinationAge,
-                                "weight": data.examinationWeight,
-                            }
-                        },
-                        "echo": {
-                            "type": "echo",
-                            "data": {}
-                        },
-                        "ekg": {
-                            "type": "ekg",
-                            "data": {}
-                        },
-                        "attachements": {
-                            "type": "attachements",
-                            "data": []
-                        }
+                    id: data.examinationId,
+                    patient: {},
+                    ekg: {},
+                    echo: {},
+                    examination: {
+                        "id": data.examinationId,
+                        "dateTime": data.dateTime,
+                        "patientId": data.examinationTitle,
+                        "comment": data.notes
                     },
-                    "updatedAt": new Date()
+                    attachements:[],
+                    recordings:[]
                 }
 
-                log(`Create Examination: ${examination.id} in ${dataset.schema}.examinations`)
+                log(`Create Examination: ${examination.id} in ${stady.collection}`)
                 // log(examination)
 
                 await docdb.replaceOne({
                     db: DATABASE,
-                    collection: `${dataset.schema}.examinations`,
+                    collection: stady.collection,
                     filter: {
                         id: examination.id
                     },

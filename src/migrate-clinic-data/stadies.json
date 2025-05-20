@@ -1,0 +1,60 @@
+[{
+    "id": "bdfbfdd6-2528-415a-bbf2-805d7dbff555",
+    "name": "Hospital Regional Hans Dieter Schmidt. Test clinical stady.",
+    "collection": "bra-clinical-stady",
+    "patientPrefixes": [
+        "BRACS"
+    ],
+    
+    "users": [
+        {
+             "name": "Dr. Marcelo Ineu",
+              "clinic": "Hospital Regional Hans Dieter Schmidt",
+              "email": [
+                "cardioapp.research@gmail.com"
+              ]
+        },
+        {
+            "name": "Kassiano Ribeiro da Paz",
+            "clinic": "Sparrow Bioacoustics",
+            "email": [
+                "dr.kassiano@gmail.com"
+            ]
+        },
+        {
+            "name": "Mykhailo Rybalka",
+            "clinic": "Sparrow Bioacoustics",
+            "email": [
+                "rybalka2001@gmail.com"
+            ]
+        }
+    ],
+    
+    "validationRules":
+    {
+        "files":
+        {
+            "completed": "() => {\n    \t\treturn window.app.form.attachements.length > 0\n    \t}",
+            "validate": "() => {\n    \t\tif(window.app.form.attachements.length > 0) {\n    \t\t\treturn ''\n    \t\t} else {\n    \t\t\treturn 'One or more images or pdf files, such as an ECG photo, etc., must be associated with the patient.'\n    \t\t}\n    \t}"
+        },
+        "recordings":
+        {
+            "completed": "        () => { \n\n            const devices = [\n                \"android\",\n                \"iOS\",\n                \"rnk\"\n            ]\n\n            const spots = [\n                \"mitral\",\n                \"erbs\",\n                \"erbsRight\",\n                \"aortic\",\n                \"leftCarotid\",\n                \"pulmonic\",\n                \"rightCarotid\",\n                \"tricuspid\"\n            ]\n\n            let test = []\n            devices.forEach(d => {\n                spots.forEach(s => {\n                \tlet f = _.find(window.app.form.recordings, r => r.device == d && r.spot == s)\n\n                \tf = (f) ? f.valid : false\n\n                    test.push({\n                        device: d,\n                        spot: s,\n                        value: f\n                    })\n                })\n            })\n\n            return test.map(t => t.value).reduce((a, b) => a && b, true)\n        }",
+            "validate": "        () => { \n\n            const devices = [\n                \"android\",\n                \"iOS\",\n                \"rnk\"\n            ]\n\n            const spots = [\n                \"mitral\",\n                \"erbs\",\n                \"erbsRight\",\n                \"aortic\",\n                \"leftCarotid\",\n                \"pulmonic\",\n                \"rightCarotid\",\n                \"tricuspid\"\n            ]\n\n\n            let test = []\n            devices.forEach(d => {\n                spots.forEach(s => {\n\n                \tlet f = _.find(window.app.form.recordings, r => r.device == d && r.spot == s)\n\n                \tf = (f) ? f.valid : false\n\n                    test.push({\n                        device: d,\n                        spot: s,\n                        value: f\n                    })\n                })\n            })\n\n            return test\n            \t\t.filter(t => t.value != true)\n            \t\t.map(t => `Recording for \"${t.device}\" on \"${t.spot}\" not found or corrupted.`)\n            \t\t.join(\"<br/>\")\n        } "
+        },
+        "mask":
+        {
+            "echo":
+            {
+                "Fluid in the pleural cavities":
+                {
+                    "ignore": false
+                }
+            }
+        },
+        "protocol":
+        {
+            "info": "() => ''"
+        }
+    }
+}]

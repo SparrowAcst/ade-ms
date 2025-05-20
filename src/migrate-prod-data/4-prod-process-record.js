@@ -128,7 +128,7 @@ const processData = async (err, msg, next) => {
 
 
             log(`Create Record: ${record.id} in ${dataset.schema}.labels`)
-            // log(record)
+            log(JSON.stringify(record, null, " "))
 
             await docdb.replaceOne({
                 db: DATABASE,

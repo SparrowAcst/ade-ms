@@ -11,26 +11,11 @@ const DATABASE = config.ADE_DATABASE
 
 const getDeviceDescription = d => parse(d.userAgent)
 
-const getGeoLocation = d => {
-    try {
-        
-        const data = lookUpRaw(d.latitude, d.longitude)
-        return {
-            metadata: lookUp(d.latitude, d.longitude),
-            country: data.features[0].properties.geonunit,
-            city: data.features[0].features[0].properties.name_en
-        }
-
-    } catch(e) {
-        
-        return {
-            metadata: lookUp(d.latitude, d.longitude),
-            country: "unknown",
-            city: "unknown"
-        }
-
-    }      
-}
+const getGeoLocation = d => ({
+    metadata: lookUp(d.latitude, d.longitude),
+    country: (lookUpRaw(d.latitude, d.longitude)) ? lookUpRaw(d.latitude, d.longitude).features[0].properties.geonunit : "unknown",
+    city: (lookUpRaw(d.latitude, d.longitude)) ? lookUpRaw(d.latitude, d.longitude).features[0].properties.name_en : "unknown"
+})
 
 
 const nameResolver = [
