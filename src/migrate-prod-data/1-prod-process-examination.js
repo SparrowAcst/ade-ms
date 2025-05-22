@@ -48,7 +48,7 @@ const processData = async (err, msg, next) => {
 
     try {
 
-        // log("Process", msg.content)
+        log("Process", msg.content)
 
         if (!msg.content) {
             log("Cannot process empty message")
@@ -153,6 +153,7 @@ const run = async () => {
         .use(Middlewares.Json.parse)
         .use(processData)
         .use(async (err, msg, next) => {
+            console.log(err)
             if (!err) {
                 await publisher.send(msg.content)
             }
