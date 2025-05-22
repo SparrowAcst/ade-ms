@@ -16,11 +16,30 @@ const { resolveDataset, getDeviceDescription, getGeoLocation } = require("./data
 const STAGE_NAME = "MIGRATE PROD DATA: 4. Process Record."
 const SERVICE_NAME = `${STAGE_NAME} microservice`
 
+// const DATA_CONSUMER = normalize({
+//     queue: {
+//         name: "migate_prod_4",
+//         exchange: {
+//             name: 'migate_prod_4_exchange',
+//             options: {
+//                 durable: true,
+//                 persistent: true
+//             }
+//         },
+//         options: {
+//             noAck: false,
+//             exclusive: false
+//         }
+//     }
+// })
+
+
+
 const DATA_CONSUMER = normalize({
     queue: {
-        name: "migate_prod_4",
+        name: "migate_prod_3",
         exchange: {
-            name: 'migate_prod_4_exchange',
+            name: 'migate_prod_3_exchange',
             options: {
                 durable: true,
                 persistent: true
@@ -29,6 +48,16 @@ const DATA_CONSUMER = normalize({
         options: {
             noAck: false,
             exclusive: false
+        }
+    }
+})
+
+const NEXT_PUBLISHER = normalize({
+    exchange: {
+        name: 'migate_prod_4_exchange',
+        options: {
+            durable: true,
+            persistent: true
         }
     }
 })
