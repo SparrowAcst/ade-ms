@@ -79,7 +79,7 @@ const processData = async (err, msg, next) => {
 
             examination = examination[0]
 
-            if (!examination || data.examinationTitle.endsWith("valid")) {
+            // if (!examination) {
 
                 examination = {
                     "id": data.examinationId,
@@ -122,9 +122,9 @@ const processData = async (err, msg, next) => {
                     },
                     data: examination
                 })
-            } else {
-                log(`Examination ${examination.id} already exists`)
-            }
+            // } else {
+            //     log(`Examination ${examination.id} already exists`)
+            // }
         }
 
         next()
