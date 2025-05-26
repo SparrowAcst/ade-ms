@@ -79,7 +79,7 @@ const processData = async (err, msg, next) => {
 
             examination = examination[0]
 
-            if (!examination || examination?.comment.endsWith("valid")) {
+            if (!examination || data.examinationTitle.endsWith("valid")) {
 
                 examination = {
                     "id": data.examinationId,
